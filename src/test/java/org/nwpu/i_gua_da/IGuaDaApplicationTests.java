@@ -18,7 +18,7 @@ class IGuaDaApplicationTests {
 
     @Test
     void contextLoads() {
-        System.out.println(testService.testField("abc", "123"));
+//        System.out.println(testService.testField("abc", "123"));
 //        emailSender.send("523656497@qq.com", "验证码", "123456");
     }
 

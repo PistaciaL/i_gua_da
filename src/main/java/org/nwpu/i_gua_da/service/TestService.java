@@ -1,14 +1,13 @@
 package org.nwpu.i_gua_da.service;
 
+import org.nwpu.i_gua_da.entity.TestEntity;
 import org.springframework.stereotype.Service;
 
 public interface TestService {
 
     /**
-     * TestService测试
-     * @param test1 这个是Test1
-     * @param test2 这个是Test2
-     * @return Test Return
+     * 测试select方法
+     * @return 数据库内select的测试实体类
      */
-    public String testField(String test1, String test2);
+    public TestEntity testField();
 }
