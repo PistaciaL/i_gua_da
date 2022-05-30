@@ -9,22 +9,22 @@ public class TestEntity {
     private Integer id;
     private String content1;
     private String content2;
-    private LocalDateTime dateTime;
+    private LocalDateTime datetime;
 
     public TestEntity(){
 
     };
 
-    public TestEntity(String content1, String content2, LocalDateTime dateTime) {
+    public TestEntity(String content1, String content2, LocalDateTime datetime) {
         this.content1 = content1;
         this.content2 = content2;
-        this.dateTime = dateTime;
+        this.datetime = datetime;
     }
 
-    public TestEntity(Integer id, String content1, String content2, LocalDateTime dateTime) {
+    public TestEntity(Integer id, String content1, String content2, LocalDateTime datetime) {
         this.id = id;
         this.content1 = content1;
         this.content2 = content2;
-        this.dateTime = dateTime;
+        this.datetime = datetime;
     }
 }
