@@ -6,6 +6,10 @@
     </resultMap>
     
     <select id="testSelect" resultMap="testEntity">
-        SELECT * FROM test_entity limit 1
+        SELECT * FROM test_entity ORDER BY datetime DESC limit 1
     </select>
+
+    <insert id="testInsert" parameterType="org.nwpu.i_gua_da.entity.TestEntity">
+        INSERT INTO test_entity (content1, content2, datetime) VALUES (#{content1}, #{content2}, #{datetime})
+    </insert>
 </mapper>

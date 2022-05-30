@@ -9,4 +9,6 @@ import org.nwpu.i_gua_da.entity.User;
 public interface TestMapper {
 
     TestEntity testSelect();
+
+    Integer testInsert(TestEntity testEntity);
 }
