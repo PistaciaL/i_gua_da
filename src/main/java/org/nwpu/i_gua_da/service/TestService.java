@@ -2,7 +2,6 @@ package org.nwpu.i_gua_da.service;
 
 import org.springframework.stereotype.Service;
 
-@Service
 public interface TestService {
 
     /**
@@ -11,5 +10,5 @@ public interface TestService {
      * @param test2 这个是Test2
      * @return Test Return
      */
-    public String TestService(String test1, String test2);
+    public String testField(String test1, String test2);
 }
