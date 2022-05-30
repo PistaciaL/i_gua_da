@@ -7,6 +7,6 @@ import org.nwpu.i_gua_da.entity.User;
 
 @Mapper
 public interface TestMapper {
-    @Select("select * from test_entity limit 1")
+
     TestEntity testSelect();
 }
