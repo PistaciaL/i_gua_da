@@ -3,6 +3,7 @@ package org.nwpu.i_gua_da.util;
 //RSAUtils.java
 import org.apache.commons.codec.binary.Base64;
 import org.apache.commons.io.IOUtils;
+import org.springframework.stereotype.Component;
 
 import javax.crypto.Cipher;
 import java.io.ByteArrayOutputStream;
@@ -13,6 +14,7 @@ import java.security.spec.*;
 import java.util.HashMap;
 import java.util.Map;
 
+@Component
 public class Rsa {
 
     public static final String CHARSET = "UTF-8";
@@ -138,17 +140,5 @@ public class Rsa {
         byte[] resultDatas = out.toByteArray();
         IOUtils.closeQuietly(out);
         return resultDatas;
-    }
-
-    public static void main(String[] args) throws NoSuchAlgorithmException, InvalidKeySpecException {
-        String str = "123456你好";
-        /* 前端加密得到的密文，用于测试 */
-        String sercet = "gF5VAFUqLVIv3+sX+2R65ti92VMPbIqeg2XwUgK56csnE6dLtO67Ei78Sz2CFaeObi73FyZrvGr7Gj4ptrj6Gw==";
-        String result;
-        //sercet = Rsa.publicEncrypt(str,Rsa.getPublicKey(Rsa.publicKey));
-        result = Rsa.privateDecrypt(sercet,Rsa.getPrivateKey(Rsa.privateKey));
-        System.out.println(sercet);
-        System.out.println(result);
-        System.out.println(result.equals(str));
     }
 }
