@@ -2,6 +2,7 @@ package org.nwpu.i_gua_da;
 
 import org.junit.jupiter.api.Test;
 import org.nwpu.i_gua_da.entity.TestEntity;
+import org.nwpu.i_gua_da.mapper.UserMapper;
 import org.nwpu.i_gua_da.service.Impl.TestServiceImpl;
 import org.nwpu.i_gua_da.service.VerificationCodeService;
 import org.nwpu.i_gua_da.util.EmailSender;
@@ -26,6 +27,8 @@ class IGuaDaApplicationTests {
     private Rsa rsa;
     @Autowired
     private VerificationCodeService verificationCodeService;
+    @Autowired
+    private UserMapper userMapper;
 
     @Test
     void contextLoads() {
@@ -61,5 +64,10 @@ class IGuaDaApplicationTests {
         System.out.println("create code: "+code);
         boolean b = verificationCodeService.verifyCode(10086, code);
         System.out.println(b);
+    }
+
+    @Test
+    void UserMapperTest() {
+        System.out.println(userMapper.selectUserTest());
     }
 }

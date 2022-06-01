@@ -13,12 +13,12 @@ public interface TestService {
      * 测试select方法
      * @return 数据库内select的测试实体类
      */
-    public TestEntity testField();
+    TestEntity testField();
 
     /**
      * insert方法测试
      * @param testEntity 需要insert的实体类(主键自增)
      * @return 变动的行数
      */
-    public Integer insertTestField(TestEntity testEntity);
+    Integer insertTestField(TestEntity testEntity);
 }

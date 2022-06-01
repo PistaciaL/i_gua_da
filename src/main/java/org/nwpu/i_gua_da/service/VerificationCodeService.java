@@ -14,7 +14,7 @@ public interface VerificationCodeService {
      * @param userId 用户id
      * @return 六位数字验证码
      */
-    public String createVerificationCode(int userId);
+    String createVerificationCode(int userId);
 
     /**
      * 随机生成六位数字验证码
@@ -23,7 +23,7 @@ public interface VerificationCodeService {
      * @param unit 时间单位
      * @return 六位数字验证码
      */
-    public String createVerificationCode(int userId, int keepAliveTime, TimeUnit unit);
+    String createVerificationCode(int userId, int keepAliveTime, TimeUnit unit);
 
     /**
      * 验证验证码的正确性
@@ -31,5 +31,5 @@ public interface VerificationCodeService {
      * @param code 待验证的验证码
      * @return true: 验证成功<br/>false: 验证失败
      */
-    public boolean verifyCode(int userId, String code);
+    boolean verifyCode(int userId, String code);
 }
