@@ -16,7 +16,7 @@ import java.time.LocalDateTime;
 public class TestController {
 
     @Autowired
-    private TestServiceImpl testService;
+    private TestService testService;
 
     @RequestMapping("/helloTest")
     public CommonResult helloTest() {
