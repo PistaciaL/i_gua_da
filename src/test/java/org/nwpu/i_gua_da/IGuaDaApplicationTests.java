@@ -3,10 +3,12 @@ package org.nwpu.i_gua_da;
 import org.junit.jupiter.api.Test;
 import org.nwpu.i_gua_da.entity.TestEntity;
 import org.nwpu.i_gua_da.service.Impl.TestServiceImpl;
+import org.nwpu.i_gua_da.service.VerificationCodeService;
 import org.nwpu.i_gua_da.util.EmailSender;
 import org.nwpu.i_gua_da.util.Rsa;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
+import org.springframework.data.redis.core.StringRedisTemplate;
 
 import javax.mail.MessagingException;
 import java.security.NoSuchAlgorithmException;
@@ -22,6 +24,8 @@ class IGuaDaApplicationTests {
     private EmailSender emailSender;
     @Autowired
     private Rsa rsa;
+    @Autowired
+    private VerificationCodeService verificationCodeService;
 
     @Test
     void contextLoads() {
@@ -49,5 +53,13 @@ class IGuaDaApplicationTests {
         System.out.println(secret);
         System.out.println(result);
         System.out.println(result.equals(str));
+    }
+
+    @Test
+    void RedisConnectTest() {
+        String code = verificationCodeService.createVerificationCode(10086);
+        System.out.println("create code: "+code);
+        boolean b = verificationCodeService.verifyCode(10086, code);
+        System.out.println(b);
     }
 }
