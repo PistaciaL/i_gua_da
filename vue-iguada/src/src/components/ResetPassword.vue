@@ -142,8 +142,10 @@ export default {
                         })
                     }else if(res.data.status==0){
                         this.$message.error('验证码错误!');
-                    }else{
+                    }else if(res.data.status==2){
                         this.$message.error('验证码已经失效!');
+                    }else{
+                        this.$message.error('登录失败，账户已被封禁!');
                     }
                 })
             }

@@ -260,9 +260,6 @@ export default {
         this.$axios({
             method:'GET',
             url:'/getTodayTimes',
-            data:{
-
-            }
         }).then(res=>{
             this.times = res.data;
             this.timeLoading = false;
