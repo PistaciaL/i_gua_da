@@ -2,9 +2,7 @@ package org.nwpu.i_gua_da;
 
 import org.junit.jupiter.api.Test;
 import org.nwpu.i_gua_da.entity.TestEntity;
-import org.nwpu.i_gua_da.mapper.TestMapper;
 import org.nwpu.i_gua_da.service.Impl.TestServiceImpl;
-import org.nwpu.i_gua_da.service.TestService;
 import org.nwpu.i_gua_da.util.EmailSender;
 import org.nwpu.i_gua_da.util.Rsa;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -45,9 +43,9 @@ class IGuaDaApplicationTests {
     void RSATest() throws NoSuchAlgorithmException, InvalidKeySpecException {
         String str = "123456你好";
         String result;
-        String sercet = Rsa.publicEncrypt(str,Rsa.getPublicKey(Rsa.publicKey));
-        result = Rsa.privateDecrypt(sercet,Rsa.getPrivateKey(Rsa.privateKey));
-        System.out.println(sercet);
+        String secret = Rsa.publicEncrypt(str,Rsa.getPublicKey(Rsa.publicKey));
+        result = Rsa.privateDecrypt(secret,Rsa.getPrivateKey(Rsa.privateKey));
+        System.out.println(secret);
         System.out.println(result);
         System.out.println(result.equals(str));
     }
