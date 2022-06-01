@@ -1,0 +1,22 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=chrome">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Vue</title>
+    <script src="./js/jsencrypt.min.js"></script>
+</head>
+
+<body>
+</body>
+<script>
+    let str = "123456你好";
+    let publicKey = 'MFwwDQYJKoZIhvcNAQEBBQADSwAwSAJBAIF5IbJvY2JmmH49jlUCsYhycBaq9U5oYy3Ooek7Os4T0lcE7KBTXcFxT0afQeZCt289yYxurQ1149MOOuycX00CAwEAAQ';
+    var encrypt = new JSEncrypt();
+    encrypt.setPublicKey(publicKey);
+    console.log(encrypt.encrypt(str));
+</script>
+
+</html>
