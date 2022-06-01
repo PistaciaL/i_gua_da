@@ -3,6 +3,10 @@ package org.nwpu.i_gua_da.service;
 import org.nwpu.i_gua_da.entity.TestEntity;
 import org.springframework.stereotype.Service;
 
+/**
+ * 测试service类, 没有具体作用<br/>
+ * 项目正式上线后删除
+ */
 public interface TestService {
 
     /**

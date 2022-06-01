@@ -11,6 +11,10 @@ import org.springframework.web.bind.annotation.RestController;
 
 import java.time.LocalDateTime;
 
+/**
+ * 测试service类, 没有具体作用<br/>
+ * 项目正式上线后删除
+ */
 @RestController
 //@RequestMapping("/test")
 public class TestController {

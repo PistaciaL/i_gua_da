@@ -1,7 +1,5 @@
 package org.nwpu.i_gua_da.service;
 
-import org.nwpu.i_gua_da.entity.User;
-
 import java.util.concurrent.TimeUnit;
 
 /**

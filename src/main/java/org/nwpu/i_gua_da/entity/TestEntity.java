@@ -4,6 +4,10 @@ import lombok.Data;
 
 import java.time.LocalDateTime;
 
+/**
+ * 测试实体类, 没有具体作用<br/>
+ * 项目正式上线后删除
+ */
 @Data
 public class TestEntity {
     private Integer id;

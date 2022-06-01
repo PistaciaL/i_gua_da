@@ -7,6 +7,10 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+/**
+ * 测试service类, 没有具体作用<br/>
+ * 项目正式上线后删除
+ */
 @Service
 public class TestServiceImpl implements TestService {
 
