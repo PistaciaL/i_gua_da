@@ -23,7 +23,7 @@ public class EmailSender {
 
     /**
      * 发送邮件
-     * @param to 收件人邮箱地址
+     * @param to 收件人邮箱地址(比如:abc@qq.com)
      * @param code 验证码内容
      * @param operationName 操作名字(比如"注册账号", "修改密码"等)
      */
@@ -35,18 +35,6 @@ public class EmailSender {
         helper.setSubject("\"爱瓜大\"平台验证码");
         helper.setText(messageContentDecorate(code, operationName), true);
         javaMailSender.send(mimeMessage);
-//        try {
-//            MimeMessage mimeMessage = new MimeMessage(session);
-//            MimeMessageHelper helper = new MimeMessageHelper(mimeMessage, true);
-//            helper.setFrom(new InternetAddress(this.from));
-//            helper.setTo(new InternetAddress(to));
-//            helper.setSubject(title);
-//            String msg = messageContentDecorate(code, operationName);
-//            helper.setText(msg, true);
-//            Transport.send(mimeMessage);
-//        } catch (Exception e) {
-//            e.printStackTrace();
-//        }
     }
 
     /**
