@@ -8,6 +8,7 @@ import org.nwpu.i_gua_da.util.Rsa;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 
+import javax.mail.MessagingException;
 import java.security.NoSuchAlgorithmException;
 import java.security.spec.InvalidKeySpecException;
 import java.time.LocalDateTime;
@@ -35,8 +36,8 @@ class IGuaDaApplicationTests {
     }
 
     @Test
-    void emailSenderTest() {
-        emailSender.send("523656497@qq.com", "验证码", "123456");
+    void emailSenderTest() throws MessagingException {
+        emailSender.send("523656497@qq.com", "123456", "注册账号");
     }
 
     @Test
