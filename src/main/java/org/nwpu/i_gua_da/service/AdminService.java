@@ -5,12 +5,6 @@ import org.nwpu.i_gua_da.entity.User;
 public interface AdminService {
 
     /**
-     * 发布公告
-     * @return true发布成功
-     */
-    public boolean addNotice(String NoticeTitle, String Noticecontent);
-
-    /**
      * 设置用户为管理员，将用户权限等级改为2
      * @param UserId 用户的id
      * @return true 更改成功

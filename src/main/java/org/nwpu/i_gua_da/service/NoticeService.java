@@ -6,6 +6,14 @@ import java.util.List;
 
 public interface NoticeService {
 
+
+
+    /**
+     * 发布公告
+     * @return true发布成功
+     */
+    public boolean addNotice(String NoticeTitle, String Noticecontent);
+
     /**
      * 获取最新的公告
      * @return 返回公告列表
