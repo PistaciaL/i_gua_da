@@ -112,10 +112,11 @@ export default {
                         end:this.newEnd
                     }
                 }).then(res=>{
-                    if(res.data.status==1){
-                        this.times = res.data.times;
-                        this.totalPages = res.data.pages*10;
-                        this.currentPage = res.data.currentPage;
+                    let data = res.data;
+                    if(data.status==1){
+                        this.times = data.times;
+                        this.totalPages = data.pages*10;
+                        this.currentPage = data.currentPage;
                         this.newDate='';
                         this.newTime='';
                         this.newStart='';
@@ -125,12 +126,12 @@ export default {
                             message:"添加成功",
                             type:'success'
                         });
-                    }else if(res.data.status==0){
+                    }else if(data.status==0){
                         this.$message({
                             message:'日期输入错误!',
                             type:'warning'
                         })
-                    }else if(res.data.status==2){
+                    }else if(data.status==2){
                         this.$store.state.status = 2;
                         this.$store.dispatch("setIsManager",false);
                         this.goto("/user/userInfo");
@@ -159,17 +160,18 @@ export default {
                     endTime:this.getDate(this.saveEnd),
                 }
             }).then(res=>{
-                if(res.data.status==1){
-                    this.times = res.data.times;
-                    this.totalPages = res.data.pages*10;
-                    this.currentPage = res.data.currentPage;
+                let data = res.data;
+                if(data.status==1){
+                    this.times = data.times;
+                    this.totalPages = data.pages*10;
+                    this.currentPage = data.currentPage;
                     this.$message({
                         message:"删除成功,校车班次id为"+id,
                         type:'success'
                     });
-                }else if(res.data.status==0){
+                }else if(data.status==0){
                     this.$message.error('删除失败!');
-                }else if(res.data.status==2){
+                }else if(data.status==2){
                     this.$store.state.status = 2;
                     this.$store.dispatch("setIsManager",false);
                     this.goto("/user/userInfo");
@@ -201,16 +203,17 @@ export default {
                     endTime:this.getDate(this.saveEnd)
                 }
             }).then(res=>{
-                if(res.data.status==1){
-                    this.times = res.data.times;
-                    this.totalPages = res.data.pages*10;
-                    this.currentPage = res.data.currentPage;
-                }else if(res.data.status==0){
+                let data = res.data;
+                if(data.status==1){
+                    this.times = data.times;
+                    this.totalPages = data.pages*10;
+                    this.currentPage = data.currentPage;
+                }else if(data.status==0){
                     this.$message({
                         message:'日期输入有误!',
                         type:'warning'
                     })
-                }else if(res.data.status==2){
+                }else if(data.status==2){
                     this.$store.state.status = 2;
                     this.$store.dispatch("setIsManager",false);
                     this.goto("/user/userInfo");

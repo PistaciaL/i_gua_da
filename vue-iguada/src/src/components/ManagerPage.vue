@@ -81,13 +81,10 @@ export default {
         logout(){
             this.$axios({
                 method:'POST',
-                url:'/logout',
-                data:{
-                    userName:this.$store.state.userName,
-                    userId:this.$store.state.userId,
-                }
+                url:'/logout'
             }).then(res=>{
-                if(res.data.status===1){
+                let data = res.data;
+                if(data.status===1){
                     this.$store.state.hasLogin = false;
                     this.$store.state.isManager = false;
                     this.$store.state.userName = '';

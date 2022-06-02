@@ -82,16 +82,16 @@ export default {
                     endTime:this.getDate(this.saveEnd)
                 }
             }).then(res=>{
-                if(res.data.status==1){
+                let data = res.data;
+                if(data.status==1){
                     this.$message({
                         message:"取消成功,取消的校车班次id为"+id,
                         type:'success'
                     });
-                    this.orders = res.data.orders;
-                    console.log(res.data.orders);
-                    this.totalPages = res.data.pages*10;
-                    this.currentPage = res.data.currentPage;
-                }else if(res.data.status==0){
+                    this.orders = data.orders;
+                    this.totalPages = data.pages*10;
+                    this.currentPage = data.currentPage;
+                }else if(data.status==0){
                     this.$message({
                         message:'取消失败,该预约已过期!',
                         type:'warning'
@@ -119,11 +119,12 @@ export default {
                     endTime:this.getDate(this.saveEnd)
                 }
             }).then(res=>{
-                if(res.data.status==1){
-                    this.orders = res.data.orders;
-                    this.totalPages = res.data.pages*10;
-                    this.currentPage = res.data.currentPage;
-                }else if(res.data.status==0){
+                let data = res.data;
+                if(data.status==1){
+                    this.orders = data.orders;
+                    this.totalPages = data.pages*10;
+                    this.currentPage = data.currentPage;
+                }else if(data.status==0){
                     this.$message({
                         message:'日期输入有误!',
                         type:'warning'

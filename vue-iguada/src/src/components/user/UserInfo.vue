@@ -62,18 +62,19 @@ export default {
                         email:this.email,
                     }
                 }).then(res=>{
-                    if(res.data.status==1){
+                    let data = res.data;
+                    if(data.status==1){
                         this.$message({
                             message:'修改成功!',
                             type: 'success'
                         });
-                        this.userName = res.data.userName;
-                        this.userId = res.data.userId;
-                        this.email = res.data.email;
-                        this.$store.dispatch("setUserName",res.data.userName);
-                        this.$store.dispatch("setEmail",res.data.email);
-                        this.$store.dispatch("setUserId",res.data.userId);
-                    }else if(res.data.status==0){
+                        this.userName = data.userName;
+                        this.userId = data.userId;
+                        this.email = data.email;
+                        this.$store.dispatch("setUserName",data.userName);
+                        this.$store.dispatch("setEmail",data.email);
+                        this.$store.dispatch("setUserId",data.userId);
+                    }else if(data.status==0){
                         this.$message({
                             message:'修改失败!用户或邮箱已被他人使用!',
                             type:'warning'

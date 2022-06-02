@@ -67,7 +67,8 @@ export default {
                     power:choice,
                 }
             }).then(res=>{
-                if(res.data.status==1){
+                let data = res.data;
+                if(data.status==1){
                     this.$message({
                         message:"设置成功",
                         type:'success'
@@ -81,12 +82,12 @@ export default {
                             }
                         }
                     })
-                }else if(res.data.status==0){
+                }else if(data.status==0){
                     this.$message({
                         message:'不能对自己进行操作!',
                         type:'warning'
                     })
-                }else if(res.data.status==2){
+                }else if(data.status==2){
                     this.$store.state.status = 2;
                     this.$store.dispatch("setIsManager",false);
                     this.goto("/user/userInfo");
@@ -111,7 +112,8 @@ export default {
                     status:choice,
                 }
             }).then(res=>{
-                if(res.data.status==1){
+                let data = res.data;
+                if(data.status==1){
                     this.$message({
                         message:"设置成功",
                         type:'success'
@@ -125,12 +127,12 @@ export default {
                             }
                         }
                     })
-                }else if(res.data.status==0){
+                }else if(data.status==0){
                     this.$message({
                         message:'不能对自己进行操作!',
                         type:'warning'
                     })
-                }else if(res.data.status==2){
+                }else if(data.status==2){
                     this.$store.state.status = 2;
                     this.$store.dispatch("setIsManager",false);
                     this.goto("/user/userInfo");
@@ -160,13 +162,14 @@ export default {
                     number:8
                 }
             }).then(res=>{
-                if(res.data.status==1){
-                    this.users = res.data.users;
-                    this.totalPages = res.data.pages*10;
-                    this.currentPage = res.data.currentPage;
-                }else if(res.data.status==0){
+                let data = res.data;
+                if(data.status==1){
+                    this.users = data.users;
+                    this.totalPages = data.pages*10;
+                    this.currentPage = data.currentPage;
+                }else if(data.status==0){
                     this.$message.error('未知错误!');
-                }else if(res.data.status==2){
+                }else if(data.status==2){
                     this.$store.state.status = 2;
                     this.$store.dispatch("setIsManager",false);
                     this.goto("/user/userInfo");

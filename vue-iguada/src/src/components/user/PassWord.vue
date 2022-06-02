@@ -63,9 +63,10 @@ export default {
                         newPassWord:this.newPassWord
                     }
                 }).then(res=>{
-                    if(res.data.status==0){
+                    let data = res.data;
+                    if(data.status==0){
                         this.$message.error('修改失败,密码错误!');
-                    }else if(res.data.status==1){
+                    }else if(data.status==1){
                         this.$message({
                             message:'修改成功!',
                             type: 'success'

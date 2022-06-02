@@ -137,14 +137,7 @@ app.post("/login",function (req,res){
  */
 app.post("/logout",function (req,res){
     console.log("------退出登录接口------");
-    let data = req.body;
     console.log("------退出登录接口收到的数据------");
-    /**
-     * 参数说明（下面两个参数用于测试，正式开发时不应使用这两个参数，而是从session中获取用户信息）
-     * userName 用户名
-     * userId 用户学工号
-     */
-    console.log(data);
     console.log("------退出登录接口回复的数据------");
     /* status=1表示成功退出登录 */
     console.log("{\"status\":1}");
@@ -267,7 +260,7 @@ app.post("/validate",function (req,res){
     console.log("------验证验证码接口收到的数据------");
     /**
      * 参数说明
-     * email 邮箱(此处为演示时使用，正式开发时不应使用该数据而应从session中获取用户信息)
+     * email 邮箱
      * password 新密码
      * checkStr 验证码
      */
@@ -883,7 +876,7 @@ app.post("/manager/delNotice",function (req,res){
      * page 要返回的页面的页码
      * number 一页的数据条数
      */
-    console.log(data);
+    console.log(req.body);
     data.page = parseInt(data.page);
     data.number = parseInt(data.number);
     let response = {

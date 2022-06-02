@@ -76,23 +76,24 @@ export default {
                     id:id,
                 }
             }).then(res=>{
-                if(res.data.status==1){
+                let data = res.data;
+                if(data.status==1){
                     this.$message({
                         message:"预约成功,校车班次id为"+id,
                         type:'success'
                     })
                     this.times.forEach((value,index,self)=>{
-                        if(value.id==res.data.id){
-                            value.number=res.data.number;
-                            value.hasOrdered = res.data.hasOrdered;
+                        if(value.id==data.id){
+                            value.number=data.number;
+                            value.hasOrdered = data.hasOrdered;
                         }
                     })
-                }else if(res.data.status==0){
+                }else if(data.status==0){
                     this.$message({
                         message:'预约失败,已无剩余座位!',
                         type:'warning'
                     })
-                }else if(res.data.status==2){
+                }else if(data.status==2){
                     this.$message({
                         message:'预约失败,请勿重复预约!',
                         type:'warning'
@@ -120,11 +121,12 @@ export default {
                     endTime:this.getDate(this.saveEnd)
                 }
             }).then(res=>{
-                if(res.data.status==1){
-                    this.times = res.data.times;
-                    this.totalPages = res.data.pages*10;
-                    this.currentPage = res.data.currentPage;
-                }else if(res.data.status==0){
+                let data = res.data;
+                if(data.status==1){
+                    this.times = data.times;
+                    this.totalPages = data.pages*10;
+                    this.currentPage = data.currentPage;
+                }else if(data.status==0){
                     this.$message({
                         message:'日期输入有误!',
                         type:'warning'

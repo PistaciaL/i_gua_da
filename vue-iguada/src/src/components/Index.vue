@@ -110,6 +110,8 @@
 </template>
 
 <script>
+import { JSEncrypt } from 'jsencrypt'
+let encryptor = new JSEncrypt();
 export default {
     data(){
         return{
@@ -157,13 +159,10 @@ export default {
         logout(){
             this.$axios({
                 method:'POST',
-                url:'/logout',
-                data:{
-                    userName:this.$store.state.userName,
-                    userId:this.$store.state.userId,
-                }
+                url:'/logout'
             }).then(res=>{
-                if(res.data.status===1){
+                let data = res.data;
+                if(data.status===1){
                     this.userName = '';
                     this.$store.state.hasLogin = false;
                     this.$store.state.isManager = false;
@@ -179,24 +178,28 @@ export default {
             if(this.userName==''||this.password==''){
                 this.loginError="输入为空!";
             }else{
+                encryptor.setPublicKey(this.$store.state.publicKey);
+                //console.log(encryptor.encrypt(this.password));
                 this.$axios({
                     method:'POST',
                     url:'/login',
                     data:{
                         userName:this.userName,
                         password:this.password,
+                        // password:encryptor.encrypt(this.password)
                     },
                 }).then(res=>{
-                    if(res.data.status===1){
-                        this.userName = res.data.user.userName;
-                        this.$store.dispatch("setUserName",res.data.user.userName);
+                    let data = res.data;
+                    if(data.status===1){
+                        this.userName = data.user.userName;
+                        this.$store.dispatch("setUserName",data.user.userName);
                         this.$store.dispatch("setHasLogin",true);
-                        this.$store.dispatch("setIsManager",res.data.user.isManager);
-                        this.$store.dispatch("setEmail",res.data.user.email);
-                        this.$store.dispatch("setUserId",res.data.user.userId);
+                        this.$store.dispatch("setIsManager",data.user.isManager);
+                        this.$store.dispatch("setEmail",data.user.email);
+                        this.$store.dispatch("setUserId",data.user.userId);
                         this.clearData();
                         this.showLogin = false;
-                    }else if(res.data.status==0){
+                    }else if(data.status==0){
                         this.loginError = '登录失败,用户名或密码错误';
                     }else{
                         this.loginError = '您的已账户被封禁，禁止登录';
@@ -212,25 +215,28 @@ export default {
             }else if(this.registerPassword!=this.passwordAgain){
                 this.registerError="两次输入的密码不一致";
             }else{
+                encryptor.setPublicKey(this.$store.state.publicKey);
                 this.$axios({
                     method:'POST',
                     url:'/register',
                     data:{
                         userName:this.userName,
                         password:this.registerPassword,
+                        // password:encryptor.encrypt(this.registerPassword),
                         email:this.email,
                         userId:this.userId
                     }
                 }).then(res=>{
-                    if(res.data.status==0){
+                    let data = res.data;
+                    if(data.status==0){
                         this.registerError = '注册失败,该账户已被注册';
                     }else{
-                        this.userName = res.data.userName;
-                        this.$store.dispatch("setUserName",res.data.user.userName);
+                        this.userName = data.userName;
+                        this.$store.dispatch("setUserName",data.user.userName);
                         this.$store.dispatch("setHasLogin",true);
-                        this.$store.dispatch("setIsManager",res.data.user.isManager);
-                        this.$store.dispatch("setEmail",res.data.user.email);
-                        this.$store.dispatch("setUserId",res.data.user.userId);
+                        this.$store.dispatch("setIsManager",data.user.isManager);
+                        this.$store.dispatch("setEmail",data.user.email);
+                        this.$store.dispatch("setUserId",data.user.userId);
                         this.clearData();
                         this.showRegister = false;
                     }
@@ -261,17 +267,16 @@ export default {
             method:'GET',
             url:'/getTodayTimes',
         }).then(res=>{
-            this.times = res.data;
+            let data = res.data;
+            this.times = data;
             this.timeLoading = false;
         });
         this.$axios({
             method:'GET',
-            url:'/getNoitces',
-            data:{
-
-            }
+            url:'/getNoitces'
         }).then(res=>{
-            this.notices = res.data;
+            let data = res.data;
+            this.notices = data;
             this.noticeLoading = false;
         });
         if(this.$store.state.status==1){

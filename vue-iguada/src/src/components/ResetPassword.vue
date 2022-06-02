@@ -39,6 +39,8 @@
 </template>
 
 <script>
+import { JSEncrypt } from 'jsencrypt'
+let encryptor = new JSEncrypt();
 export default {
     data(){
         return{
@@ -96,7 +98,8 @@ export default {
                             email:this.email,
                         }
                     }).then(res=>{
-                        if(res.data.status==1){
+                        let data = res.data;
+                        if(data.status==1){
                             this.$message({
                                 message:'邮件已发送',
                                 type:'success'
@@ -126,26 +129,30 @@ export default {
                     type:'warning'
                 })
             }else{
+                encryptor.setPublicKey(this.$store.state.publicKey);
                 this.$axios({
                     method:'POST',
                     url:'/validate',
                     data:{
                         email:this.saveEmail,
                         password:this.password,
+                        // password:encryptor.encrypt(this.password),
                         checkStr:this.checkStr
                     }
                 }).then(res=>{
-                    if(res.data.status==1){
+                    let data = res.data;
+                    if(data.status==1){
                         this.$message({
                             message:'修改成功!',
                             type: 'success'
-                        })
-                    }else if(res.data.status==0){
+                        });
+                        this.saveEmail='';
+                    }else if(data.status==0){
                         this.$message.error('验证码错误!');
-                    }else if(res.data.status==2){
+                    }else if(data.status==2){
                         this.$message.error('验证码已经失效!');
                     }else{
-                        this.$message.error('登录失败，账户已被封禁!');
+                        this.$message.error('修改失败,您的账户已被封禁!');
                     }
                 })
             }

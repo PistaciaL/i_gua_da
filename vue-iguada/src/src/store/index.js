@@ -45,6 +45,7 @@ const mutations = {
 };
 /* 用于存储数据 */
 const state = {
+    publicKey: 'MFwwDQYJKoZIhvcNAQEBBQADSwAwSAJBAIF5IbJvY2JmmH49jlUCsYhycBaq9U5oYy3Ooek7Os4T0lcE7KBTXcFxT0afQeZCt289yYxurQ1149MOOuycX00CAwEAAQ',
     hasLogin: false,
     isManager: false,
     userName: '',
