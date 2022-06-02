@@ -6,32 +6,32 @@ public interface AdminService {
 
     /**
      * 设置用户为管理员，将用户权限等级改为2
-     * @param UserId 用户的id
+     * @param userId 用户的id
      * @return true 更改成功
      */
-    public boolean setUserAdmin(Integer UserId);
+    public boolean setUserAdmin(Integer userId);
 
     /**
      * 取消管理员权限，将用户权限等级设为1
-     * @param UserId 用户id
+     * @param userId 用户id
      * @param adminName 管理员名字(用来判断，此次操作是不是管理自己取消自己，如果name对应的id与userid相等，则设置失败)
      * @return true 更改成功，false 更改失败(管理员不能取消自己为管理员)
      */
-    public boolean setUser(Integer UserId, String adminName);
+    public boolean setUser(Integer userId, String adminName);
 
     /**
      * 根据用户id查找用户
-     * @param UserId 用户id
+     * @param userId 用户id
      * @return 查找的用户(不存在返回空)
      */
-    public User searchUser(Integer UserId);
+    public User searchUser(Integer userId);
 
     /**
      * 根据用户名字查找用户
-     * @param UserName 用户名字
+     * @param userName 用户名字
      * @return 查找的用户(不存在返回空)
      */
-    public User searchUser(String UserName);
+    public User searchUser(String userName);
 
     /**
      * 软删除用户

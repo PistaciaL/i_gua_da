@@ -3,7 +3,9 @@ package org.nwpu.i_gua_da;
 import org.junit.jupiter.api.Test;
 import org.nwpu.i_gua_da.entity.TestEntity;
 import org.nwpu.i_gua_da.mapper.UserMapper;
+import org.nwpu.i_gua_da.service.AdminService;
 import org.nwpu.i_gua_da.service.Impl.TestServiceImpl;
+import org.nwpu.i_gua_da.service.UserService;
 import org.nwpu.i_gua_da.service.VerificationCodeService;
 import org.nwpu.i_gua_da.util.EmailSender;
 import org.nwpu.i_gua_da.util.Rsa;
@@ -28,7 +30,7 @@ class IGuaDaApplicationTests {
     @Autowired
     private VerificationCodeService verificationCodeService;
     @Autowired
-    private UserMapper userMapper;
+    private AdminService adminService;
 
     @Test
     void contextLoads() {
@@ -67,7 +69,9 @@ class IGuaDaApplicationTests {
     }
 
     @Test
-    void UserMapperTest() {
-        System.out.println(userMapper.selectUserTest());
+    void ServiceTest() {
+        System.out.println(adminService.searchUser(1));
+        System.out.println(adminService.searchUser("testUser"));
+        System.out.println(adminService.removeUser(1));
     }
 }

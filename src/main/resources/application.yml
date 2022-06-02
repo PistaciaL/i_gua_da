@@ -1,0 +1,12 @@
+constants:
+  user:
+    permission:
+      admin: 2
+      common: 1
+    status:
+      isDelete: 1
+      notDelete: 0
+    length:
+      name: 20
+      password: 20
+      email: 40
