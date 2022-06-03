@@ -1,23 +1,22 @@
 package org.nwpu.i_gua_da.service;
 
+import org.nwpu.i_gua_da.entity.User;
+
 public interface UserService {
 
     /**
      * 用户修改信息
-     * @param username 修改后的用户名
-     * @param studentNumber 修改后的学号
-     * @param email 修改后的邮箱
-     * @return 返回修改结果用","隔开，若用户名重复，返回"$error"
+     * @param user 修改信息后的用户
+     * @return 1：修改成功；2：用户名字重复；3：用户邮箱重复
      */
-    public String setUserInformation(String username, String studentNumber, String email);
+    public Integer setUserInformation(User user);
 
     /**
      * 用户修改密码
-     * @param password 用户的原密码
-     * @param newpassword 用户修改后的新密码
-     * @return 返回用户修改过的新密码,若原密码错误，返回"$error"
+     * @param user 用户的原密码
+     * @return true 修改成功
      */
-    public String setUserpassword(String password, String newpassword);
+    public boolean setUserpassword(User user);
 
     /**
      * 根据用户名，返回用户权限

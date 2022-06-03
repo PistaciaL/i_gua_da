@@ -2,6 +2,7 @@ package org.nwpu.i_gua_da.service;
 
 import org.nwpu.i_gua_da.entity.Schedule;
 
+import java.time.LocalDateTime;
 import java.util.List;
 
 public interface ScheduleService {
@@ -10,22 +11,22 @@ public interface ScheduleService {
      * 获取所有校车班车
      * @return 所有的班次信息
      */
-    public List<Schedule> getSchedule();
+    public List<Schedule> getSchedule(Integer PageNum, Integer PageSize);
 
     /**
      * 查找时间区域内的班次信息
      * @param StartTime 查找的开始时间
      * @param EndTime 查找的结束时间
-     * @return 返回在查找时间内的所有班次，若时间错误(开始时间晚于结束时间)，返回"$error"
+     * @return 返回在查找时间内的所有班次
      */
-    public List<Schedule> findSchedule(String StartTime, String EndTime);
+    public List<Schedule> findSchedule(LocalDateTime StartTime, LocalDateTime EndTime);
 
     /**
      * 预约校车班次
      * @param ScheduleId 预约班次的id
      * @return true预约成功，false剩余座位不够
      */
-    public boolean bookingSchedule(String ScheduleId);
+    public boolean bookingSchedule(Integer ScheduleId);
 
     /**
      * 查看用户自己的预约班次
