@@ -10,3 +10,6 @@ constants:
       name: 20
       password: 20
       email: 40
+  notice:
+    length:
+      title: 65535
