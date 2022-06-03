@@ -26,7 +26,7 @@ CREATE TABLE `bus_schedule` (
                                 `last_seat` int(11) NOT NULL COMMENT '剩余座位',
                                 `status` tinyint(4) NOT NULL COMMENT '班次状态',
                                 PRIMARY KEY (`schedule_id`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
 CREATE TABLE `station_info` (
                                 `station_id` int(11) NOT NULL AUTO_INCREMENT COMMENT '车站id',
