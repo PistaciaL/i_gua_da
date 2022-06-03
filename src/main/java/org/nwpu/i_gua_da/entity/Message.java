@@ -10,4 +10,5 @@ public class Message {
     private String content;
     private User userId;
     private LocalDateTime messageTime;
+    private Integer status;
 }

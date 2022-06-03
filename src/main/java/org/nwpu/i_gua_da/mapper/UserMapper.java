@@ -7,9 +7,9 @@ import org.nwpu.i_gua_da.entity.User;
 @Mapper
 public interface UserMapper {
 
-    int setUserAsAdmin(@Param("userId") Integer userId, @Param("adminCode") int adminCode);
+    int setUserAsAdmin(@Param("userId") Integer userId, @Param("adminCode") int adminCode, @Param("notDeleteStatus") int notDeleteStatus);
 
-    int setUserAsCommon(@Param("userId") Integer userId, @Param("adminName") String adminName, @Param("commonCode") Integer commonCode);
+    int setUserAsCommon(@Param("userId") Integer userId, @Param("adminName") String adminName, @Param("commonCode") Integer commonCode, @Param("notDeleteStatus") int notDeleteStatus);
 
     User selectUserById(Integer userId);
 

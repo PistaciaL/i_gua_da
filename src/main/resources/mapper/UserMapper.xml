@@ -6,22 +6,22 @@
     </resultMap>
 
     <update id="setUserAsAdmin">
-        UPDATE user_info SET permission = #{adminCode} WHERE user_id = #{userId}
+        UPDATE user_info SET permission = #{adminCode} WHERE user_id = #{userId} and status = #{notDeleteStatus}
     </update>
 
     <update id="setUserAsCommon">
-        UPDATE user_info SET permission = #{commonCode} WHERE user_id = #{userId} and `name` != #{adminName}
+        UPDATE user_info SET permission = #{commonCode} WHERE user_id = #{userId} and `name` != #{adminName} and status = #{notDeleteStatus}
     </update>
 
     <select id="selectUserById" resultMap="User">
-        SELECT * FROM user_info where user_id = #{userId}
+        SELECT user_id, name, student_number, email, register_datetime, permission, status FROM user_info  where user_id = #{userId}
     </select>
 
     <select id="selectUserByName" resultMap="User">
-        SELECT * FROM user_info where name = #{userName}
+        SELECT user_id, name, student_number, email, register_datetime, permission, status FROM user_info u where name = #{userName}
     </select>
 
     <update id="deleteUserById">
-        UPDATE user_info SET status = #{isDeleteStatus} where user_id = #{userId}
+        UPDATE user_info u SET status = #{isDeleteStatus} where user_id = #{userId}
     </update>
 </mapper>

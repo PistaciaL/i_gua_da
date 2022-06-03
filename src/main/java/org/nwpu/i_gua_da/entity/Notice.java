@@ -11,4 +11,5 @@ public class Notice {
     private String content;
     private User sender;
     private LocalDateTime createTime;
+    private Integer status;
 }

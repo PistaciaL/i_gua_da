@@ -7,4 +7,5 @@ public class Station {
     private Integer stationId;
     private String stationName;
     private String stationTelephoneNumb;
+    private Integer status;
 }

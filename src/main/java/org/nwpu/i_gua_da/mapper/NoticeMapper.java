@@ -1,6 +1,7 @@
 package org.nwpu.i_gua_da.mapper;
 
 import org.apache.ibatis.annotations.Mapper;
+import org.apache.ibatis.annotations.Param;
 import org.nwpu.i_gua_da.entity.Notice;
 
 import java.util.List;
@@ -10,9 +11,11 @@ public interface NoticeMapper {
 
     int addNotice(Notice notice);
 
-    int removeNoticeById(Integer noticeId);
+    int removeNoticeById(@Param("noticeId") Integer noticeId, @Param("isDeleteStatus") Integer isDeleteStatus);
 
-    List<Notice> listNoticeByNoticeTitle(String noticeTitle);
+    List<Notice> listNoticeByNoticeTitle(@Param("noticeTitle") String noticeTitle, @Param("notDeleteStatus") Integer notDeleteStatus);
 
     Notice searchNoticeById(Integer noticeId);
+
+    List<Notice> listNotices(Integer notDeleteStatus);
 }
