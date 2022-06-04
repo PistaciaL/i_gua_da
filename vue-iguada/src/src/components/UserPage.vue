@@ -176,8 +176,9 @@ export default {
 .right-content{
     width: 79%;
     float: left;
-    /* border: 1px red solid; */
+    height: 700px;
 }
+
 .left-content{
     float: left;
 }

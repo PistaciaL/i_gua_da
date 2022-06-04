@@ -28,8 +28,8 @@
                 </el-table-column>
             </el-table>
         </div>
-        <div>
-            <el-pagination class="page" background layout="prev, pager, next" :total="totalPages" :current-page.sync="currentPage" @current-change="getPageNum">
+        <div class="page">
+            <el-pagination background layout="prev, pager, next" :total="totalPages" :current-page.sync="currentPage" @current-change="getPageNum">
             </el-pagination>
         </div>
     </div>
@@ -154,6 +154,8 @@ export default {
 .back{
     width: 100%;
     margin:0 auto;
+    height: 680px;
+    position: relative;
 }
 .info{
     margin-top:10px;
@@ -178,7 +180,9 @@ export default {
     width: 150px !important;
 }
 .page{
-    margin-top: 20px;
+    width: 100%;
     text-align: center;
+    position: absolute;
+    bottom: 0;
 }
 </style>
