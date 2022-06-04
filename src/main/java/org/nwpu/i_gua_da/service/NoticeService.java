@@ -8,6 +8,8 @@ public interface NoticeService {
 
     /**
      * 获取最新的公告
+     * @param PageNum 页码数
+     * @param PageSize 一页大小
      * @return 返回公告列表
      */
     public List<Notice> getNoticeList(Integer PageNum, Integer PageSize);
@@ -29,9 +31,11 @@ public interface NoticeService {
     /**
      * 根据公告标题搜索公告
      * @param NoticeTitle 公告标题
+     * @param PageNum 页码数
+     * @param PageSize 一页大小
      * @return 搜索出来的公告
      */
-    public List<Notice> searchNotice(String NoticeTitle);
+    public List<Notice> searchNotice(String NoticeTitle, Integer PageNum, Integer PageSize);
 
     /**
      * 根据公告id搜索公告
