@@ -4,7 +4,7 @@
         <div class="nav">
             <img :src="require('../assets/img/logo.png')"/>
             <div @click="logout"><span>退出登录</span></div>
-            <div @click="goto('/manager/busManage')"><span>管理员入口</span></div>
+            <div @click="goto('/manager/busManage')" v-if="this.$store.state.isManager"><span>管理员入口</span></div>
             <div @click="goto('/user/userInfo')"><span>个人信息</span></div>
             <div @click="goto('/user/busTime')"><span>预约校车</span></div>
         </div>
@@ -58,7 +58,7 @@
                             <span slot="title">联系管理员</span>
                         </el-menu-item>
                     </el-submenu>
-                    <el-menu-item index="/manager/busManage">
+                    <el-menu-item index="/manager/busManage" v-if="this.$store.state.isManager">
                         <i class="el-icon-s-platform"></i>
                         <span slot="title">管理员入口</span>
                     </el-menu-item>
