@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="org.nwpu.i_gua_da.mapper.TestMapper">
+    <resultMap id="Schedule" type="org.nwpu.i_gua_da.entity.Schedule">
+        <id property="scheduleId" column="schedule_id"/>
+        <result property="departureTime" column="departure_time"/>
+        <result property="totalSeat" column="total_seat"/>
+        <result property="lastSeat" column="last_seat"/>
+        <result property="status" column="status"/>
+        <association property="startStation" javaType="org.nwpu.i_gua_da.entity.Station">
+            <id property="stationId" column="start_station_id"/>
+            <result property="stationName" column="start_station_name"/>
+        </association>
+        <association property="endStation" javaType="org.nwpu.i_gua_da.entity.Station">
+            <id property="stationId" column="station_id"/>
+            <result property="stationName" column="station_name"/>
+        </association>
+    </resultMap>
+
+    <select id="getSchedulesByUserId" resultMap="Schedule">
+        select s.schedule_id, s.departure_time, s.total_seat, s.last_seat, s.`status`, s.start_station_id, s.end_station_id, s.start_station_name, `end`.station_name as end_station_name
+        from (select
+                  s.schedule_id, s.departure_time, s.total_seat, s.last_seat, s.`status`, s.start_station_id, s.end_station_id, `start`.station_name as start_station_name
+              from bus_schedule s left join station_info `start` on s.start_station_id = `start`.station_id where s.schedule_id = #{scheduleId})
+                 s left join station_info `end` on s.end_station_id = `end`.station_id
+    </select>
+
+</mapper>

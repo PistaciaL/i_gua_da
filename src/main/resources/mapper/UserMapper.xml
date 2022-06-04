@@ -18,10 +18,22 @@
     </select>
 
     <select id="selectUserByName" resultMap="User">
-        SELECT user_id, name, student_number, email, register_datetime, permission, status FROM user_info u where name = #{userName}
+        SELECT user_id, name, student_number, email, register_datetime, permission, status FROM user_info u where name = #{userName} limit 1
     </select>
 
     <update id="deleteUserById">
-        UPDATE user_info u SET status = #{isDeleteStatus} where user_id = #{userId}
+        UPDATE user_info SET status = #{isDeleteStatus} where user_id = #{userId}
+    </update>
+
+    <select id="selectForVerify" parameterType="org.nwpu.i_gua_da.entity.User">
+        SELECT user_id from user_info where name = #{name} and password = #{password}
+    </select>
+
+    <insert id="addUser" parameterType="org.nwpu.i_gua_da.entity.User">
+        INSERT INTO user_info (name, password, student_number, email, register_datetime, permission, status) VALUES(#{name}, #{password}, #{student_number}, #{email}, #{register_datetime}, #{permission}, #{ststus})
+    </insert>
+
+    <update id="setPassword" parameterType="org.nwpu.i_gua_da.entity.User">
+        UPDATE user_info SET password = #{password} where user_id = #{userId}
     </update>
 </mapper>

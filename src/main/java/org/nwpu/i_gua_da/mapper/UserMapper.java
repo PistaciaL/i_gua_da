@@ -16,4 +16,10 @@ public interface UserMapper {
     User selectUserByName(String userName);
 
     int deleteUserById(@Param("userId") Integer userId, @Param("isDeleteStatus") Integer isDeleteStatus);
+
+    User selectForVerify(User user);
+
+    int addUser(User user);
+
+    int setUserPassword(User user);
 }
