@@ -10,4 +10,5 @@ public class Reserve {
     private User user;
     private Schedule schedule;
     private LocalDateTime reserveTime;
+    private Integer status;
 }

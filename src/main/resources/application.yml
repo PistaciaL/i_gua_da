@@ -10,8 +10,8 @@ constants:
       admin: 2
       common: 1
     status:
-      isDelete: 1
-      notDelete: 0
+      isDelete: 2
+      notDelete: 1
     length:
       name: 20
       password: 20
@@ -19,3 +19,7 @@ constants:
   notice:
     length:
       title: 65535
+      content: 65535
+    status:
+      isDelete: 2
+      notDelete: 1

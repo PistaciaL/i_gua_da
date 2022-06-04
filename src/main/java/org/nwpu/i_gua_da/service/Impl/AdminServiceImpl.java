@@ -18,6 +18,8 @@ public class AdminServiceImpl implements AdminService {
     private int userNameMaxLength;
     @Value("${constants.user.status.isDelete}")
     private int isDeleteStatus;
+    @Value("${constants.user.status.notDelete}")
+    private int notDeleteStatus;
 
     @Autowired
     private UserMapper userMapper;
@@ -28,7 +30,7 @@ public class AdminServiceImpl implements AdminService {
             throw new NullPointerException();
         if(userId < 0)
             throw new IllegalArgumentException();
-        int i = userMapper.setUserAsAdmin(userId, adminPermissionCode);
+        int i = userMapper.setUserAsAdmin(userId, adminPermissionCode, notDeleteStatus);
         return i == 1;
     }
 
@@ -38,7 +40,7 @@ public class AdminServiceImpl implements AdminService {
             throw new NullPointerException();
         if(userId < 0 || adminName.length() == 0 || adminName.length() > userNameMaxLength)
             throw new IllegalArgumentException();
-        int i = userMapper.setUserAsCommon(userId, adminName, commonPermissionCode);
+        int i = userMapper.setUserAsCommon(userId, adminName, commonPermissionCode, notDeleteStatus);
         return i == 1;
     }
 

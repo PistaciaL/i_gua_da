@@ -1,10 +1,13 @@
 package org.nwpu.i_gua_da;
 
 import org.junit.jupiter.api.Test;
+import org.nwpu.i_gua_da.entity.Notice;
 import org.nwpu.i_gua_da.entity.TestEntity;
+import org.nwpu.i_gua_da.entity.User;
 import org.nwpu.i_gua_da.mapper.UserMapper;
 import org.nwpu.i_gua_da.service.AdminService;
 import org.nwpu.i_gua_da.service.Impl.TestServiceImpl;
+import org.nwpu.i_gua_da.service.NoticeService;
 import org.nwpu.i_gua_da.service.UserService;
 import org.nwpu.i_gua_da.service.VerificationCodeService;
 import org.nwpu.i_gua_da.util.EmailSender;
@@ -12,11 +15,13 @@ import org.nwpu.i_gua_da.util.Rsa;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.data.redis.core.StringRedisTemplate;
+import org.springframework.transaction.annotation.Transactional;
 
 import javax.mail.MessagingException;
 import java.security.NoSuchAlgorithmException;
 import java.security.spec.InvalidKeySpecException;
 import java.time.LocalDateTime;
+import java.util.List;
 
 @SpringBootTest
 class IGuaDaApplicationTests {
@@ -31,6 +36,8 @@ class IGuaDaApplicationTests {
     private VerificationCodeService verificationCodeService;
     @Autowired
     private AdminService adminService;
+    @Autowired
+    private NoticeService noticeService;
 
     @Test
     void contextLoads() {
@@ -73,5 +80,16 @@ class IGuaDaApplicationTests {
         System.out.println(adminService.searchUser(1));
         System.out.println(adminService.searchUser("testUser"));
         System.out.println(adminService.removeUser(1));
+    }
+
+    @Test
+    @Transactional
+    void NoticeServiceTest() {
+        System.out.println(noticeService.searchNotice(1));
+        System.out.println(noticeService.searchNotice("testNoticeTitle"));
+        List<Notice> l = noticeService.getNoticeList(0, 10);
+        for(Notice n : l) {
+            System.out.println(n);
+        }
     }
 }
