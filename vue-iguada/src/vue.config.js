@@ -2,7 +2,7 @@ const { defineConfig } = require('@vue/cli-service')
 module.exports = defineConfig({
     transpileDependencies: true,
     // publicPath: './query/images/dist', // 基本路径
-    publicPath: '././', // 基本路径
+    publicPath: './', // 基本路径
     outputDir: './dist', // 构建时的输出目录
     assetsDir: './assets', // 放置静态资源的目录
     indexPath: 'index.html', // html 的输出路径

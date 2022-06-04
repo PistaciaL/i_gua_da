@@ -25,8 +25,8 @@
                 </el-table-column>
             </el-table>
         </div>
-        <div>
-            <el-pagination class="page" background layout="prev, pager, next" :total="totalPages" :current-page.sync="currentPage" @current-change="getPageNum">
+        <div class="page">
+            <el-pagination background layout="prev, pager, next" :total="totalPages" :current-page.sync="currentPage" @current-change="getPageNum">
             </el-pagination>
         </div>
         <el-dialog :visible.sync="showAdd" width="30%" center :close-on-click-modal='false' :lock-scroll="false" :before-close="close">
@@ -214,6 +214,8 @@ export default {
 .back{
     width: 100%;
     margin:0 auto;
+    height: 680px;
+    position: relative;
 }
 .info{
     margin-top:10px;
@@ -234,8 +236,10 @@ export default {
 }
 
 .page{
-    margin-top: 20px;
+    width: 100%;
     text-align: center;
+    position: absolute;
+    bottom: 0;
 }
 /* 对话框部分 */
 .add h2{
