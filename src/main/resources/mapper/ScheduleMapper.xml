@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8" ?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
-<mapper namespace="org.nwpu.i_gua_da.mapper.TestMapper">
+<mapper namespace="org.nwpu.i_gua_da.mapper.ScheduleMapper">
     <resultMap id="Schedule" type="org.nwpu.i_gua_da.entity.Schedule">
         <id property="scheduleId" column="schedule_id"/>
         <result property="departureTime" column="departure_time"/>
@@ -12,12 +12,12 @@
             <result property="stationName" column="start_station_name"/>
         </association>
         <association property="endStation" javaType="org.nwpu.i_gua_da.entity.Station">
-            <id property="stationId" column="station_id"/>
-            <result property="stationName" column="station_name"/>
+            <id property="stationId" column="end_station_id"/>
+            <result property="stationName" column="end_station_name"/>
         </association>
     </resultMap>
 
-    <select id="getSchedulesByUserId" resultMap="Schedule">
+    <select id="getSchedulesByScheduleId" resultMap="Schedule">
         select s.schedule_id, s.departure_time, s.total_seat, s.last_seat, s.`status`, s.start_station_id, s.end_station_id, s.start_station_name, `end`.station_name as end_station_name
         from (select
                   s.schedule_id, s.departure_time, s.total_seat, s.last_seat, s.`status`, s.start_station_id, s.end_station_id, `start`.station_name as start_station_name
@@ -25,4 +25,23 @@
                  s left join station_info `end` on s.end_station_id = `end`.station_id
     </select>
 
+    <select id="listAllSchedules" resultMap="Schedule">
+        select s.schedule_id, s.departure_time, s.total_seat, s.last_seat, s.`status`, s.start_station_id, s.end_station_id, s.start_station_name, `end`.station_name as end_station_name
+        from (select
+                  s.schedule_id, s.departure_time, s.total_seat, s.last_seat, s.`status`, s.start_station_id, s.end_station_id, `start`.station_name as start_station_name
+              from bus_schedule s left join station_info `start` on s.start_station_id = `start`.station_id)
+                 s left join station_info `end` on s.end_station_id = `end`.station_id
+    </select>
+
+    <select id="listScheduleBetweenTimes" resultMap="Schedule">
+        SELECT * FROM bus_schedule where departure_time BETWEEN #{startTime} and #{endTime} order by departure_time DESC
+    </select>
+
+    <insert id="addSchedule" parameterType="org.nwpu.i_gua_da.entity.Schedule" useGeneratedKeys="true" keyProperty="scheduleId">
+        INSERT INTO bus_schedule (start_station_id, end_station_id, departure_time, total_seat, last_seat, status) VALUES (#{startStation.stationId}, #{endStation.stationId}, #{departureTime}, #{totalSeat}, #{lastSeat}, #{status})
+    </insert>
+
+    <update id="updateLastSeatByScheduleId" parameterType="org.nwpu.i_gua_da.entity.Schedule">
+        UPDATE bus_schedule SET last_seat=#{lastSeat} where schedule_id = #{scheduleId}
+    </update>
 </mapper>

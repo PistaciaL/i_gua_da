@@ -17,9 +17,30 @@ public interface UserMapper {
 
     int deleteUserById(@Param("userId") Integer userId, @Param("isDeleteStatus") Integer isDeleteStatus);
 
-    User selectForVerify(User user);
+    /**
+     * 对用户名和密码进行验证
+     * @param user
+     * @return 不为null则验证成功
+     */
+    Integer selectForVerify(User user);
 
     int addUser(User user);
 
     int setUserPassword(User user);
+
+    /**
+     * 查重, 用户名|学号|邮箱有一个重复则返回不为空
+     * @param user
+     * @return
+     */
+    Integer verifyByNameOrStudentNumbOrEmail(User user);
+
+    /**
+     *  设置新的用户名+学号+邮箱
+     * @param user
+     * @return
+     */
+    int setUserInformation(User user);
+
+    Integer getUserStatusByUserId(Integer userId);
 }

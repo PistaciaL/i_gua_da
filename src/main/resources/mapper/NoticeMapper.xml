@@ -12,8 +12,12 @@
         </association>
     </resultMap>
 
-    <insert id="addNotice" parameterType="org.nwpu.i_gua_da.entity.Notice">
+    <insert id="addNoticeDefaultStatus" parameterType="org.nwpu.i_gua_da.entity.Notice">
         INSERT INTO notice_info (title, content, sender_id, create_time) VALUES (#{title}, #{content}, #{sender.userId}, #{createTime})
+    </insert>
+
+    <insert id="addNotice" parameterType="org.nwpu.i_gua_da.entity.Notice">
+        INSERT INTO notice_info (title, content, sender_id, create_time, status) VALUES (#{title}, #{content}, #{sender.userId}, #{createTime}, #{status})
     </insert>
     
     <update id="removeNoticeById">

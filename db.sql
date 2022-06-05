@@ -9,13 +9,13 @@ CREATE TABLE `user_info` (
                              `name` varchar(20) NOT NULL COMMENT '登录的用户名',
                              `password` varchar(20) NOT NULL DEFAULT '' COMMENT '密码',
                              `student_number` int(11) DEFAULT '0' COMMENT '学号',
-                             `email` varchar(40) DEFAULT '' COMMENT 'email',
+                             `email` varchar(40) NOT NULL DEFAULT '' COMMENT 'email',
                              `register_datetime` datetime DEFAULT NULL COMMENT '注册日期',
                              `permission` tinyint(4) NOT NULL DEFAULT '1' COMMENT '权限等级',
-                             `status` tinyint(4) NOT NULL DEFAULT '0' COMMENT '状态',
+                             `status` tinyint(4) NOT NULL DEFAULT '1' COMMENT '状态',
                              PRIMARY KEY (`user_id`),
                              UNIQUE KEY `name_passwd` (`name`,`password`) USING HASH
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+) ENGINE=InnoDB AUTO_INCREMENT=4 DEFAULT CHARSET=utf8mb4;
 
 CREATE TABLE `bus_schedule` (
                                 `schedule_id` int(11) NOT NULL AUTO_INCREMENT COMMENT '时间表id',

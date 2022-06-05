@@ -7,9 +7,11 @@ pagehelper:
 constants:
   user:
     permission:
+      default: 1
       admin: 2
       common: 1
     status:
+      default: 1
       isDelete: 2
       notDelete: 1
     length:
@@ -21,5 +23,20 @@ constants:
       title: 65535
       content: 65535
     status:
+      default: 1
       isDelete: 2
       notDelete: 1
+  schedule:
+    status:
+      default: 1
+      isDelete: 2
+      notDelete: 1
+  reserve:
+    status:
+      default: 1
+      isDelete: 2
+      notDelete: 1
+redisKey:
+  station: Station    #车站, hash储存, opsForHash(station, stationId)
+  lastSeat: LastSeat  #剩余座位, hash储存, opsForHash(lastSeat, scheduleId)
+

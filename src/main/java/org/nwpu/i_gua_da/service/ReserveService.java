@@ -1,11 +1,10 @@
 package org.nwpu.i_gua_da.service;
 
-import org.nwpu.i_gua_da.entity.Schedule;
-import org.nwpu.i_gua_da.entity.User;
+import org.nwpu.i_gua_da.entity.Reserve;
 
 import java.util.List;
 
-public interface Reserve {
+public interface ReserveService {
 
     /**
      * 用户预约校车
