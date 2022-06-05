@@ -10,9 +10,13 @@ import java.util.List;
 @Mapper
 public interface ScheduleMapper {
 
-    List<Schedule> getSchedulesByScheduleId(Integer userId);
+    Schedule getSchedulesByScheduleId(Integer scheduleId);
 
     List<Schedule> listAllSchedules();
 
     List<Schedule> listScheduleBetweenTimes(@Param("startTime") LocalDateTime startTime, @Param("endTime") LocalDateTime endTime);
+
+    Integer addSchedule(Schedule schedule);
+
+    Integer updateLastSeatByScheduleId(Schedule schedule);
 }

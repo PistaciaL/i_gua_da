@@ -10,6 +10,7 @@ import java.util.List;
 public interface NoticeMapper {
 
     int addNotice(Notice notice);
+    int addNoticeDefaultStatus(Notice notice);
 
     int removeNoticeById(@Param("noticeId") Integer noticeId, @Param("isDeleteStatus") Integer isDeleteStatus);
 

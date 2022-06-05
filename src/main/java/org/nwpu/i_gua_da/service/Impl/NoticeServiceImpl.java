@@ -48,7 +48,11 @@ public class NoticeServiceImpl implements NoticeService {
             throw new RuntimeException("发送公告的用户不存在");
         if(notice.getCreateTime() == null)
             notice.setCreateTime(LocalDateTime.now());
-        int i = noticeMapper.addNotice(notice);
+        int i = 0;
+        if(notice.getStatus() == null)
+            i = noticeMapper.addNoticeDefaultStatus(notice);
+        else
+            i = noticeMapper.addNotice(notice);
         return i == 1;
     }
 
@@ -76,12 +80,15 @@ public class NoticeServiceImpl implements NoticeService {
     }
 
     @Override
-    public List<Notice> searchNotice(String noticeTitle) {
+    public List<Notice> searchNotice(String noticeTitle, Integer pageNum, Integer pageSize) {
         if(noticeTitle == null)
             throw new NullPointerException();
         if(noticeTitle.length() == 0 || noticeTitle.length() > noticeTitleMaxLength)
             throw new IllegalArgumentException();
-        return noticeMapper.listNoticeByNoticeTitle(noticeTitle, noticeNotDeleteStatus);
+        PageHelper.startPage(pageNum, pageSize);
+        List<Notice> notices = noticeMapper.listNoticeByNoticeTitle(noticeTitle, noticeNotDeleteStatus);
+        PageInfo<Notice> pageInfo = new PageInfo<>(notices);
+        return pageInfo.getList();
     }
 
     @Override
