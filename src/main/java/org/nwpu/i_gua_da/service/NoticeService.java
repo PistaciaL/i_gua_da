@@ -8,6 +8,7 @@ public interface NoticeService {
 
     /**
      * 获取最新的公告
+     * (所有查询失败的结果都返回null)
      * @param PageNum 页码数
      * @param PageSize 一页大小
      * @return 返回公告列表
@@ -30,6 +31,7 @@ public interface NoticeService {
 
     /**
      * 根据公告标题搜索公告
+     * (所有查询失败的结果都返回null)
      * @param NoticeTitle 公告标题
      * @param PageNum 页码数
      * @param PageSize 一页大小
@@ -39,6 +41,7 @@ public interface NoticeService {
 
     /**
      * 根据公告id搜索公告
+     * (所有查询失败的结果都返回null)
      * @param NoticeId 公告id
      * @return 搜索出来的公告
      */

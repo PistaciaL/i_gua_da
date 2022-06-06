@@ -24,4 +24,28 @@ public interface UserService {
      * @return 用户权限等级
      */
     public Integer getUserpermission(Integer userId);
+
+    /**
+     * 根据用户名查找用户
+     * 这个方法重复了，但是我controller里面很多接口用了这个，把之前的实现方式粘过来就行
+     * (所有查询失败的结果都返回null)
+     * @param UserName 用户名
+     * @return User用户
+     */
+    public User getUser(String UserName);
+
+    /**
+     * 通过用户邮箱查找用户
+     * (所有查询失败的结果都返回null)
+     * @param email 用户邮箱
+     * @return User用户，如果没有该邮箱返回null
+     */
+    public User getUser1(String email);
+
+    /**
+     * 查询用户状态
+     * @param user 用户
+     * @return 1：正常状态，2：封禁状态
+     */
+    public Integer getUserStatus(User user);
 }

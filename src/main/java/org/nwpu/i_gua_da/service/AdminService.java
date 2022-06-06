@@ -3,6 +3,8 @@ package org.nwpu.i_gua_da.service;
 import org.nwpu.i_gua_da.entity.Notice;
 import org.nwpu.i_gua_da.entity.User;
 
+import java.util.List;
+
 public interface AdminService {
 
     /**
@@ -21,7 +23,17 @@ public interface AdminService {
     public boolean setUser(Integer UserId, String AdminName);
 
     /**
+     * 管理员查看所有用户
+     * (所有查询失败的结果都返回null)
+     * @param PageNum 页码数
+     * @param PageSize 一页大小
+     * @return 返回用户列表
+     */
+    public List<User> getUserList(Integer PageNum, Integer PageSize);
+
+    /**
      * 根据用户id查找用户
+     * (所有查询失败的结果都返回null)
      * @param UserId 用户id
      * @return 查找的用户(不存在返回空)
      */
@@ -29,6 +41,7 @@ public interface AdminService {
 
     /**
      * 根据用户名字查找用户
+     * (所有查询失败的结果都返回null)
      * @param UserName 用户名字
      * @return 查找的用户(不存在返回空)
      */
@@ -40,4 +53,11 @@ public interface AdminService {
      * @return true:删除成功
      */
     public boolean removeUser(Integer UserId);
+
+    /**
+     * 恢复用户的封禁
+     * @param UserId 用户id
+     * @return true：恢复成功 / false恢复失败
+     */
+    public boolean recoverUser(Integer UserId);
 }
