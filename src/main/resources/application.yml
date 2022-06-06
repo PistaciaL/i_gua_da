@@ -36,7 +36,10 @@ constants:
       default: 1
       isDelete: 2
       notDelete: 1
+  verificationCode:
+    length: 6
 redisKey:
-  station: Station    #车站, hash储存, opsForHash(station, stationId)
-  lastSeat: LastSeat  #剩余座位, hash储存, opsForHash(lastSeat, scheduleId)
+  station: Station
+  lastSeat: LastSeat
+  verificationCode: VerificationCode
 

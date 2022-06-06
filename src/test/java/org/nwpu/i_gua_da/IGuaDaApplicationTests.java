@@ -173,7 +173,7 @@ class IGuaDaApplicationTests {
         schedule.setStartStation(s1);
         schedule.setEndStation(s2);
         schedule.setTotalSeat(50);
-        scheduleServiceImpl.addSchedule(schedule);
+        scheduleServiceImpl.addSchcedule(schedule);
     }
 
     @Test

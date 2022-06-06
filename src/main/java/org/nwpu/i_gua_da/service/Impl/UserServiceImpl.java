@@ -2,6 +2,7 @@ package org.nwpu.i_gua_da.service.Impl;
 
 import org.nwpu.i_gua_da.entity.User;
 import org.nwpu.i_gua_da.mapper.UserMapper;
+import org.nwpu.i_gua_da.service.AdminService;
 import org.nwpu.i_gua_da.service.UserService;
 import org.nwpu.i_gua_da.util.FormatValidator;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -22,6 +23,8 @@ public class UserServiceImpl implements UserService {
 
     @Autowired
     private UserMapper userMapper;
+    @Autowired
+    private AdminService adminService;
 
     @Override
     @Transactional
@@ -55,8 +58,31 @@ public class UserServiceImpl implements UserService {
             throw new NullPointerException();
         if(userId < 0)
             throw new IllegalArgumentException();
-        int i = userMapper.getUserStatusByUserId(userId);
+        int i = userMapper.getUserPermissionByUserId(userId);
         return i;
+    }
+
+    @Override
+    public User getUser(String userName) {
+        return adminService.searchUser(userName);
+    }
+
+    @Override
+    public User getUser1(String email) {
+        if(email == null)
+            throw new NullPointerException();
+        if(email.length() > userEmailMaxLength || email.length() == 0 || !FormatValidator.isEmail(email))
+            throw new IllegalArgumentException();
+        return userMapper.getUserByEmail(email);
+    }
+
+    @Override
+    public Integer getUserStatus(User user) {
+        if(user == null || user.getUserId() == null)
+            throw new NullPointerException();
+        if(user.getUserId() < 0)
+            throw new IllegalArgumentException();
+        return userMapper.getUserStatusByUserId(user.getUserId());
     }
 
 }

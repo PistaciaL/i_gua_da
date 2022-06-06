@@ -44,4 +44,8 @@
     <update id="updateLastSeatByScheduleId" parameterType="org.nwpu.i_gua_da.entity.Schedule">
         UPDATE bus_schedule SET last_seat=#{lastSeat} where schedule_id = #{scheduleId}
     </update>
+
+    <update id="setStatusByScheduleId">
+        UPDATE bus_schedule SET status=#{status} where schedule_id=#{scheduleId}
+    </update>
 </mapper>

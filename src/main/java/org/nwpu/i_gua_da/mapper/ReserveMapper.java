@@ -4,6 +4,7 @@ import org.apache.ibatis.annotations.Mapper;
 import org.apache.ibatis.annotations.Param;
 import org.nwpu.i_gua_da.entity.Reserve;
 
+import java.time.LocalDateTime;
 import java.util.List;
 
 @Mapper
@@ -18,9 +19,9 @@ public interface ReserveMapper {
      */
     List<Reserve> listOnlyReservesByUserId(Integer userId);
 
-    List<Reserve> listReservesByUserId(Integer userId);
+    List<Reserve> listReservesByUserIdBetweenTimes(@Param("userId") Integer userId, @Param("startDateTime") LocalDateTime startDateTime, @Param("endDateTime") LocalDateTime endDateTime);
 
 
-    int deleteReserveByUserIdAndScheduleId(@Param("userId") Integer userId, @Param("scheduleId") Integer scheduleId);
+    int setStatusByUserIdAndScheduleId(@Param("userId") Integer userId, @Param("scheduleId") Integer scheduleId, @Param("status")Integer status);
 
 }

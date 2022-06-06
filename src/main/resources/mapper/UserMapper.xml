@@ -21,8 +21,8 @@
         SELECT user_id, name, student_number, email, register_datetime, permission, status FROM user_info u where name = #{userName} limit 1
     </select>
 
-    <update id="deleteUserById">
-        UPDATE user_info SET status = #{isDeleteStatus} where user_id = #{userId}
+    <update id="setUserStatusByUserId">
+        UPDATE user_info SET status = #{status} where user_id = #{userId}
     </update>
 
     <select id="selectForVerify" parameterType="org.nwpu.i_gua_da.entity.User" resultType="Integer">
@@ -47,5 +47,13 @@
 
     <select id="getUserStatusByUserId" parameterType="org.nwpu.i_gua_da.entity.User">
         SELECT status from user_info where user_id = #{userId}
+    </select>
+    
+    <select id="getAllUser" resultMap="User">
+        SELECT user_id, name, student_number, email, register_datetime, permission, status FROM user_info
+    </select>
+
+    <select id="getUserPermissionByUserId" parameterType="org.nwpu.i_gua_da.entity.User">
+        SELECT permission from user_info where user_id = #{userId}
     </select>
 </mapper>

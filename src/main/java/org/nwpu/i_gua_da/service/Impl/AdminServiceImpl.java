@@ -1,11 +1,15 @@
 package org.nwpu.i_gua_da.service.Impl;
 
+import com.github.pagehelper.PageHelper;
+import com.github.pagehelper.PageInfo;
 import org.nwpu.i_gua_da.entity.User;
 import org.nwpu.i_gua_da.mapper.UserMapper;
 import org.nwpu.i_gua_da.service.AdminService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
+
+import java.util.List;
 
 @Service
 public class AdminServiceImpl implements AdminService {
@@ -45,6 +49,18 @@ public class AdminServiceImpl implements AdminService {
     }
 
     @Override
+    public List<User> getUserList(Integer pageNum, Integer pageSize) {
+        if(pageNum == null || pageSize == null)
+            throw new NullPointerException();
+        if(pageNum < 0 || pageSize <= 0)
+            throw new IllegalArgumentException();
+        PageHelper.startPage(pageNum, pageSize);
+        List<User> users = userMapper.getAllUser();
+        PageInfo<User> pageInfo = new PageInfo<>(users);
+        return pageInfo.getList();
+    }
+
+    @Override
     public User searchUser(Integer userId) {
         if(userId == null)
             throw new NullPointerException();
@@ -68,7 +84,17 @@ public class AdminServiceImpl implements AdminService {
             throw new NullPointerException();
         if(userId < 0)
             throw new IllegalArgumentException();
-        int i = userMapper.deleteUserById(userId, isDeleteStatus);
+        int i = userMapper.setUserStatusByUserId(userId, isDeleteStatus);
+        return i == 1;
+    }
+
+    @Override
+    public boolean recoverUser(Integer userId) {
+        if(userId == null)
+            throw new NullPointerException();
+        if(userId < 0)
+            throw new IllegalArgumentException();
+        int i = userMapper.setUserStatusByUserId(userId, notDeleteStatus);
         return i == 1;
     }
 }

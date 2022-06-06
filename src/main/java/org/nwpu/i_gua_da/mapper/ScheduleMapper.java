@@ -19,4 +19,6 @@ public interface ScheduleMapper {
     Integer addSchedule(Schedule schedule);
 
     Integer updateLastSeatByScheduleId(Schedule schedule);
+
+    Integer setStatusByScheduleId(@Param("scheduleId") Integer scheduleId, @Param("status")Integer status);
 }

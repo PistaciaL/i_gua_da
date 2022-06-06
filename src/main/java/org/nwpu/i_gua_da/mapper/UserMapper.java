@@ -4,6 +4,8 @@ import org.apache.ibatis.annotations.Mapper;
 import org.apache.ibatis.annotations.Param;
 import org.nwpu.i_gua_da.entity.User;
 
+import java.util.List;
+
 @Mapper
 public interface UserMapper {
 
@@ -15,7 +17,7 @@ public interface UserMapper {
 
     User selectUserByName(String userName);
 
-    int deleteUserById(@Param("userId") Integer userId, @Param("isDeleteStatus") Integer isDeleteStatus);
+    int setUserStatusByUserId(@Param("userId") Integer userId, @Param("status") Integer status);
 
     /**
      * 对用户名和密码进行验证
@@ -41,6 +43,12 @@ public interface UserMapper {
      * @return
      */
     int setUserInformation(User user);
+
+    Integer getUserPermissionByUserId(Integer userId);
+
+    List<User> getAllUser();
+
+    User getUserByEmail(String email);
 
     Integer getUserStatusByUserId(Integer userId);
 }

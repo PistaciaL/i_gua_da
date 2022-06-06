@@ -28,8 +28,9 @@
         INSERT INTO reserve_info (user_id, schedule_id, reserve_time, status) values (#{user.userId}, #{schedule.scheduleId}, #{reserveTime}, #{status})
     </insert>
 
-    <select id="listReservesByUserId" resultMap="Reserve">
-        select * from (select r.reserve_id, r.schedule_id, r.reserve_time, r.`status`, u.user_id, u.`name` from reserve_info r left join user_info u on r.user_id = u.user_id where r.user_id = #{userId}) r left join
+    <select id="listReservesByUserIdBetweenTimes" resultMap="Reserve">
+        select * from (select r.reserve_id, r.schedule_id, r.reserve_time, r.`status`, u.user_id, u.`name` from reserve_info r left join user_info u on r.user_id = u.user_id
+                       where r.user_id = #{userId} and r.reserve_time between #{startDateTime} and #{endDateTime}) r left join
                       (
                           select s.schedule_id, s.departure_time, s.total_seat, s.start_station_id, s.end_station_id, s.start_station_name, `end`.station_name as end_station_name
                           from (select
@@ -42,5 +43,9 @@
     <select id="listOnlyReservesByUserId" resultMap="Reserve">
         select reserve_id, reserve_time, status, user_id, schedule_id from reserve_info where user_id = #{userId}
     </select>
+
+    <update id="setStatusByUserIdAndScheduleId">
+        UPDATE reserve_info SET status=#{status} where user_id=#{userId} and schedule_id=#{scheduleId}
+    </update>
 
 </mapper>
