@@ -48,7 +48,6 @@ export default {
             password:'',
             passwordAgain:'',
             checkStr:'',
-            saveEmail:'',
             lastTime:null,
             period:20,
         }
@@ -90,11 +89,10 @@ export default {
                     send = true;
                 }
                 if(send){
-                    this.saveEmail = this.email;
                     this.$axios({
                         method:'POST',
                         url:'/sendEmail',
-                        data:{
+                        params:{
                             email:this.email,
                         }
                     }).then(res=>{
@@ -104,11 +102,9 @@ export default {
                                 message:'邮件已发送',
                                 type:'success'
                             });
-                            this.saveEmail = this.email;
                         }else{
                             this.lastTime = new Date(new Date().getTime()-this.period*1000);
                             this.$message.error('该邮箱不存在!');
-                            this.saveEmail='';
                         }
                     });
                     this.lastTime = new Date();
@@ -116,7 +112,7 @@ export default {
             }
         },
         submit(){
-            if(this.password==''||this.passwordAgain==''||this.checkStr==''){
+            if(this.password==''||this.passwordAgain==''||this.checkStr==''||this.email==''){
                 this.$message({
                     message:'输入不能为空!',
                     type:'warning'
@@ -133,8 +129,8 @@ export default {
                 this.$axios({
                     method:'POST',
                     url:'/validate',
-                    data:{
-                        email:this.saveEmail,
+                    params:{
+                        email:this.email,
                         password:this.password,
                         // password:encryptor.encrypt(this.password),
                         checkStr:this.checkStr
@@ -142,15 +138,10 @@ export default {
                 }).then(res=>{
                     let data = res.data;
                     if(data.status==1){
-                        this.$message({
-                            message:'修改成功!',
-                            type: 'success'
-                        });
-                        this.saveEmail='';
+                        this.$store.state.status=5;
+                        this.goto('/');
                     }else if(data.status==0){
-                        this.$message.error('验证码错误!');
-                    }else if(data.status==2){
-                        this.$message.error('验证码已经失效!');
+                        this.$message.error('验证码无效!');
                     }else{
                         this.$message.error('修改失败,您的账户已被封禁!');
                     }

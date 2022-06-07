@@ -62,7 +62,7 @@ export default {
             this.$axios({
                 method:'POST',
                 url:'/manager/setPower',
-                data:{
+                params:{
                     id:id,
                     power:choice,
                 }
@@ -107,7 +107,7 @@ export default {
             this.$axios({
                 method:'POST',
                 url:'/manager/setStatus',
-                data:{
+                params:{
                     id:id,
                     status:choice,
                 }

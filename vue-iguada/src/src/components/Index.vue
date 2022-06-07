@@ -134,6 +134,11 @@ export default {
         }
     },
     methods:{
+        getDate(value){
+            if(value==='')return '';
+            let time = new Date(value);
+            return time.getFullYear()+'/'+(time.getMonth()+1)+'/'+time.getDate()+' '+time.getHours()+':'+time.getMinutes();
+        },
         goto(path){
             let cango = true;
             if(path.indexOf('/user') == 0){
@@ -162,6 +167,7 @@ export default {
                 url:'/logout'
             }).then(res=>{
                 let data = res.data;
+                console.log(data);
                 if(data.status===1){
                     this.userName = '';
                     this.$store.state.hasLogin = false;
@@ -183,23 +189,27 @@ export default {
                 this.$axios({
                     method:'POST',
                     url:'/login',
-                    data:{
+                    params:{
                         userName:this.userName,
                         password:this.password,
                         // password:this.encryptor.encrypt(this.password)
                     },
                 }).then(res=>{
                     let data = res.data;
-                    if(data.status===1){
-                        this.userName = data.user.userName;
-                        this.$store.dispatch("setUserName",data.user.userName);
+                    if(data.status=='1'){
+                        this.userName = data.userName;
+                        this.$store.dispatch("setUserName",data.userName);
                         this.$store.dispatch("setHasLogin",true);
-                        this.$store.dispatch("setIsManager",data.user.isManager);
-                        this.$store.dispatch("setEmail",data.user.email);
-                        this.$store.dispatch("setUserId",data.user.userId);
+                        if(data.isManager=='1') {
+                            this.$store.dispatch("setIsManager",false);
+                        }else{
+                            this.$store.dispatch("setIsManager",true);
+                        }
+                        this.$store.dispatch("setEmail",data.email);
+                        this.$store.dispatch("setUserId",data.userId);
                         this.clearData();
                         this.showLogin = false;
-                    }else if(data.status==0){
+                    }else if(data.status=='0'){
                         this.loginError = '登录失败,用户名或密码错误';
                     }else{
                         this.loginError = '您的已账户被封禁，禁止登录';
@@ -219,7 +229,7 @@ export default {
                 this.$axios({
                     method:'POST',
                     url:'/register',
-                    data:{
+                    params:{
                         userName:this.userName,
                         password:this.registerPassword,
                         // password:this.encryptor.encrypt(this.registerPassword),
@@ -232,11 +242,11 @@ export default {
                         this.registerError = '注册失败,该账户已被注册';
                     }else{
                         this.userName = data.userName;
-                        this.$store.dispatch("setUserName",data.user.userName);
+                        this.$store.dispatch("setUserName",data.userName);
                         this.$store.dispatch("setHasLogin",true);
-                        this.$store.dispatch("setIsManager",data.user.isManager);
-                        this.$store.dispatch("setEmail",data.user.email);
-                        this.$store.dispatch("setUserId",data.user.userId);
+                        this.$store.dispatch("setIsManager",data.isManager);
+                        this.$store.dispatch("setEmail",data.email);
+                        this.$store.dispatch("setUserId",data.userId);
                         this.clearData();
                         this.showRegister = false;
                     }
@@ -268,6 +278,9 @@ export default {
             url:'/getTodayTimes',
         }).then(res=>{
             let data = res.data;
+            data.forEach((value,index,self)=> {
+                value.time = this.getDate(value.time)
+            });
             this.times = data;
             this.timeLoading = false;
         });
@@ -281,6 +294,12 @@ export default {
         });
         if(this.$store.state.status==1){
             this.$message.error("您的session已经失效,请重新登录!");
+            this.$store.state.status=0;
+        }else if(this.$store.state.status==5){
+            this.$message({
+                message:'修改成功!',
+                type: 'success'
+            });
             this.$store.state.status=0;
         }
         this.encryptor = new JSEncrypt();

@@ -3,7 +3,7 @@
 
 ### NWPU2022软开综合能力训练课设
 
-### 后端: Springboot+mybatis+redis+mysql
+### 后端: Springboot+mybatis+redis+mysql+shiro
 ### 前端: vue+vuex+elementUI+axios
 <hr>
 

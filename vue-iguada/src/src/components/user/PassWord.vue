@@ -58,7 +58,7 @@ export default {
                 this.$axios({
                     method:'POST',
                     url:'/user/resetPassword',
-                    data:{
+                    params:{
                         oldPassword:this.oldPassword,
                         newPassWord:this.newPassWord
                     }

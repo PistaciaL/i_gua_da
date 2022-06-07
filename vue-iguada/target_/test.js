@@ -57,15 +57,15 @@ let notices = [
     {id:10,title:'班车取消通知',content:'2022年5月26日的班车因天气原因暂时取消，望周知!',sender:"admin",sendTime:'2022/6/10'},
 ];
 let myOrders = [
-    {id:1,time:'2022/5/26 10:00',start:'长安校区',end:'友谊校区',status:'正常'},
-    {id:2,time:'2022/5/26 12:00',start:'长安校区',end:'友谊校区',status:'班次被取消'},
-    {id:3,time:'2022/5/26 14:00',start:'友谊校区',end:'长安校区',status:'正常'},
-    {id:4,time:'2022/5/26 16:00',start:'长安校区',end:'友谊校区',status:'正常'},
-    {id:5,time:'2022/5/26 18:00',start:'友谊校区',end:'长安校区',status:'正常'},
-    {id:6,time:'2022/5/25 10:00',start:'长安校区',end:'友谊校区',status:'正常'},
-    {id:7,time:'2022/5/25 12:00',start:'长安校区',end:'友谊校区',status:'班次被取消'},
-    {id:8,time:'2022/5/25 14:00',start:'友谊校区',end:'长安校区',status:'正常'},
-    {id:9,time:'2022/5/25 16:00',start:'长安校区',end:'友谊校区',status:'正常'},
+    {id:1,reserveId:1,time:'2022/5/26 10:00',start:'长安校区',end:'友谊校区',status:'正常'},
+    {id:2,reserveId:2,time:'2022/5/26 12:00',start:'长安校区',end:'友谊校区',status:'班次被取消'},
+    {id:3,reserveId:3,time:'2022/5/26 14:00',start:'友谊校区',end:'长安校区',status:'正常'},
+    {id:4,reserveId:4,time:'2022/5/26 16:00',start:'长安校区',end:'友谊校区',status:'正常'},
+    {id:5,reserveId:5,time:'2022/5/26 18:00',start:'友谊校区',end:'长安校区',status:'正常'},
+    {id:6,reserveId:6,time:'2022/5/25 10:00',start:'长安校区',end:'友谊校区',status:'正常'},
+    {id:7,reserveId:7,time:'2022/5/25 12:00',start:'长安校区',end:'友谊校区',status:'班次被取消'},
+    {id:8,reserveId:8,time:'2022/5/25 14:00',start:'友谊校区',end:'长安校区',status:'正常'},
+    {id:9,reserveId:9,time:'2022/5/25 16:00',start:'长安校区',end:'友谊校区',status:'正常'},
 ]
 
 function getObjectsByPage(page,objs,number){
@@ -98,7 +98,7 @@ app.listen(port, () => {
  */
 app.post("/login",function (req,res){
     console.log("------登录接口------");
-    let data = req.body;
+    let data = req.query;
     console.log("------登录接口收到的数据------");
     /**
      * 参数说明
@@ -110,21 +110,19 @@ app.post("/login",function (req,res){
         /* status=1代表登录成功，status=0代表账户或密码错误，status=2代表该账户被封禁，禁止登录 */
         status:0,
         /* 成功登录的用户的部分信息 */
-        user: {
-            userName:'',
-            email:'',
-            userId:'',
-            isManager:false
-        }
+        userName:'',
+        email:'',
+        userId:'',
+        isManager:1
     }
     users.forEach((value,index,self)=>{
         if(value.userName==data.userName&&value.password==data.password){
             response.status = 1;
-            response.user.userName = value.userName;
-            response.user.email = value.email;
-            response.user.userId = value.userId;
+            response.userName = value.userName;
+            response.email = value.email;
+            response.userId = value.userId;
             if(value.power=='管理员'){
-                response.user.isManager = true;
+                response.isManager = 0;
             }
         }
     })
@@ -149,7 +147,7 @@ app.post("/logout",function (req,res){
  */
 app.post("/register",function (req,res){
     console.log("------注册接口------");
-    let data = req.body;
+    let data = req.query;
     console.log("------注册接口收到的数据------");
     /**
      * 参数说明
@@ -162,12 +160,10 @@ app.post("/register",function (req,res){
     let response = {
         status:1,
         /* 刚刚成功注册用户的部分信息 */
-        user: {
-            userName:data.userName,
-            email:data.email,
-            userId:data.userId,
-            isManager:false
-        }
+        userName:data.userName,
+        email:data.email,
+        userId:data.userId,
+        isManager:false
     };
     users.forEach((value,index,self)=>{
         if(value.email==data.email){
@@ -228,7 +224,7 @@ app.get("/getNoitces",function (req,res){
  */
 app.post("/sendEmail",function (req,res){
     console.log("------发送邮件请求接口------");
-    let data = req.body;
+    let data = req.query;
     console.log("------发送邮件请求接口收到的数据------");
     /**
      * 参数说明
@@ -254,7 +250,7 @@ app.post("/sendEmail",function (req,res){
  */
 app.post("/validate",function (req,res){
     console.log("------验证验证码接口------");
-    let data = req.body;
+    let data = req.query;
     /* 假的验证码，用于演示 */
     let checkStr = '1234';
     console.log("------验证验证码接口收到的数据------");
@@ -288,7 +284,7 @@ app.post("/validate",function (req,res){
  */
 app.post("/user/resetInfo",function (req,res){
     console.log("------用户信息修改接口------");
-    let data = req.body;
+    let data = req.query;
     console.log("------用户信息修改接口收到的数据------");
     /**
      * userName 新用户名
@@ -319,7 +315,7 @@ app.post("/user/resetInfo",function (req,res){
  */
 app.post("/user/resetPassword",function (req,res){
     console.log("------用户修改密码接口------");
-    let data = req.body;
+    let data = req.query;
     console.log("------用户修改密码接口收到的数据------");
     /**
      * 参数说明
@@ -402,7 +398,7 @@ app.get("/user/searchOrders",function (req,res){
  */
 app.post("/user/cancel",function (req,res){
     console.log("------用户取消预约接口------");
-    let data = req.body;
+    let data = req.query;
     console.log("------用户取消预约接口收到的数据------");
     /**
      * 参数说明
@@ -419,6 +415,8 @@ app.post("/user/cancel",function (req,res){
      * startTime="2022/5/26",endTime="2022/5/26"表示查询该用户发车时间在2022/5/26 00:00到2022/5/26 24:00之间的所有预约
      */
     console.log(data);
+    data.page = parseInt(data.page);
+    data.number = parseInt(data.number);
     let response = {
         /* 状态码status=1表示删除成功，status=0表示删除失败，status=2表示用户session失效 */
         status:1,
@@ -512,7 +510,7 @@ app.get("/user/searchTimes",function (req,res){
  */
 app.post("/user/order",function (req,res){
     console.log("------用户预约接口------");
-    let data = req.body;
+    let data = req.query;
     console.log("------用户预约接口收到的数据------");
     /**
      * 参数说明
@@ -608,7 +606,7 @@ app.get("/manager/searchTimes",function (req,res){
  */
 app.post("/manager/addTime",function (req,res){
     console.log("------管理员添加班次接口------");
-    let data = req.body;
+    let data = req.query;
     console.log("------管理员添加班次接口收到的数据------");
     console.log(data);
     data.number = parseInt(data.number);
@@ -661,8 +659,10 @@ app.post("/manager/addTime",function (req,res){
  */
 app.post("/manager/delTime",function (req,res){
     console.log("------管理员添加班次接口------");
-    let data = req.body;
+    let data = req.query;
     console.log("------管理员添加班次接口收到的数据------");
+    data.page = parseInt(data.page);
+    data.number = parseInt(data.number);
     /**
      * 参数说明，当前查询的所有数据都要满足限制条件
      * id 要删除班次的id
@@ -758,7 +758,7 @@ app.get("/manager/searchUsers",function (req,res){
  */
 app.post("/manager/setPower",function (req,res){
     console.log("------管理员修改用户权限接口------");
-    let data = req.body;
+    let data = req.query;
     console.log("------管理员修改用户权限接口收到的数据------");
     /**
      * 参数说明
@@ -792,7 +792,7 @@ app.post("/manager/setPower",function (req,res){
  */
 app.post("/manager/setStatus",function (req,res){
     console.log("------管理员修改用户状态接口------");
-    let data = req.body;
+    let data = req.query;
     console.log("------管理员修改用户状态接口收到的数据------");
     /**
      * 参数说明
@@ -868,7 +868,7 @@ app.get("/manager/searchNotices",function (req,res){
  */
 app.post("/manager/delNotice",function (req,res){
     console.log("------管理员删除公告接口------");
-    let data = req.body;
+    let data = req.query;
     console.log("------管理员删除公告接口收到的数据------");
     /**
      * 参数说明，当前查询的所有数据都要满足限制条件
@@ -876,7 +876,7 @@ app.post("/manager/delNotice",function (req,res){
      * page 要返回的页面的页码
      * number 一页的数据条数
      */
-    console.log(req.body);
+    console.log(data);
     data.page = parseInt(data.page);
     data.number = parseInt(data.number);
     let response = {
@@ -922,7 +922,7 @@ app.post("/manager/delNotice",function (req,res){
  */
 app.post("/manager/addNotice",function (req,res){
     console.log("------管理员发布公告接口------");
-    let data = req.body;
+    let data = req.query;
     console.log("------管理员发布公告接口收到的数据------");
     /**
      * 参数说明，当前查询的所有数据都要满足限制条件

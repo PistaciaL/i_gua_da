@@ -21,7 +21,7 @@
                 </div>
                 <div>
                     <span>邮&nbsp;&nbsp;&nbsp;箱&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span>
-                    <el-input prefix-icon="el-icon-message" v-model="email" maxlength="16"></el-input>
+                    <el-input prefix-icon="el-icon-message" v-model="email" maxlength="40"></el-input>
                 </div>
                 <div>
                     <el-button type="primary" icon="el-icon-check" @click="submit">提交修改</el-button>
@@ -56,7 +56,7 @@ export default {
                 this.$axios({
                     method:'POST',
                     url:'/user/resetInfo',
-                    data:{
+                    params:{
                         userName:this.userName,
                         userId:this.userId,
                         email:this.email,
@@ -76,7 +76,7 @@ export default {
                         this.$store.dispatch("setUserId",data.userId);
                     }else if(data.status==0){
                         this.$message({
-                            message:'修改失败!用户或邮箱已被他人使用!',
+                            message:'修改失败!用户名或邮箱已被他人使用!',
                             type:'warning'
                         });
                     }else{

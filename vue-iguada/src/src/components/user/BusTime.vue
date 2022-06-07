@@ -72,7 +72,7 @@ export default {
             this.$axios({
                 method:'POST',
                 url:'/user/order',
-                data:{
+                params:{
                     id:id,
                 }
             }).then(res=>{

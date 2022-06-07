@@ -102,7 +102,7 @@ export default {
                 this.$axios({
                     method:'POST',
                     url:'/manager/addTime',
-                    data:{
+                    params:{
                         page:this.currentPage,
                         number:8,
                         startTime:this.getDate(this.saveStart),
@@ -152,7 +152,7 @@ export default {
             this.$axios({
                 method:'POST',
                 url:'/manager/delTime',
-                data:{
+                params:{
                     id:id,
                     page:this.currentPage,
                     number:8,

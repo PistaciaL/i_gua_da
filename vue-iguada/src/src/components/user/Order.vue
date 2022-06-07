@@ -21,7 +21,7 @@
                 </div>
                 <div>
                     <span>班次状态:{{order.status}}</span>
-                    <span class="el-icon-delete-solid btn" @click="cancel(order.id)">取消预约</span>
+                    <span class="el-icon-delete-solid btn" @click="cancel(order.reserveId)">取消预约</span>
                 </div>
             </div>
             <div class="my-order-description">
@@ -74,7 +74,7 @@ export default {
             this.$axios({
                 method:'POST',
                 url:'/user/cancel',
-                data:{
+                params:{
                     id:id,
                     page:this.currentPage,
                     number:4,

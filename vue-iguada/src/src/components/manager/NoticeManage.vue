@@ -67,7 +67,7 @@ export default {
             this.$axios({
                 method:'POST',
                 url:'/manager/delNotice',
-                data:{
+                params:{
                     id:id,
                     page:this.currentPage,
                     number:8
@@ -122,7 +122,7 @@ export default {
                 this.$axios({
                     method:'POST',
                     url:'/manager/addNotice',
-                    data:{
+                    params:{
                         title:this.title,
                         content:this.content,
                         sendTime:t,
