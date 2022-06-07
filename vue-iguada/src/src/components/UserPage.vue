@@ -49,11 +49,7 @@
                             <i class="el-icon-message-solid"></i>
                             <span slot="title">意见反馈</span>
                         </template>
-                        <el-menu-item index="#" disabled>
-                            <i class="el-icon-s-promotion"></i>
-                            <span slot="title">留言板</span>
-                        </el-menu-item>
-                        <el-menu-item index="#" disabled>
+                        <el-menu-item index="/user/message">
                             <i class="el-icon-phone-outline"></i>
                             <span slot="title">联系管理员</span>
                         </el-menu-item>

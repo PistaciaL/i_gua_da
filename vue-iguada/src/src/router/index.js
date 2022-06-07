@@ -22,6 +22,12 @@ const NoticeManage = () =>
     import ('@/components/manager/NoticeManage');
 const ResetPassword = () =>
     import ('@/components/ResetPassword');
+const UserMessage = () =>
+    import ('@/components/user/Message');
+const Communication = () =>
+    import ('@/components/Communication');
+const ManagerMessage = () =>
+    import ('@/components/manager/Message');
 
 const router = new VueRouter({
     routes: [{
@@ -47,6 +53,14 @@ const router = new VueRouter({
             path: 'order',
             component: Order,
             children: [],
+        }, {
+            path: 'message',
+            component: UserMessage,
+            children: []
+        }, {
+            path: 'communication',
+            component: Communication,
+            children: []
         }],
     }, {
         path: '/manager',
@@ -63,6 +77,14 @@ const router = new VueRouter({
             path: 'noticeManage',
             component: NoticeManage,
             children: [],
+        }, {
+            path: 'message',
+            component: ManagerMessage,
+            children: []
+        }, {
+            path: 'communication',
+            component: Communication,
+            children: []
         }],
     }, {
         path: '/reset',

@@ -28,11 +28,7 @@
                         <i class="el-icon-date"></i>
                         <span slot="title">公告管理</span>
                     </el-menu-item>
-                    <el-menu-item index="#" disabled>
-                        <i class="el-icon-chat-line-round"></i>
-                        <span slot="title">留言管理</span>
-                    </el-menu-item>
-                    <el-menu-item index="#" disabled>
+                    <el-menu-item index="/manager/message">
                         <i class="el-icon-message-solid"></i>
                         <span slot="title">我的消息</span>
                     </el-menu-item>

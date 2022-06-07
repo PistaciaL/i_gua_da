@@ -32,7 +32,7 @@
                     <i class="el-icon-message-solid"></i>
                     <h2>留言反馈</h2>
                     <p>留下您宝贵的意见，您的建议是我们不断前进的最大动力！</p>
-                    <el-button type="primary">点击进入</el-button>
+                    <el-button type="primary" @click="goto('/user/message')">点击进入</el-button>
                 </div>
                 <div class="menu-child">
                     <i class="el-icon-s-platform"></i>
@@ -111,7 +111,6 @@
 
 <script>
 import { JSEncrypt } from 'jsencrypt'
-let encryptor = new JSEncrypt();
 export default {
     data(){
         return{
@@ -127,6 +126,7 @@ export default {
             registerError:'',
             timeLoading:true,
             noticeLoading:true,
+            encryptor:null,
             notices:[
             ],
             times:[
@@ -178,15 +178,15 @@ export default {
             if(this.userName==''||this.password==''){
                 this.loginError="输入为空!";
             }else{
-                encryptor.setPublicKey(this.$store.state.publicKey);
-                //console.log(encryptor.encrypt(this.password));
+                //encryptor.setPublicKey(this.$store.state.publicKey);
+                //console.log(this.encryptor.encrypt(this.password));
                 this.$axios({
                     method:'POST',
                     url:'/login',
                     data:{
                         userName:this.userName,
                         password:this.password,
-                        // password:encryptor.encrypt(this.password)
+                        // password:this.encryptor.encrypt(this.password)
                     },
                 }).then(res=>{
                     let data = res.data;
@@ -215,14 +215,14 @@ export default {
             }else if(this.registerPassword!=this.passwordAgain){
                 this.registerError="两次输入的密码不一致";
             }else{
-                encryptor.setPublicKey(this.$store.state.publicKey);
+                //encryptor.setPublicKey(this.$store.state.publicKey);
                 this.$axios({
                     method:'POST',
                     url:'/register',
                     data:{
                         userName:this.userName,
                         password:this.registerPassword,
-                        // password:encryptor.encrypt(this.registerPassword),
+                        // password:this.encryptor.encrypt(this.registerPassword),
                         email:this.email,
                         userId:this.userId
                     }
@@ -283,6 +283,8 @@ export default {
             this.$message.error("您的session已经失效,请重新登录!");
             this.$store.state.status=0;
         }
+        this.encryptor = new JSEncrypt();
+        this.encryptor.setPublicKey(this.$store.state.publicKey);
     }
 }
 </script>
