@@ -207,6 +207,7 @@ export default {
                         }
                         this.$store.dispatch("setEmail",data.email);
                         this.$store.dispatch("setUserId",data.userId);
+                        this.$store.dispatch("setId",data.id);
                         this.clearData();
                         this.showLogin = false;
                     }else if(data.status=='0'){
@@ -247,6 +248,7 @@ export default {
                         this.$store.dispatch("setIsManager",data.isManager);
                         this.$store.dispatch("setEmail",data.email);
                         this.$store.dispatch("setUserId",data.userId);
+                        this.$store.dispatch("setId",data.id);
                         this.clearData();
                         this.showRegister = false;
                     }

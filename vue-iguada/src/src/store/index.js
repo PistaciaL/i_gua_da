@@ -18,6 +18,9 @@ const actions = {
     },
     setUserId(context, value) {
         context.commit("setUserId", value);
+    },
+    setId(context, value) {
+        context.commit('setId', value);
     }
 };
 /* 用于操作数据 */
@@ -41,6 +44,10 @@ const mutations = {
     setUserId(state, value) {
         state.userId = value;
         localStorage.setItem("userId", state.userId);
+    },
+    setId(state, value) {
+        state.Id = value;
+        localStorage.setItem("Id", state.Id);
     }
 };
 /* 用于存储数据 */
@@ -52,6 +59,7 @@ const state = {
     email: '',
     userId: '',
     status: 0,
+    Id: '',
 };
 
 let hasLogin = localStorage.getItem('hasLogin');
@@ -59,6 +67,7 @@ let isManager = localStorage.getItem('isManager');
 let userName = localStorage.getItem('userName');
 let email = localStorage.getItem('email');
 let userId = localStorage.getItem('userId');
+let Id = localStorage.getItem('Id');
 if (hasLogin != null) {
     if (hasLogin == 'true') {
         state.hasLogin = true;
@@ -81,6 +90,9 @@ if (email != null) {
 }
 if (userId != null) {
     state.userId = userId;
+}
+if (Id != null) {
+    state.Id = Id;
 }
 const store = new Vuex.Store({ actions, mutations, state });
 export default store;

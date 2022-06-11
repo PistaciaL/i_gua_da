@@ -105,6 +105,7 @@ export default {
                     this.$store.state.userName = '';
                     this.$store.state.email = '';
                     this.$store.state.userId = '';
+                    this.$store.state.id = null;
                     localStorage.clear();
                     this.goto('/');
                 }
