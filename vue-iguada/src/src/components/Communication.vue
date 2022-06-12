@@ -53,12 +53,11 @@ export default {
     methods:{
         send(){
             if(this.text!=''){
-                //this.websocket.send(this.text);
+                //this.websocket.send(this.id+';'+this.text);
                 this.messages.push({id:this.messages.length+1,content:this.text,sender:this.$store.state.id,receiver:this.id});
                 this.text='';
                 setTimeout(this.update,100);
             }
-            this.container.scrollTop = this.container.scrollHeight;
         },
         receive(evt){
             this.messages.push({id:this.messages.length+1,content:evt,sender:this.id,receiver:this.$store.state.id});

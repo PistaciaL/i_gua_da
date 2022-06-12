@@ -56,7 +56,10 @@ export default {
             })
         },
         getDate(value){
-            if(value==='')return '';
+            if(value==''||value==null){
+                console.log(1);
+                return '';
+            }
             let time = new Date(value);
             return time.getFullYear()+'/'+(time.getMonth()+1)+'/'+time.getDate();
         },
