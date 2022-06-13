@@ -46,4 +46,14 @@ public interface NoticeService {
      * @return 搜索出来的公告
      */
     public Notice searchNotice(Integer NoticeId);
+
+
+    /**
+     * 根据公告标题模糊搜索公告
+     * @param noticeTitle
+     * @param pageNum
+     * @param pageSize
+     * @return
+     */
+    public List<Notice> listNoticeByNoticeTitleLike(String noticeTitle, Integer pageNum, Integer pageSize);
 }

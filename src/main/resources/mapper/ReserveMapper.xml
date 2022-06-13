@@ -37,7 +37,7 @@
                                     s.schedule_id, s.departure_time, s.total_seat, s.last_seat, s.start_station_id, s.end_station_id, `start`.station_name as start_station_name
                                 from bus_schedule s left join station_info `start` on s.start_station_id = `start`.station_id)
                                    s left join station_info `end` on s.end_station_id = `end`.station_id
-                      ) s on r.schedule_id = s.schedule_id
+                      ) s on r.schedule_id = s.schedule_id and r.status order by r.reserve_time DESC
     </select>
 
     <select id="listOnlyReservesByUserId" resultMap="Reserve">
@@ -48,4 +48,23 @@
         UPDATE reserve_info SET status=#{status} where user_id=#{userId} and schedule_id=#{scheduleId}
     </update>
 
+    <select id="selectReserveByReserveId" resultMap="Reserve">
+        select * from (select r.reserve_id, r.schedule_id, r.reserve_time, r.`status`, u.user_id, u.`name` from reserve_info r left join user_info u on r.user_id = u.user_id
+                       where r.reserve_id = #{reserveId}) r left join
+                      (
+                          select s.schedule_id, s.departure_time, s.total_seat, s.start_station_id, s.end_station_id, s.start_station_name, `end`.station_name as end_station_name
+                          from (select
+                                    s.schedule_id, s.departure_time, s.total_seat, s.last_seat, s.start_station_id, s.end_station_id, `start`.station_name as start_station_name
+                                from bus_schedule s left join station_info `start` on s.start_station_id = `start`.station_id)
+                                   s left join station_info `end` on s.end_station_id = `end`.station_id
+                      ) s on r.schedule_id = s.schedule_id
+    </select>
+
+    <update id="setStatusByReserveId">
+        UPDATE reserve_info SET status=#{status} where reserve_id = #{reserveId}
+    </update>
+
+    <select id="verifyReserveByScheduleIdAndUserId" resultType="Integer">
+        SELECT reserve_id from reserve_info where schedule_id = #{scheduleId} and user_id = #{userId} limit 1
+    </select>
 </mapper>

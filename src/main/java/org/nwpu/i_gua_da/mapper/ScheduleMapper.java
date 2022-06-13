@@ -14,7 +14,7 @@ public interface ScheduleMapper {
 
     List<Schedule> listAllSchedules();
 
-    List<Schedule> listScheduleBetweenTimes(@Param("startTime") LocalDateTime startTime, @Param("endTime") LocalDateTime endTime);
+    List<Schedule> listScheduleBetweenTimes(@Param("startTime") LocalDateTime startTime, @Param("endTime") LocalDateTime endTime, @Param("status") Integer notDeleteStatus);
 
     Integer addSchedule(Schedule schedule);
 

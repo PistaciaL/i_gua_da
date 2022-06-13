@@ -19,6 +19,8 @@ public class UserServiceImpl implements UserService {
     private int userNameMaxLength;
     @Value("${constants.user.length.email}")
     private int userEmailMaxLength;
+    @Value("${constants.user.length.studentNumber}")
+    private int studentNumberMaxLength;
     private String emailFormat = "^[\\w-\\+]+(\\.[\\w]+)*@[\\w-]+(\\.[\\w]+)*(\\.[a-z]{2,})$";
 
     @Autowired
@@ -31,11 +33,11 @@ public class UserServiceImpl implements UserService {
     public Integer setUserInformation(User user) {
         if(user == null || user.getUserId() == null || user.getName() == null || user.getEmail() == null || user.getStudentNumber() == null)
             throw new NullPointerException();
-        if(user.getUserId() < 0 || user.getStudentNumber() < 0 ||
+        if(user.getUserId() < 0 || user.getStudentNumber().length() == 0 || user.getStudentNumber().length() > studentNumberMaxLength ||
                 user.getName().length() == 0 || user.getName().length() > userNameMaxLength ||
                 user.getEmail().length() == 0 || user.getEmail().length() > userEmailMaxLength || !FormatValidator.isEmail(user.getEmail()))
             throw new IllegalArgumentException();
-        if(userMapper.verifyByNameOrStudentNumbOrEmail(user) != null)
+        if(userMapper.verifyByNameOrEmail(user) != null)
             return 0;
         int i = userMapper.setUserInformation(user);
         return i == 0 ? 0 : 1;

@@ -38,4 +38,20 @@ public interface ReserveService {
      * @return true 取消预约成功
      */
     public boolean removeReserve(Integer UserId, Integer ScheduleId);
+
+    /**
+     * 通过reserve的id取消用户的预约
+     * @param reserveId
+     * @return true 取消预约成功<br/>false 取消预约失败
+     */
+    public boolean removeReserveByReserveId(Integer reserveId);
+
+
+    /**
+     * 根据schedule的id和user的id验证用户是否预约该班次(可以使用redis)
+     * @param scheduleId
+     * @param userId
+     * @return true 预约<br/>false 没有预约
+     */
+    public boolean verifyByScheduleIdAndUserId(Integer scheduleId, Integer userId);
 }

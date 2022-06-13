@@ -60,4 +60,13 @@ public interface AdminService {
      * @return true：恢复成功 / false恢复失败
      */
     public boolean recoverUser(Integer UserId);
+
+    /**
+     * 根据用户名进行模糊搜索
+     * @param userName
+     * @param pageNum
+     * @param pageSize
+     * @return
+     */
+    public List<User> listUserByLikeUserName(String userName, Integer pageNum, Integer pageSize);
 }

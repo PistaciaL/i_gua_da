@@ -103,16 +103,19 @@ public class ReserveServiceImpl implements ReserveService {
         //在lastSeat中添加一个座位
         Integer lastSeat = (Integer) redisTemplate.opsForValue().get(lastSeatRedisKey+":"+scheduleId);
         if(lastSeat == null) {
-            Integer dbLastSeat = scheduleService.getScheduleId(scheduleId).getLastSeat();
+            Schedule schedule = scheduleService.getScheduleId(scheduleId);
+            if(schedule == null)
+                throw new RuntimeException("该班次不存在");
+            Integer dbLastSeat = schedule.getLastSeat();
             if(dbLastSeat == null)
                 throw new RuntimeException("该班次不存在");
             else {
                 //根据dbLastSeat更新缓存和数据库中的lastSeat
                 redisTemplate.opsForValue().set(lastSeatRedisKey+":"+scheduleId, dbLastSeat+1);
-                Schedule schedule = new Schedule();
-                schedule.setScheduleId(scheduleId);
-                schedule.setLastSeat(dbLastSeat+1);
-                scheduleMapper.updateLastSeatByScheduleId(schedule);
+                Schedule newSchedule = new Schedule();
+                newSchedule.setScheduleId(scheduleId);
+                newSchedule.setLastSeat(dbLastSeat+1);
+                scheduleMapper.updateLastSeatByScheduleId(newSchedule);
             }
         } else {
             //lastSeat更新缓存和数据库中的lastSeat
@@ -124,5 +127,41 @@ public class ReserveServiceImpl implements ReserveService {
         }
         int i = reserveMapper.setStatusByUserIdAndScheduleId(userId, scheduleId, reserveIsDeleteStatus);
         return i == 1;
+    }
+
+    @Override
+    public boolean removeReserveByReserveId(Integer reserveId) {
+        if(reserveId == null)
+            throw new NullPointerException();
+        if(reserveId < 0)
+            throw new IllegalArgumentException();
+        Reserve reserve = reserveMapper.selectReserveByReserveId(reserveId);
+        Integer lastSeat = (Integer) redisTemplate.opsForValue().get(lastSeatRedisKey+":"+reserve.getSchedule().getScheduleId());
+        if(lastSeat == null) {
+            Schedule schedule = scheduleService.getScheduleId(reserve.getSchedule().getScheduleId());
+            if(schedule == null)
+                throw new RuntimeException("该班次不存在");
+            else
+                lastSeat = schedule.getLastSeat();
+        }
+        redisTemplate.opsForValue().set(lastSeatRedisKey+":"+reserve.getSchedule().getScheduleId(), lastSeat+1);
+        Schedule newSchedule = new Schedule();
+        newSchedule.setScheduleId(reserve.getSchedule().getScheduleId());
+        newSchedule.setLastSeat(lastSeat+1);
+        scheduleMapper.updateLastSeatByScheduleId(newSchedule);
+        int i = reserveMapper.setStatusByReserveId(reserveId, reserveIsDeleteStatus);
+        return i == 1;
+    }
+
+    @Override
+    public boolean verifyByScheduleIdAndUserId(Integer scheduleId, Integer userId) {
+        if(userId == null || scheduleId == null)
+            throw new NullPointerException();
+        if(userId < 0 || scheduleId < 0)
+            throw new IllegalArgumentException();
+        //检测用户是否存在
+        if(adminService.searchUser(userId) == null)
+            throw new RuntimeException("该用户不存在");
+        return reserveMapper.verifyReserveByScheduleIdAndUserId(userId, scheduleId) != null;
     }
 }

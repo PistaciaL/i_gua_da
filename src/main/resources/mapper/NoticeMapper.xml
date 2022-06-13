@@ -5,7 +5,7 @@
         <id property="noticeId" column="notice_id"/>
         <result property="title" column="title"/>
         <result property="content" column="content"/>
-        <result property="createTime" column="createTime"/>
+        <result property="createTime" column="create_time"/>
         <association property="sender" column="sender_id" javaType="org.nwpu.i_gua_da.entity.User">
             <id property="userId" column="user_id"/>
             <result property="name" column="name"/>
@@ -33,6 +33,10 @@
     </select>
 
     <select id="listNotices" resultMap="Notice">
-        SELECT n.notice_id, n.title, n.content, n.create_time, u.user_id, u.name from notice_info n left join user_info u on n.sender_id = u.user_id
+        SELECT n.notice_id, n.title, n.content, n.create_time, u.user_id, u.name from notice_info n left join user_info u on n.sender_id = u.user_id where n.status = #{notDeleteStatus}
+    </select>
+
+    <select id="listNoticeByNoticeTitleLike" resultMap="Notice">
+        SELECT n.notice_id, n.title, n.content, n.create_time, u.user_id, u.name from notice_info n left join user_info u on n.sender_id = u.user_id where n.title like CONCAT('%',#{noticeTitle},'%') and n.status = #{notDeleteStatus}
     </select>
 </mapper>
