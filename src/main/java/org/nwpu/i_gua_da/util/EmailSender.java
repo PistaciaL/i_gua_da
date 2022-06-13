@@ -137,16 +137,16 @@ public class EmailSender {
                 "                    </div>\n" +
                 "                    <div style=\"width:680px;padding:0 10px;margin:0 auto;\">\n" +
                 "                        <div style=\"line-height:1.5;font-size:14px;margin-bottom:25px;color:#4d4d4d;\">\n" +
-                "                            <strong style=\"display:block;margin-bottom:15px;\">尊敬的⽤户：<span style=\"color:#f60;font-size: 16px;\"></span>您好！</strong>\n" +
+                "                            <strong style=\"display:block;margin-bottom:15px;\">尊敬的用户：<span style=\"color:#f60;font-size: 16px;\"></span>您好！</strong>\n" +
                 "                            <strong style=\"display:block;margin-bottom:15px;\">\n" +
-                "    您正在进⾏<span style=\"color: red\">"+ operationName +"</span>操作，请在验证码输⼊框中输⼊：<span style=\"color:#f60;font-size: 24px\">"+ code +"</sp\n" +
+                "    您正在进行<span style=\"color: red\">"+ operationName +"</span>操作，请在验证码输入框中输入：<span style=\"color:#f60;font-size: 24px\">"+ code +"</sp\n" +
                 "    an>，以完成操作。\n" +
                 "    </strong>\n" +
                 "                        </div>\n" +
                 "                        <div style=\"margin-bottom:30px;\">\n" +
                 "                            <small style=\"display:block;margin-bottom:20px;font-size:12px;\">\n" +
                 "    <p style=\"color:#747474;\">\n" +
-                "    注意：此操作可能会修改您的密码、登录邮箱或绑定⼿机。如⾮本⼈操作，请及时登录并修改密码以保证帐户安全\n" +
+                "    注意: 此操作可能会修改您的密码、登陆邮箱。如非本人操作，请及时登录并修改密码以保证帐户安全\n" +
                 "    <br>（⼯作⼈员不会向你索取此验证码，请勿泄漏！)\n" +
                 "    </p>\n" +
                 "    </small>\n" +

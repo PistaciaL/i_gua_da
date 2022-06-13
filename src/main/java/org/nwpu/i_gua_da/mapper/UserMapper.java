@@ -36,6 +36,12 @@ public interface UserMapper {
      * @return
      */
     Integer verifyByNameOrStudentNumbOrEmail(User user);
+    /**
+     * 查重, 用户名|邮箱有一个重复则返回不为空
+     * @param user
+     * @return
+     */
+    Integer verifyByNameOrEmail(User user);
 
     /**
      *  设置新的用户名+学号+邮箱
@@ -51,4 +57,6 @@ public interface UserMapper {
     User getUserByEmail(String email);
 
     Integer getUserStatusByUserId(Integer userId);
+
+    List<User> listUserByLikeUserName(String userName);
 }

@@ -6,6 +6,7 @@ import org.nwpu.i_gua_da.entity.Schedule;
 import org.nwpu.i_gua_da.entity.Station;
 import org.nwpu.i_gua_da.mapper.ScheduleMapper;
 import org.nwpu.i_gua_da.service.ScheduleService;
+import org.nwpu.i_gua_da.service.StationService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.data.redis.core.RedisTemplate;
@@ -24,15 +25,21 @@ public class ScheduleServiceImpl implements ScheduleService {
     private int statusDefault;
     @Value("${constants.schedule.status.isDelete}")
     private int statusIsDelete;
+    @Value("${constants.schedule.status.notDelete}")
+    private int statusNotDelete;
     @Value("${redisKey.station}")
     private String stationRedisKey;
     @Value("${redisKey.lastSeat}")
     private String lastSeatRedisKey;
+    @Value("${constants.schedule.totalSeat.default}")
+    private int totalSeatDefault;
 
     @Autowired
     private ScheduleMapper scheduleMapper;
     @Autowired
     private RedisTemplate redisTemplate;
+    @Autowired
+    private StationService stationService;
 
     @Override
     public List<Schedule> getSchedule(Integer pageNum, Integer pageSize) {
@@ -53,7 +60,7 @@ public class ScheduleServiceImpl implements ScheduleService {
         if(startTime.isAfter(endTime))
             throw new IllegalArgumentException();
         PageHelper.startPage(pageNum, pageSize);
-        List<Schedule> schedules = scheduleMapper.listScheduleBetweenTimes(startTime, endTime);
+        List<Schedule> schedules = scheduleMapper.listScheduleBetweenTimes(startTime, endTime, statusNotDelete);
         PageInfo<Schedule> pageInfo = new PageInfo<>(schedules);
         return pageInfo.getList();
     }
@@ -70,26 +77,28 @@ public class ScheduleServiceImpl implements ScheduleService {
     @Override
     @Transactional
     public boolean addSchcedule(Schedule schedule) {
-        if(schedule == null || schedule.getStartStation() == null || schedule.getEndStation() == null || schedule.getTotalSeat() == null)
+        if(schedule == null || schedule.getStartStation() == null || schedule.getEndStation() == null)
             throw new NullPointerException();
+        if(schedule.getTotalSeat() == null)
+            schedule.setTotalSeat(totalSeatDefault);
         if(schedule.getTotalSeat() <= 0 || (schedule.getLastSeat() != null && schedule.getLastSeat() < 0))
             throw new IllegalArgumentException();
-        //如果在数据库里找不到对应车站的信息
         Station startStation = null;
         Station endStation = null;
+        //如果在redis里找不到对应车站的信息
         if((startStation = (Station) redisTemplate.opsForValue().get(stationRedisKey+":"+schedule.getStartStation().getStationId())) == null ||
                 (endStation = (Station) redisTemplate.opsForValue().get(stationRedisKey+":"+schedule.getEndStation().getStationId())) == null) {
             //在数据库里查找station是否存在, (不存在为true)
             if(startStation == null) {
-                startStation = null;
+                startStation = stationService.selectStationByStationId(schedule.getStartStation().getStationId());
                 if(startStation != null) {
-                    redisTemplate.opsForValue().set(stationRedisKey+":"+schedule.getStartStation().getStationId(), startStation, 1, TimeUnit.DAYS);
+                    redisTemplate.opsForValue().set(stationRedisKey+":"+schedule.getStartStation().getStationId(), startStation, 10, TimeUnit.MINUTES);
                 }
             }
             if(endStation == null) {
-                endStation = null;
+                endStation = stationService.selectStationByStationId(schedule.getEndStation().getStationId());
                 if(endStation != null) {
-                    redisTemplate.opsForValue().set(stationRedisKey + ":" + schedule.getEndStation().getStationId(), endStation, 1, TimeUnit.DAYS);
+                    redisTemplate.opsForValue().set(stationRedisKey + ":" + schedule.getEndStation().getStationId(), endStation, 10, TimeUnit.MINUTES);
                 }
             }
             if(startStation == null || endStation == null)

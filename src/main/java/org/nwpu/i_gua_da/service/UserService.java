@@ -5,9 +5,9 @@ import org.nwpu.i_gua_da.entity.User;
 public interface UserService {
 
     /**
-     * 用户修改信息(用户只能修改名字，学号，邮箱三种信息，且不能重复)
+     * 用户修改信息(用户只能修改名字，学号，邮箱三种信息，名字和学号不能重复)
      * @param user 修改信息后的用户
-     * @return 1：修改成功；0：用户名字重复或学号重复或邮箱错误
+     * @return 1：修改成功；0：用户名字重复或邮箱重复
      */
     public Integer setUserInformation(User user);
 

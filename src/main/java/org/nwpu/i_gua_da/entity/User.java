@@ -9,7 +9,7 @@ public class User {
     private Integer userId;
     private String name;
     private String password;
-    private Integer studentNumber;
+    private String studentNumber;
     private String email;
     private LocalDateTime registerDatetime;
     /**

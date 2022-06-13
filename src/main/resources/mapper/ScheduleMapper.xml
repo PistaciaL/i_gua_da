@@ -30,11 +30,15 @@
         from (select
                   s.schedule_id, s.departure_time, s.total_seat, s.last_seat, s.`status`, s.start_station_id, s.end_station_id, `start`.station_name as start_station_name
               from bus_schedule s left join station_info `start` on s.start_station_id = `start`.station_id)
-                 s left join station_info `end` on s.end_station_id = `end`.station_id
+                 s left join station_info `end` on s.end_station_id = `end`.station_id order by s.departure_time DESC
     </select>
 
     <select id="listScheduleBetweenTimes" resultMap="Schedule">
-        SELECT * FROM bus_schedule where departure_time BETWEEN #{startTime} and #{endTime} order by departure_time DESC
+        select s.schedule_id, s.departure_time, s.total_seat, s.last_seat, s.`status`, s.start_station_id, s.end_station_id, s.start_station_name, `end`.station_name as end_station_name
+        from (select
+                  s.schedule_id, s.departure_time, s.total_seat, s.last_seat, s.`status`, s.start_station_id, s.end_station_id, `start`.station_name as start_station_name
+              from bus_schedule s left join station_info `start` on s.start_station_id = `start`.station_id)
+                 s left join station_info `end` on s.end_station_id = `end`.station_id where s.departure_time between #{startTime} and #{endTime} and s.status = #{status} order by departure_time DESC
     </select>
 
     <insert id="addSchedule" parameterType="org.nwpu.i_gua_da.entity.Schedule" useGeneratedKeys="true" keyProperty="scheduleId">

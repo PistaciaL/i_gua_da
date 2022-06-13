@@ -21,7 +21,11 @@ public interface ReserveMapper {
 
     List<Reserve> listReservesByUserIdBetweenTimes(@Param("userId") Integer userId, @Param("startDateTime") LocalDateTime startDateTime, @Param("endDateTime") LocalDateTime endDateTime);
 
-
     int setStatusByUserIdAndScheduleId(@Param("userId") Integer userId, @Param("scheduleId") Integer scheduleId, @Param("status")Integer status);
 
+    Reserve selectReserveByReserveId(Integer reserveId);
+
+    int setStatusByReserveId(@Param("reserveId") Integer reserveId, @Param("status")Integer status);
+
+    Integer verifyReserveByScheduleIdAndUserId(@Param("userId") Integer userId, @Param("scheduleId") Integer scheduleId);
 }

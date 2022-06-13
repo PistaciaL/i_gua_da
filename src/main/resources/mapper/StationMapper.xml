@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="org.nwpu.i_gua_da.mapper.StationMapper">
+    <resultMap id="Station" type="org.nwpu.i_gua_da.entity.Station">
+        <id property="stationId" column="station_id"/>
+    </resultMap>
+
+    <select id="selectStationByStationName" resultMap="Station">
+        SELECT station_id, station_name, station_telephone_numb from station_info where station_name = #{stationName} limit 1
+    </select>
+
+    <select id="selectStationByStationId" resultMap="Station">
+        SELECT station_id, station_name, station_telephone_numb from station_info where station_id = #{stationId}
+    </select>
+</mapper>

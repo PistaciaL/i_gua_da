@@ -38,14 +38,18 @@
     </update>
 
     <select id="verifyByNameOrStudentNumbOrEmail" parameterType="org.nwpu.i_gua_da.entity.User" resultType="Integer">
-        SELECT user_id from user_info where name = #{name} or student_number = #{studentNumber} or email = #{email}
+        SELECT user_id from user_info where name = #{name} or email = #{email} or student_number = #{studentNumber} limit 1
+    </select>
+
+    <select id="verifyByNameOrEmail" parameterType="org.nwpu.i_gua_da.entity.User" resultType="Integer">
+        SELECT user_id from user_info where name = #{name} or email = #{email} limit 1
     </select>
 
     <update id="setUserInformation" parameterType="org.nwpu.i_gua_da.entity.User">
         UPDATE user_info SET name = #{name}, student_number = #{studentNumber}, email = #{email} where user_id = #{userId}
     </update>
 
-    <select id="getUserStatusByUserId" parameterType="org.nwpu.i_gua_da.entity.User">
+    <select id="getUserStatusByUserId" parameterType="org.nwpu.i_gua_da.entity.User" resultType="Integer">
         SELECT status from user_info where user_id = #{userId}
     </select>
     
@@ -53,7 +57,15 @@
         SELECT user_id, name, student_number, email, register_datetime, permission, status FROM user_info
     </select>
 
-    <select id="getUserPermissionByUserId" parameterType="org.nwpu.i_gua_da.entity.User">
+    <select id="getUserPermissionByUserId" parameterType="org.nwpu.i_gua_da.entity.User" resultType="Integer">
         SELECT permission from user_info where user_id = #{userId}
+    </select>
+
+    <select id="getUserByEmail" resultMap="User">
+        SELECT user_id, name, student_number, email, register_datetime, permission, status from user_info where email=#{email}
+    </select>
+
+    <select id="listUserByLikeUserName" resultMap="User">
+        SELECT user_id, name, student_number, email, register_datetime, permission, status FROM user_info where name like CONCAT('%',#{userName},'%')
     </select>
 </mapper>

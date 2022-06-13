@@ -19,4 +19,6 @@ public interface NoticeMapper {
     Notice searchNoticeById(Integer noticeId);
 
     List<Notice> listNotices(Integer notDeleteStatus);
+
+    List<Notice> listNoticeByNoticeTitleLike(@Param("noticeTitle") String noticeTitle, @Param("notDeleteStatus") Integer notDeleteStatus);
 }

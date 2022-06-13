@@ -1,18 +1,14 @@
 package org.nwpu.i_gua_da;
 
-import com.alibaba.fastjson.support.spring.FastJsonRedisSerializer;
 import org.junit.jupiter.api.Test;
 import org.nwpu.i_gua_da.entity.*;
-import org.nwpu.i_gua_da.mapper.UserMapper;
 import org.nwpu.i_gua_da.service.*;
 import org.nwpu.i_gua_da.service.Impl.ScheduleServiceImpl;
-import org.nwpu.i_gua_da.service.Impl.TestServiceImpl;
 import org.nwpu.i_gua_da.util.EmailSender;
 import org.nwpu.i_gua_da.util.Rsa;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.data.redis.core.RedisTemplate;
-import org.springframework.data.redis.core.StringRedisTemplate;
 import org.springframework.transaction.annotation.Transactional;
 
 import javax.mail.MessagingException;
@@ -24,8 +20,6 @@ import java.util.List;
 @SpringBootTest
 class IGuaDaApplicationTests {
 
-    @Autowired
-    private TestServiceImpl testService;
     @Autowired
     private EmailSender emailSender;
     @Autowired
@@ -52,12 +46,6 @@ class IGuaDaApplicationTests {
         System.out.println((Integer) redisTemplate.opsForHash().get("LastSeat", 1));
     }
 
-    @Test
-    void DatabaseOperationTest() {
-        System.out.println(testService.testField());
-        System.out.println(testService.insertTestField(new TestEntity("insertContentTest1", "insertContentTest2", LocalDateTime.now())));
-        System.out.println(testService.testField());
-    }
 
     @Test
     void emailSenderTest() throws MessagingException {
@@ -146,7 +134,7 @@ class IGuaDaApplicationTests {
         User newUser = new User();
         newUser.setUserId(gettedUser.getUserId());
         newUser.setName("testChanged");
-        newUser.setStudentNumber(123123);
+        newUser.setStudentNumber("123123");
         newUser.setEmail("testEmail@163.com");
         System.out.println(userService.setUserInformation(newUser));
         System.out.println(adminService.searchUser(gettedUser.getUserId()));
