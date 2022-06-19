@@ -3,13 +3,33 @@
 <mapper namespace="org.nwpu.i_gua_da.mapper.StationMapper">
     <resultMap id="Station" type="org.nwpu.i_gua_da.entity.Station">
         <id property="stationId" column="station_id"/>
+        <result property="stationName" column="station_name"/>
+        <result property="longitude" column="station_longitude"/>
+        <result property="latitude" column="station_latitude"/>
+        <result property="campus" column="station_campus"/>
+        <result property="status" column="status"/>
     </resultMap>
 
     <select id="selectStationByStationName" resultMap="Station">
-        SELECT station_id, station_name, station_telephone_numb from station_info where station_name = #{stationName} limit 1
+        SELECT station_id, station_name, station_longitude, station_latitude, station_campus, status from station_info where station_name = #{stationName} limit 1
     </select>
 
     <select id="selectStationByStationId" resultMap="Station">
-        SELECT station_id, station_name, station_telephone_numb from station_info where station_id = #{stationId}
+        SELECT station_id, station_name, station_longitude, station_latitude, station_campus, status
+        from station_info where station_id = #{stationId}
     </select>
+
+    <insert id="addNoticeDefaultStatus" parameterType="org.nwpu.i_gua_da.entity.Station">
+        INSERT INTO station_info (station_name, station_longitude, station_latitude, station_campus)
+        VALUES (#{stationName}, #{longitude}, #{latitude}, #{campus})
+    </insert>
+
+    <insert id="addStation" parameterType="org.nwpu.i_gua_da.entity.Station">
+        INSERT INTO station_info (station_name, station_longitude, station_latitude, station_campus, status)
+        VALUES (#{station_name}, #{longitude}, #{latitude}, #{campus}, #{status})
+    </insert>
+
+    <update id="removeStationById">
+        UPDATE station_info SET status = #{isDeleteStatus} where station_id = #{stationId}
+    </update>
 </mapper>

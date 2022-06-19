@@ -1,5 +1,7 @@
 package org.nwpu.i_gua_da.service.Impl;
 
+import com.github.pagehelper.util.StringUtil;
+import org.apache.ibatis.annotations.Param;
 import org.nwpu.i_gua_da.entity.User;
 import org.nwpu.i_gua_da.mapper.UserMapper;
 import org.nwpu.i_gua_da.service.AdminService;
@@ -25,6 +27,7 @@ public class UserServiceImpl implements UserService {
 
     @Autowired
     private UserMapper userMapper;
+
     @Autowired
     private AdminService adminService;
 
@@ -85,6 +88,23 @@ public class UserServiceImpl implements UserService {
         if(user.getUserId() < 0)
             throw new IllegalArgumentException();
         return userMapper.getUserStatusByUserId(user.getUserId());
+    }
+
+    @Override
+    public User getUserByCode(String code) {
+        return userMapper.getUserByCode(code);
+    }
+
+    @Override
+    public boolean addUser(User user) {
+        return userMapper.addUser(user)==1;
+    }
+
+    public boolean updateUserByOpenid(String openid,String nickname,String studentNumber,String email){
+        if (StringUtil.isEmpty(openid)||StringUtil.isEmpty(nickname)||StringUtil.isEmpty(studentNumber)||StringUtil.isEmpty(email)){
+            throw new IllegalArgumentException();
+        }
+        return userMapper.updateUserByOpenid(openid,nickname,studentNumber,email)==1;
     }
 
 }

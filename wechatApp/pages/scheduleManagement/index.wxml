@@ -1,0 +1,106 @@
+<view class="searchInfo">
+  <van-row>
+    <van-col span="16">
+      <van-field
+        readonly
+        label="开始时间："
+        bindtap="onStartDatePickerShow"
+        placeholder="搜索开始时间"
+        value="{{startDateStr}}"
+      />
+      <van-field
+        readonly
+        label="结束时间："
+        bindtap="onEndDatePickerShow"
+        placeholder="搜索结束时间"
+        value="{{endDateStr}}"
+      />
+    </van-col>
+    <!-- <van-col span="7">
+      <view class="btn-container">
+        <van-button type="info" custom-style="width:90%;height:70rpx;margin:8rpx 15rpx;" round bindtap="goto" data-url="/pages/addschedule/index">添加班车</van-button>
+        <van-button type="primary" custom-style="width:90%;height:70rpx;margin:8rpx 15rpx;" round>搜索</van-button>
+      </view>
+    </van-col> -->
+    <van-col span="8">
+      <van-button type="info" custom-style="width:90%;height:70rpx;margin-top:10rpx;margin-bottom:10rpx;" round bindtap="goto" data-url="/pages/addschedule/index">添加班车</van-button>
+      <van-button type="primary" custom-style="width:90%;;height:70rpx;margin-top:10rpx;" round bindtap="search">搜索</van-button>
+    </van-col>
+  </van-row>
+</view>
+<!-- 时间选择器 -->
+<van-popup show="{{ startDatePickerShow }}" bind:close="onCloseStartDatePicker" position="bottom">
+    <van-datetime-picker
+        type="date"
+        value="{{ startDate }}"
+        min-date="{{ minDate }}"
+        max-date="{{ maxDate }}"
+        bind:input="onInput"
+        formatter="{{ formatter }}"
+        bind:confirm="onConfirmStartDate"
+        cancel-button-text=""
+    />  
+</van-popup>
+<van-popup show="{{ endDatePickerShow }}" bind:close="onCloseEndDatePicker" position="bottom">
+    <van-datetime-picker
+        type="date"
+        value="{{ endDate }}"
+        min-date="{{ minDate }}"
+        max-date="{{ maxDate }}"
+        bind:input="onInput"
+        formatter="{{ formatter }}"
+        bind:confirm="onConfirmEndDate"
+        cancel-button-text=""
+    />  
+</van-popup>
+<!-- 公告列表部分 -->
+<scroll-view scroll-y>
+<view class="notice-item" wx:for="{{schedules}}" wx:key="id" wx:for-item="schedule">
+  <view class="notice-info-title clearfix">
+    <text class="notice-info-title-text">班次：{{schedule.scheduleId}}</text>
+    <text class="notice-info-title-text">{{schedule.departureDatetime}}</text>
+    <text class="notice-info-title-text">剩余座位：{{schedule.lastSeat}}</text>
+  </view>
+  <view class="line"></view>
+  <view class="order-content clearfix">
+    <view class="order-content-icon">
+     <view class="order-content-img">起</view>
+     <view class="line2"></view>
+     <view class="order-content-img">终</view>
+    </view>
+    <view class="order-content-info">
+     <text class="campus">{{schedule.startCampus}}</text>
+     <text class="station">{{schedule.startStation}}</text>
+     <text class="campus">{{schedule.endCampus}}</text>
+     <text class="station">{{schedule.endStation}}</text>
+    </view>
+  </view>
+  <view class="line"></view>
+  <view class="notice-operator  clearfix">
+    <view class="del">
+      <text bindtap="deleteSchedule" data-id="{{schedule.scheduleId}}">删除</text>
+    </view>
+  </view>
+</view>
+<!-- 分页部分 -->
+<view class="page clearfix">
+  <view class="btn" bindtap="prevPage">
+    <van-icon name="arrow-left"/>
+  </view>
+  <view class="page-info">
+    <text>{{currentPage}}/{{totalPage}}</text>
+  </view>
+  <view class="btn" bindtap="nextPage">
+    <van-icon name="arrow"/>
+  </view>
+</view>
+</scroll-view>
+<!-- 底部导航 -->
+<!-- <view class="bottom">
+  <van-grid column-num="{{isManager?4:3}}" border="{{false}}">
+    <van-grid-item link-type="redirectTo" icon="label-o" text="首页" url="/pages/index/index" />
+    <van-grid-item link-type="redirectTo" icon="logistics" text="班车" url="/pages/scheduleInfo/index"/>
+    <van-grid-item link-type="redirectTo" icon="wap-home-o" text="我的" url="/pages/myCenter/index" />
+    <van-grid-item link-type="redirectTo" wx:if="{{isManager}}" icon="setting-o" text="系统管理" url="/pages/manager/manager" />
+  </van-grid>
+</view> -->

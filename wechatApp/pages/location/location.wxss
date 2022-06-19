@@ -1,0 +1,25 @@
+/* pages/location/location.wxss */
+.detailMsg{
+    height: 200rpx;
+    margin: 30rpx 50rpx 0;
+}
+.detail-msg-title{
+  display: block;
+  font-size: 18px;
+  color: gray;
+  font-weight: lighter;
+}
+.detail-msg-content{
+    margin: 0 40rpx;
+    font-size: 24px;
+    color: gray;
+    font-weight: lighter;
+}
+.detail-msg-content:first-child{
+  float: left;
+  margin-left: 50rpx;
+}
+.detail-msg-content:last-child{
+  float: right;
+  margin-right: 50rpx;
+}

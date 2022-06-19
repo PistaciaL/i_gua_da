@@ -33,7 +33,9 @@
     </select>
 
     <select id="listNotices" resultMap="Notice">
-        SELECT n.notice_id, n.title, n.content, n.create_time, u.user_id, u.name from notice_info n left join user_info u on n.sender_id = u.user_id where n.status = #{notDeleteStatus}
+        SELECT n.notice_id, n.title, n.content, n.create_time, u.user_id, u.name
+        from notice_info n left join user_info u on n.sender_id = u.user_id
+        where n.status = #{notDeleteStatus}
     </select>
 
     <select id="listNoticeByNoticeTitleLike" resultMap="Notice">

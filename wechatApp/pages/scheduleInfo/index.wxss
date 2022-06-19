@@ -1,0 +1,141 @@
+/* pages/scheduleInfo/index.wxss */
+page {
+  background-color: #F6F6F6;
+}
+/* 搜索框整体 */
+.searchInfo{
+  margin: 30rpx 40rpx 0;
+}
+/* 分隔符 */
+.divideIcon{
+  margin: 35rpx 33rpx 0rpx;
+}
+/* 校区选择 */
+.campusSearch{
+  margin-bottom: 30rpx;
+}
+.search-btn{
+  text-align: center;
+  height: 80rpx;
+  line-height: 80rpx;
+  width: 90%;
+  margin: 30rpx auto;
+  font-weight: bold;
+  border-radius: 20rpx;
+  color: #FFFFFF;
+  background-color: #07C160;
+}
+/* 预约列表部分 */
+.order-item{
+  border-radius: 20rpx;
+  width: 90%;
+  margin: 0 auto;
+  margin-top: 20rpx;
+  background-color: #FFFFFF;
+}
+.order-info-title{
+  width: 90%;
+  margin: 10rpx auto;
+}
+.order-info-title-text{
+  font-size: 30rpx;
+  color: #808080;
+}
+.order-info-title-text:nth-child(1){
+  float: left;
+}
+.order-info-title-text:nth-child(2){
+  float:right;
+}
+.order-info-title-text:nth-child(3){
+  float:right;
+  margin-right: 25rpx;
+}
+.line{
+  height: 1rpx;
+  background-color: #A1A1A1;
+  width: 92%;
+  margin: 0 auto;
+}
+.order-content{
+  width: 90%;
+  margin: 20rpx auto;
+}
+.order-content-icon{
+  float: left;
+  margin-right: 20rpx;
+  margin-left: 20rpx;
+}
+.order-content-img{
+  width: 60rpx;
+  height: 60rpx;
+  border-radius: 30rpx;
+  text-align: center;
+  line-height: 60rpx;
+  color: #FFFFFF;
+}
+.order-content-img:nth-child(1){
+  background-color: #FA5A18;
+}
+.order-content-img:nth-child(3){
+  background-color: #209FF7;
+}
+.line2{
+  width: 1rpx;
+  height: 60rpx;
+  background-color: #A1A1A1;
+  margin: 20rpx auto;
+}
+.order-content-info{
+  width: 46%;
+  float: left;
+  margin-bottom: 10rpx;
+}
+.campus{
+  display: block;
+}
+.station{
+  display: block;
+  font-size: 30rpx;
+  color: #808080;
+}
+.station:nth-child(2){
+  margin-bottom: 70rpx;
+}
+.order-last-seat{
+  float: left;
+  color: #808080;
+}
+.order-operator{
+  width: 90%;
+  margin: 10rpx auto;
+}
+.cancel{
+  float: right;
+  font-size: 35rpx;
+  padding: 10rpx 20rpx;
+  margin-left: 20rpx;
+  border-radius: 10rpx;
+  border: 1px #F56C6C solid;
+  background-color: #F56C6C;
+  color: #FFFFFF;
+}
+.look{
+  float:right;
+  font-size: 35rpx;
+  padding: 10rpx 20rpx;
+  border-radius: 10rpx;
+  border: 1px #42A5F5 solid;
+  background-color: #42A5F5;
+  color: #FFFFFF;
+}
+.order-item:last-child{
+  margin-bottom: 200rpx;
+}
+/* 底部导航 */
+.bottom{
+  width: 100%;
+  height: 180rpx;
+  position: fixed;
+  bottom: 0rpx;
+}

@@ -27,6 +27,14 @@ constants:
       default: 1
       isDelete: 2
       notDelete: 1
+  station:
+    length:
+      stationName: 65535
+      campus: 65535
+    status:
+      default: 1
+      isDelete: 2
+      notDelete: 1
   schedule:
     status:
       default: 1
@@ -41,8 +49,10 @@ constants:
       notDelete: 1
   verificationCode:
     length: 6
+  wxlogin:
+    appid: wx407a31f1ca53a599
+    secret: ea9c64ba779a4c117d071722088afa0e
 redisKey:
   station: Station
   lastSeat: LastSeat
   verificationCode: VerificationCode
-

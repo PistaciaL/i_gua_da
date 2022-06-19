@@ -1,5 +1,6 @@
 package org.nwpu.i_gua_da.service;
 
+import com.github.pagehelper.PageInfo;
 import org.nwpu.i_gua_da.entity.Notice;
 
 import java.util.List;
@@ -13,7 +14,7 @@ public interface NoticeService {
      * @param PageSize 一页大小
      * @return 返回公告列表
      */
-    public List<Notice> getNoticeList(Integer PageNum, Integer PageSize);
+    public PageInfo<Notice> getNoticeList(Integer PageNum, Integer PageSize);
 
     /**
      * 发布公告
@@ -55,5 +56,5 @@ public interface NoticeService {
      * @param pageSize
      * @return
      */
-    public List<Notice> listNoticeByNoticeTitleLike(String noticeTitle, Integer pageNum, Integer pageSize);
+    public PageInfo<Notice> listNoticeByNoticeTitleLike(String noticeTitle, Integer pageNum, Integer pageSize);
 }

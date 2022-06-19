@@ -1,0 +1,30 @@
+<view class="body">
+  <view class="noticeTitle">
+    <text>
+      {{notice.title}}
+    </text>
+  </view>
+  <view class="otherInfo">
+    <text class="title">
+      {{notice.createTime}}
+    </text>
+    <text class="sender">
+      {{notice.sender}}
+    </text>
+  </view>
+  <view class="noticeContent clearfix">
+    <text>
+      {{notice.content}}
+    </text>
+  </view>
+</view>
+
+<!-- 底部导航栏 -->
+<!-- <view class="bottom">
+  <van-grid column-num="{{isManager?4:3}}" border="{{false}}">
+    <van-grid-item link-type="redirectTo" icon="label-o" text="首页" url="/pages/index/index" />
+    <van-grid-item link-type="redirectTo" icon="logistics" text="班车" url="/pages/scheduleInfo/index" />
+    <van-grid-item link-type="redirectTo" icon="wap-home-o" text="我的" url="/pages/myCenter/index" />
+    <van-grid-item link-type="redirectTo" wx:if="{{isManager}}" icon="setting-o" text="系统管理" url="/pages/manager/manager" />
+  </van-grid>
+</view> -->

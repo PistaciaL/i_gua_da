@@ -1,7 +1,9 @@
 package org.nwpu.i_gua_da.service;
 
+import com.github.pagehelper.PageInfo;
 import org.nwpu.i_gua_da.entity.Notice;
 import org.nwpu.i_gua_da.entity.User;
+import org.springframework.stereotype.Service;
 
 import java.util.List;
 
@@ -29,7 +31,7 @@ public interface AdminService {
      * @param PageSize 一页大小
      * @return 返回用户列表
      */
-    public List<User> getUserList(Integer PageNum, Integer PageSize);
+    public PageInfo<User> getUserList(Integer PageNum, Integer PageSize);
 
     /**
      * 根据用户id查找用户
@@ -68,5 +70,9 @@ public interface AdminService {
      * @param pageSize
      * @return
      */
-    public List<User> listUserByLikeUserName(String userName, Integer pageNum, Integer pageSize);
+    public PageInfo<User> listUserByLikeUserName(String userName, Integer pageNum, Integer pageSize);
+
+    PageInfo<User> listUserByLikeStudentNumber(int studentNumber, int page, int pageSize);
+
+    boolean setUserPermission(int userId, int permission);
 }

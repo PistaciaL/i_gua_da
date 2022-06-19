@@ -1,0 +1,55 @@
+<!--首页-->
+<!-- 顶部消息部分 -->
+<view>
+  <view class="notice-container clearfix">
+    <view class="notice-title">
+      <van-icon class="notice-icon" name="volume" />
+    </view>
+    <swiper class="notice" autoplay interval="3000" circular vertical="{{true}}">
+      <swiper-item class="notice-item" wx:for="{{notices}}" wx:key="id" wx:for-item="notice">
+        <text class="notice-text" bindtap="gotoNotice" data-id="{{notice.noticeId}}">{{notice.title}}</text>
+      </swiper-item>
+    </swiper>
+  </view>
+  <!-- 轮播图部分 -->
+  <view class="index-swiper-container">
+    <swiper class="index-swiper" indicator-dots autoplay interval="4000" circular>
+      <swiper-item class="index-swiper-item">
+        <image class="index-swiper-item-img" src="https://www.nwpu.edu.cn/images/44E3AB026F25BA12CF3A6CD4536_29C7C021_37FA0D.jpg" mode="widthFix"></image>
+      </swiper-item>
+      <swiper-item>
+        <image class="index-swiper-item-img" src="https://www.nwpu.edu.cn/images/13B0508A6F7F907A210E2D18AFF_287D7263_2041C.jpg" mode="widthFix"></image>
+      </swiper-item>
+      <swiper-item>
+        <image class="index-swiper-item-img" src="https://www.nwpu.edu.cn/images/FFF4A41B727F3324A752CE295FB_05445CF9_2C023.jpg" mode="widthFix"></image>
+      </swiper-item>
+    </swiper>
+  </view>
+  <!-- 时刻表 -->
+  <view class="times">
+    <h1 class="times-title">校车班次表</h1>
+    <view class="time-table">
+      <view class="table-title">
+        <text class="table-title-text">始发站</text>
+        <text class="table-title-text">终点站</text>
+        <text class="table-title-text">发车时间</text>
+      </view>
+      <scroll-view class="table-content-container" scroll-y>
+        <view class="table-content" wx:for="{{schedules}}" wx:key="scheduleId" wx:for-item="schedule">
+          <text class="table-content-text">{{schedule.startCampus}}</text>
+          <text class="table-content-text">{{schedule.endCampus}}</text>
+          <text class="table-content-text">{{schedule.departureDatetime}}</text>
+        </view>
+      </scroll-view>
+    </view>
+  </view>
+</view>
+<!-- 底部导航 -->
+<view class="bottom">
+  <van-grid column-num="{{isManager?4:3}}" border="{{false}}">
+    <van-grid-item icon-color="#42A5F5" icon="label-o" text="首页"/>
+    <van-grid-item link-type="redirectTo" icon="logistics" text="班车" url="/pages/scheduleInfo/index" />
+    <van-grid-item link-type="redirectTo" icon="wap-home-o" text="我的" url="/pages/myCenter/index" />
+    <van-grid-item link-type="redirectTo" wx:if="{{isManager}}" icon="setting-o" text="系统管理" url="/pages/manager/manager" />
+  </van-grid>
+</view> 

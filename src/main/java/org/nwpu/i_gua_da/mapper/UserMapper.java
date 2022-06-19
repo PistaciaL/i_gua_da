@@ -17,7 +17,8 @@ public interface UserMapper {
 
     User selectUserByName(String userName);
 
-    int setUserStatusByUserId(@Param("userId") Integer userId, @Param("status") Integer status);
+    int setUserStatusByUserId(@Param("userId") Integer userId,
+                              @Param("status") Integer status);
 
     /**
      * 对用户名和密码进行验证
@@ -29,6 +30,8 @@ public interface UserMapper {
     int addUser(User user);
 
     int setUserPassword(User user);
+
+
 
     /**
      * 查重, 用户名|学号|邮箱有一个重复则返回不为空
@@ -59,4 +62,35 @@ public interface UserMapper {
     Integer getUserStatusByUserId(Integer userId);
 
     List<User> listUserByLikeUserName(String userName);
+    
+    /**
+     * 用户第一次注册登录，赋给openid和本次登录的code
+     * @param openid
+     * @param code
+     * @return
+     */
+    int setUserOpenidAndCode(@Param("userId") Integer userId, @Param("openid") String openid, @Param("code") String code);
+    
+    /**
+     * 用户再一次登录，更新code
+     * @param code
+     * @return
+     */
+    int updateCode(@Param("userId") Integer userId, @Param("code") String code);
+    
+    /**
+     * 通过code获取对应的user
+     * @param code
+     * @return
+     */
+    User getUserByCode(@Param("code") String code);
+
+    User getUserByOpenid(@Param("openid") String openid);
+
+    List<User> listUserByLikeStudentNumber(int studentNumber);
+
+    int setUserPermission(int userId, int permission);
+
+    int updateUserByOpenid(@Param("openid") String openid, @Param("nickname") String nickname,
+                           @Param("studentNumber") String studentNumber, @Param("email") String email);
 }

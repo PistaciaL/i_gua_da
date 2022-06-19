@@ -1,0 +1,106 @@
+<scroll-view scroll-y>
+<view class="searchInfo">
+  <van-row custom-class="campusSearch">
+    <van-col span="10">
+      <van-field
+          value="{{ startCampusStr }}"
+          readonly
+          placeholder="请选择始发校区"
+          bindtap="onDisplayStartStationPicker"
+          custom-style="margin-top: 20rpx"
+      />
+    </van-col>
+    <van-col span="4">
+      <van-icon name="arrow" size="50rpx" custom-class="divideIcon" />
+    </van-col>
+    <van-col span="10">
+      <van-field
+          value="{{ endCampusStr }}"
+          readonly
+          placeholder="请选择终点校区"
+          bindtap="onDisplayEndStationPicker"
+          custom-style="margin-top: 20rpx"
+      />
+    </van-col>
+  </van-row>
+  <van-field
+    readonly
+    label="出发日期："
+    bindtap="onDisplayDatetimePicker"
+    placeholder="请选择发车时间"
+    value="{{datetimeStr}}"
+  />
+</view>
+<van-popup show="{{ startStationPickerShow }}" bind:close="onCloseStartStationPicker" position="bottom">
+  <van-picker class="picker-start-station" 
+    columns="{{station}}" 
+    value-key="station"
+    bind:change="onChange" 
+    show-toolbar="{{true}}"
+    cancel-button-text=""
+    confirm-button-text="确认"
+    bind:confirm="onConfirmStartStationInput"
+  />
+</van-popup>
+<van-popup show="{{ endStationPickerShow }}" bind:close="onCloseEndStationPicker" position="bottom">
+  <van-picker class="picker-start-station" 
+    columns="{{station}}" 
+    value-key="station"
+    bind:change="onChange" 
+    show-toolbar="{{true}}"
+    cancel-button-text=""
+    confirm-button-text="确认"
+    bind:confirm="onConfirmEndStationInput"
+  />
+</van-popup>
+<van-popup show="{{ datetimePickershow }}" bind:close="onCloseDatetimePicker" position="bottom">
+    <van-datetime-picker
+        type="date"
+        value="{{ currentDate }}"
+        min-date="{{ minDate }}"
+        max-date="{{ maxDate }}"
+        bind:input="onInput"
+        formatter="{{ formatter }}"
+        bind:confirm="onConfirmDatetimeInput"
+        cancel-button-text=""
+    />  
+</van-popup>
+<view class="search-btn" type="primary" bindtap="chaxun"><van-icon name="search" />查询</view>
+<!-- 预约列表部分 -->
+<view class="order-item clearfix"  wx:for="{{orders}}" wx:key="id" wx:for-item="order">
+  <view class="order-info-title clearfix">
+    <text class="order-info-title-text">班车号:{{order.scheduleId}}</text>
+    <text class="order-info-title-text">发车时间:{{order.departureDatetime}}</text>
+  </view>
+  <view class="line"></view>
+  <view class="order-content clearfix">
+    <view class="order-content-icon">
+     <view class="order-content-img">起</view>
+     <view class="line2"></view>
+     <view class="order-content-img">终</view>
+    </view>
+    <view class="order-content-info">
+     <text class="campus">{{startCampusStr}}</text>
+     <text class="station">{{order.startStation}}</text>
+     <text class="campus">{{endCampusStr}}</text>
+     <text class="station">{{order.endStation}}</text>
+    </view>
+    <view class="order-last-seat">剩余座位：{{order.lastSeat}}</view>
+  </view>
+  <view class="line"></view>
+  <view class="order-operator  clearfix">
+    <view class="look">
+      <text bindtap="yuyue" data-id="{{order.scheduleId}}">预约</text>
+    </view>
+  </view>
+</view>
+</scroll-view>
+<!-- 底部导航栏 -->
+<view class="bottom">
+  <van-grid column-num="{{isManager?4:3}}" border="{{false}}">
+    <van-grid-item link-type="redirectTo" icon="label-o" text="首页" url="/pages/index/index" />
+    <van-grid-item link-type="redirectTo" icon-color="#42A5F5" icon="logistics" text="班车" />
+    <van-grid-item link-type="redirectTo" icon="wap-home-o" text="我的" url="/pages/myCenter/index" />
+    <van-grid-item link-type="redirectTo" wx:if="{{isManager}}" icon="setting-o" text="系统管理" url="/pages/manager/manager" />
+  </van-grid>
+</view> 

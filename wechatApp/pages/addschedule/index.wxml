@@ -1,0 +1,70 @@
+<view class="bg"/>
+<view class="form">
+    <van-cell-group>
+        <text class="form-title">发车时间：</text>
+        <van-field
+            readonly
+            bindtap="onDisplayDatetimePicker"
+            placeholder="请选择发车时间"
+            value="{{datetimeStr}}"
+        />
+        <text class="form-title">始发站：</text>
+        <van-field
+            value="{{ startStationStr }}"
+            readonly
+            placeholder="请选择始发站"
+            bindtap="onDisplayStartStationPicker"
+        />
+        <text class="form-title">终点站：</text>
+        <van-field
+            value="{{ endStationStr }}"
+            readonly
+            placeholder="请选择终点站"
+            bindtap="onDisplayEndStationPicker"
+        />
+        <van-button class="submit-btn" type="default" form-type="submit" bind:click="addSchedule">添加班次</van-button>
+    </van-cell-group>
+</view>
+<van-popup show="{{ datetimePickershow }}" bind:close="onCloseDatetimePicker" position="bottom">
+    <van-datetime-picker
+        type="datetime"
+        value="{{ currentDate }}"
+        min-date="{{ minDate }}"
+        max-date="{{ maxDate }}"
+        bind:input="onInput"
+        formatter="{{ formatter }}"
+        bind:confirm="onConfirmDatetimeInput"
+        cancel-button-text=""
+    />  
+</van-popup>
+<van-popup show="{{ startStationPickerShow }}" bind:close="onCloseStartStationPicker" position="bottom">
+  <van-picker class="picker-start-station" 
+    columns="{{station}}" 
+    value-key="station"
+    bind:change="onChange" 
+    show-toolbar="{{true}}"
+    cancel-button-text=""
+    confirm-button-text="确认"
+    bind:confirm="onConfirmStartStationInput"
+  />
+</van-popup>
+<van-popup show="{{ endStationPickerShow }}" bind:close="onCloseEndStationPicker" position="bottom">
+  <van-picker class="picker-start-station" 
+    columns="{{station}}" 
+    value-key="station"
+    bind:change="onChange" 
+    show-toolbar="{{true}}"
+    cancel-button-text=""
+    confirm-button-text="确认"
+    bind:confirm="onConfirmEndStationInput"
+  />
+</van-popup>
+<!-- 底部导航栏 -->
+<!-- <view class="bottom">
+  <van-grid column-num="{{isManager?4:3}}" border="{{false}}">
+    <van-grid-item link-type="redirectTo" icon="label-o" text="首页" url="/pages/index/index" />
+    <van-grid-item link-type="redirectTo" icon="logistics" text="班车" url="/pages/scheduleInfo/index" />
+    <van-grid-item link-type="redirectTo" icon="wap-home-o" text="我的" url="/pages/myCenter/index" />
+    <van-grid-item link-type="redirectTo" wx:if="{{isManager}}" icon="setting-o" text="系统管理" url="/pages/manager/manager" />
+  </van-grid>
+</view> -->

@@ -1,0 +1,28 @@
+/* pages/addnotice/index.wxss */
+page {
+    background-color: #F6F6F6;
+}
+.bg {
+    height: 400rpx;
+    width: 100%;
+    background-color: #07C160;
+}
+.form {
+    margin-top: -250rpx;
+    margin-left: 10%;
+    width: 70%;
+    padding: 5%;
+    background-color: #FFFFFF;
+    border-radius: 15px;
+}
+.form-title {
+    font-size: 14px;
+    color: gray;
+    margin: 3px;
+}
+.submit-btn {
+    justify-content: center;
+    display: flex;
+    margin-top: 30rpx;
+}
+/* 底部导航 */

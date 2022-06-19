@@ -1,24 +1,38 @@
 <?xml version="1.0" encoding="UTF-8" ?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="org.nwpu.i_gua_da.mapper.UserMapper">
+
     <resultMap id="User" type="org.nwpu.i_gua_da.entity.User">
         <id property="userId" column="user_id"/>
+        <result property="name" column="name"/>
+        <result property="password" column="password"/>
+        <result property="studentNumber" column="student_number"/>
+        <result property="email" column="email"/>
+        <result property="registerDatetime" column="register_datetime"/>
+        <result property="permission" column="permission"/>
+        <result property="status" column="status"/>
+        <result property="openid" column="openid"/>
+        <result property="code" column="code"/>
     </resultMap>
 
     <update id="setUserAsAdmin">
-        UPDATE user_info SET permission = #{adminCode} WHERE user_id = #{userId} and status = #{notDeleteStatus}
+        UPDATE user_info SET permission = #{adminCode}
+        WHERE user_id = #{userId} and status = #{notDeleteStatus}
     </update>
 
     <update id="setUserAsCommon">
-        UPDATE user_info SET permission = #{commonCode} WHERE user_id = #{userId} and `name` != #{adminName} and status = #{notDeleteStatus}
+        UPDATE user_info SET permission = #{commonCode}
+        WHERE user_id = #{userId} and `name` != #{adminName} and status = #{notDeleteStatus}
     </update>
 
     <select id="selectUserById" resultMap="User">
-        SELECT user_id, name, student_number, email, register_datetime, permission, status FROM user_info  where user_id = #{userId}
+        SELECT user_id, name, student_number, email, register_datetime, permission, status,openid,code
+        FROM user_info  where user_id = #{userId}
     </select>
 
     <select id="selectUserByName" resultMap="User">
-        SELECT user_id, name, student_number, email, register_datetime, permission, status FROM user_info u where name = #{userName} limit 1
+        SELECT user_id, name, student_number, email, register_datetime, permission, status,openid,code
+        FROM user_info u where name = #{userName} limit 1
     </select>
 
     <update id="setUserStatusByUserId">
@@ -30,7 +44,11 @@
     </select>
 
     <insert id="addUser" parameterType="org.nwpu.i_gua_da.entity.User">
-        INSERT INTO user_info (name, password, student_number, email, register_datetime, permission, status) VALUES(#{name}, #{password}, #{studentNumber}, #{email}, #{registerDatetime}, #{permission}, #{status})
+        INSERT INTO
+            user_info (name, password, student_number, email,
+                       register_datetime, permission, status, openid, code)
+        VALUES(#{name}, #{password}, #{studentNumber}, #{email},
+               #{registerDatetime}, #{permission}, #{status},#{openid},#{code})
     </insert>
 
     <update id="setUserPassword" parameterType="org.nwpu.i_gua_da.entity.User">
@@ -54,7 +72,7 @@
     </select>
     
     <select id="getAllUser" resultMap="User">
-        SELECT user_id, name, student_number, email, register_datetime, permission, status FROM user_info
+        SELECT user_id, name, student_number, email, register_datetime, permission, status,openid,code FROM user_info
     </select>
 
     <select id="getUserPermissionByUserId" parameterType="org.nwpu.i_gua_da.entity.User" resultType="Integer">
@@ -62,10 +80,43 @@
     </select>
 
     <select id="getUserByEmail" resultMap="User">
-        SELECT user_id, name, student_number, email, register_datetime, permission, status from user_info where email=#{email}
+        SELECT user_id, name, student_number, email, register_datetime, permission, status,openid,code from user_info where email=#{email}
     </select>
 
     <select id="listUserByLikeUserName" resultMap="User">
-        SELECT user_id, name, student_number, email, register_datetime, permission, status FROM user_info where name like CONCAT('%',#{userName},'%')
+        SELECT user_id, name, student_number, email, register_datetime, permission, status,openid,code
+        FROM user_info where name like CONCAT('%',#{userName},'%')
     </select>
+
+    <select id="listUserByLikeStudentNumber" resultMap="User">
+        SELECT user_id, name, student_number, email, register_datetime, permission, status,openid,code
+        FROM user_info where student_number like CONCAT('%',#{studentNumber},'%')
+    </select>
+
+    <update id="setUserPermission">
+        UPDATE user_info SET permission= #{arg1} where user_id = #{arg0}
+    </update>
+
+    <update id="updateUserByOpenid">
+        UPDATE user_info SET name = #{nickname}, student_number = #{studentNumber},email = #{email} where openid=#{openid}
+    </update>
+    
+    <update id="setUserOpenidAndCode" parameterType="org.nwpu.i_gua_da.entity.User">
+    	UPDATE user_info SET openid=#{openid}, code=#{code} where user_id = #{userId}
+    </update>
+    
+    <update id="updateCode" parameterType="org.nwpu.i_gua_da.entity.User">
+    	UPDATE user_info SET code=#{code} where user_id = #{userId}
+    </update>
+    
+    <select id="getUserByCode" resultMap="User">
+    	SELECT user_id, name,password,student_number, email, register_datetime, permission, status, openid, code
+    	FROM user_info where code = #{code}
+    </select>
+
+    <select id="getUserByOpenid" resultMap="User">
+        SELECT user_id, name, student_number, email, register_datetime, permission, status, openid, code
+        FROM user_info where openid = #{openid}
+    </select>
+    
 </mapper>

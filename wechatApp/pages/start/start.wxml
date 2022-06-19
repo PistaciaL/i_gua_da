@@ -1,0 +1,5 @@
+<!--pages/start/start.wxml-->
+<import src="/template/bottom/bottom"/>
+<text class="testText">首页</text>
+<template is="bottom"/>
+

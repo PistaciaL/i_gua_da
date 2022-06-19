@@ -1,0 +1,115 @@
+/* pages/userManagement/userManagement.wxss */
+page{
+  background-color: #F0F0F0;
+}
+/* 顶部搜索框部分 */
+.search{
+  background-color: #FFFFFF;
+  padding: 10rpx 0;
+  border-bottom: 1rpx #A1A1A1 solid;
+}
+.input{
+  float: left;
+  border: 1rpx #CFCFCF solid;
+  padding-left: 20rpx;
+  background-color: #FFFFFF;
+  width: 80%;
+  border-radius: 25rpx;
+  margin-left: 60rpx;
+}
+/* 用户列表部分 */
+.user-item{
+  border-radius: 20rpx;
+  border: 1rpx #FFFFFF solid;
+  width: 96%;
+  margin: 0 auto;
+  margin-top: 20rpx;
+  background-color: #FFFFFF;
+}
+.user-info-title{
+  width: 90%;
+  margin: 10rpx auto;
+}
+.user-info-title-text{
+  font-size: 30rpx;
+  color: #808080;
+}
+.user-info-title-text:nth-child(1){
+  float: left;
+}
+.user-info-title-text:nth-child(2){
+  float:right;
+}
+.line{
+  height: 1rpx;
+  background-color: #A1A1A1;
+  width: 92%;
+  margin: 0 auto;
+}
+.user-info-content{
+  width: 90%;
+  margin: 10rpx auto;
+}
+.user-info-content-text{
+  font-size: 30rpx;
+  color: #808080;
+}
+.user-info-content-icon{
+  font-size: 30rpx;
+  color: #42A5F5;
+}
+.user-operator{
+  width: 90%;
+  margin: 10rpx auto;
+}
+.power-set{
+  float: right;
+  font-size: 35rpx;
+  padding: 10rpx 20rpx;
+  margin-left: 20rpx;
+  border-radius: 10rpx;
+  border: 1px #42A5F5 solid;
+  background-color: #42A5F5;
+  color: #FFFFFF;
+}
+.status-set{
+  float:right;
+  font-size: 35rpx;
+  padding: 10rpx 20rpx;
+  border-radius: 10rpx;
+  border: 1px #A1A1A1 solid;
+  color: #808080;
+}
+/* 分页部分 */
+.page{
+  margin: 20rpx auto;
+}
+.btn{
+  float: left;
+  border-radius: 10rpx;
+  padding: 10rpx 15rpx;
+  color: #808080;
+  background-color: #FFFFFF;
+}
+.page-info{
+  float: left;
+  padding: 10rpx 20rpx;
+}
+.btn:nth-child(1){
+  margin-left: 260rpx;
+}
+/* .goto-page{
+  margin-top: 1rpx;
+  height: 50rpx;
+  width: 60rpx;
+  border-radius: 10rpx;
+  background-color: #FFFFFF;
+  border: 1rpx #CFCFCF solid;
+} */
+/* 底部导航条部分 */
+.bottom{
+  width: 100%;
+  height: 180rpx;
+  position: fixed;
+  bottom: 0rpx;
+}

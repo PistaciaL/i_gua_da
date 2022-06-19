@@ -1,0 +1,13 @@
+.body {
+  width: 100%;
+}
+.avatarImg {
+  width: 128rpx;
+  height: 128rpx;
+  display: flex;
+  align-items: center;
+  margin-bottom: 100rpx;
+}
+.form{
+  margin: 0 70rpx;
+}

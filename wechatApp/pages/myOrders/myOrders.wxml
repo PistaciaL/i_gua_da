@@ -1,0 +1,59 @@
+<!--pages/myOrders/myOrders.wxml-->
+<!-- 顶部导航条 -->
+<view class="top-nav clearfix">
+  <text class="top-nav-choice">当前预约</text>
+  <text class="top-nav-choice" bindtap="goto" data-url="../../pages/historyOrders/historyOrders">历史预约</text>
+</view>
+<scroll-view scroll-y>
+<!-- 预约列表部分 -->
+<view class="order-item clearfix"  wx:for="{{orders}}" wx:key="id" wx:for-item="order">
+  <view class="order-info-title clearfix">
+    <text class="order-info-title-text">预约号:{{order.reserveId}}</text>
+    <text class="order-info-title-text">发车时间:{{order.departureDatetime}}</text>
+  </view>
+  <view class="line"></view>
+  <view class="order-content clearfix">
+    <view class="order-content-icon">
+     <view class="order-content-img">起</view>
+     <view class="line2"></view>
+     <view class="order-content-img">终</view>
+    </view>
+    <view class="order-content-info">
+     <text class="campus">{{order.startCampus}}</text>
+     <text class="station">{{order.startStation}}</text>
+     <text class="campus">{{order.endCampus}}</text>
+     <text class="station">{{order.endStation}}</text>
+    </view>
+  </view>
+  <view class="line"></view>
+  <view class="order-operator  clearfix">
+    <view class="cancel">
+      <text bindtap="cancelReserve" data-id="{{order.reserveId}}">取消预约</text>
+    </view>
+    <view class="look">
+      <text bindtap="goto" data-url="/pages/location/location">导航</text>
+    </view>
+  </view>
+</view>
+<!-- 分页部分 -->
+<view class="page clearfix">
+  <view class="btn">
+    <van-icon name="arrow-left" bindtap="prevPage" />
+  </view>
+  <view class="page-info">
+    <text>{{currentPage}}/{{totalPage}}</text>
+  </view>
+  <view class="btn">
+    <van-icon name="arrow" bindtap="nextPage"/>
+  </view>
+</view>
+</scroll-view>
+<!-- 底部导航 -->
+<!-- <view class="bottom">
+  <van-grid column-num="{{isManager?4:3}}" border="{{false}}">
+    <van-grid-item link-type="redirectTo" icon="label-o" text="首页" url="/pages/index/index" />
+    <van-grid-item link-type="redirectTo" icon="logistics" text="班车" url="/pages/scheduleInfo/index" />
+    <van-grid-item link-type="redirectTo" icon="wap-home-o" text="我的" url="/pages/myCenter/index" />
+    <van-grid-item link-type="redirectTo" wx:if="{{isManager}}" icon="setting-o" text="系统管理" url="/pages/manager/manager" />
+  </van-grid>
+</view> -->

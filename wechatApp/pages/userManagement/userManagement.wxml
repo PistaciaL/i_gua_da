@@ -1,0 +1,64 @@
+<!--用户管理界面-->
+<!-- 搜索框部分 -->
+<scroll-view scroll-y>
+<view class="search clearfix">
+  <input class="input" value="{{searchInfo}}" bindinput="updateInput" 	placeholder="输入用户学号进行搜索" placeholder-style="font-size:30rpx" 	bindconfirm="search" 	confirm-type="search"></input>
+</view>
+<!-- 用户列表部分 -->
+<view class="user-item" wx:for="{{users}}" wx:key="id" wx:for-item="user">
+  <view class="user-info-title clearfix">
+    <text class="user-info-title-text">用户:{{user.nickname}}</text>
+    <text class="user-info-title-text">状态:{{user.status}}</text>
+  </view>
+  <view class="line"></view>
+  <view class="user-info-content">
+    <van-icon class="user-info-content-icon" name="manager-o" />
+    <text class="user-info-content-text">用户身份:{{user.permission}}</text>
+  </view>
+  <view class="user-info-content">
+    <van-icon class="user-info-content-icon" name="records" />
+    <text class="user-info-content-text">学工号:{{user.studentNumber}}</text>
+  </view>
+  <view class="user-info-content">
+    <van-icon class="user-info-content-icon" name="envelop-o" />
+    <text class="user-info-content-text">邮箱:{{user.email}}</text>
+  </view>
+  <view class="line"></view>
+  <view class="user-operator  clearfix">
+    <view class="power-set">
+      <text wx:if="{{user.permission=='管理员'}}" bindtap="setPermission" 
+        data-id="{{user.userId}}" data-newPermission="1">取消管理员</text>
+      <text wx:else bindtap="setPermission" 
+        data-id="{{user.userId}}" data-newPermission="2">设为管理员</text>
+    </view>
+    <view class="status-set">
+      <text wx:if="{{user.status=='正常'}}" bindtap="setStatus" 
+        data-id="{{user.userId}}" data-newStatus="2">封禁</text>
+      <text wx:else bindtap="setStatus" 
+        data-id="{{user.userId}}" data-newStatus="1">解封</text>
+    </view>
+  </view>
+</view>
+<!-- 分页部分 -->
+<view class="page clearfix">
+  <view class="btn" bindtap="prevPage">
+    <van-icon name="arrow-left" />
+  </view>
+  <view class="page-info">
+    <text>{{currentPage}}/{{totalPage}}</text>
+  </view>
+  <view class="btn" bindtap="nextPage">
+    <van-icon name="arrow" />
+  </view>
+  <!-- <input class="goto-page" bindinput="updatePage" bindconfirm="go" 	confirm-type="go"></input> -->
+</view>
+</scroll-view>
+<!-- 底部导航 -->
+<!-- <view class="bottom">
+  <van-grid column-num="{{isManager?4:3}}" border="{{false}}">
+    <van-grid-item link-type="redirectTo" icon="label-o" text="首页" url="/pages/index/index" />
+    <van-grid-item link-type="redirectTo" icon="logistics" text="班车" url="/pages/scheduleInfo/index"/>
+    <van-grid-item link-type="redirectTo" icon="wap-home-o" text="我的" url="/pages/myCenter/index" />
+    <van-grid-item link-type="redirectTo" wx:if="{{isManager}}" icon="setting-o" text="系统管理" url="/pages/manager/manager" />
+  </van-grid>
+</view> -->

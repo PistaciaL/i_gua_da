@@ -1,0 +1,55 @@
+/* pages/manager/manager.wxss */
+page{
+  background-color: #F0F0F0;
+}
+.top-nav{
+  padding-top: 30rpx;
+  padding-bottom: 30rpx;
+  background-color: #FFFFFF;
+}
+.user-avatar{
+  float: left;
+  width: 150rpx;
+  height: 150rpx;
+  border-radius: 75rpx;
+  margin-left: 30rpx;
+}
+.user-name{
+  float: left;
+  margin-top: 22rpx;
+  margin-left: 20rpx;
+  font-size: 30rpx;
+}
+.choice-list{
+  background-color: #FFFFFF;
+  margin-top: 30rpx;
+}
+.choice-item{
+  padding-top: 20rpx;
+  padding-bottom: 20rpx;
+  width: 95%;
+  margin:0 auto;
+}
+.choice-item-icon{
+  margin-left: 20rpx;
+  margin-right: 20rpx;
+  color: #42A5F5;
+}
+.choice-item-text{
+  color: #A1A1A1;
+  width: 80%;
+  display: inline-block;
+}
+.line{
+  height: 1rpx;
+  background-color: #A1A1A1;
+  width: 95%;
+  margin: 0 auto;
+}
+/* 底部导航条部分 */
+.bottom{
+  width: 100%;
+  height: 180rpx;
+  position: fixed;
+  bottom: 0rpx;
+}

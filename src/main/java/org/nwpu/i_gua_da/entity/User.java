@@ -1,10 +1,12 @@
 package org.nwpu.i_gua_da.entity;
 
 import lombok.Data;
+import lombok.ToString;
 
 import java.time.LocalDateTime;
 
 @Data
+@ToString
 public class User {
     private Integer userId;
     private String name;
@@ -24,7 +26,9 @@ public class User {
      * 2: 封禁状态
      */
     private Integer status;
-
+    private String openid;
+    private String code;
+    
     /**
      * 空构造函数
      */

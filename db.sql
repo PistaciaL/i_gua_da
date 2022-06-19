@@ -33,6 +33,9 @@ CREATE TABLE `station_info` (
                                 `station_name` varchar(20) NOT NULL DEFAULT '' COMMENT '车站名字',
                                 `station_telephone_numb` varchar(20) DEFAULT '' COMMENT '车站联系人电话',
                                 `status` tinyint(4) NOT NULL DEFAULT '1' COMMENT '删除状态',
+                                `station_longitude` double(16,4) NOT NULL DEFAULT '' COMMENT '车站经度',
+                                `station_latitude` double(16,4) NOT NULL DEFAULT '' COMMENT '车站纬度',
+                                `station_campus` varchar(20) NOT NULL DEFAULT '' COMMENT '车站所在校园',
                                 PRIMARY KEY (`station_id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 

@@ -1,21 +1,21 @@
 package org.nwpu.i_gua_da.service;
 
-import org.nwpu.i_gua_da.entity.Schedule;
-import org.springframework.context.annotation.Bean;
-
 import java.time.LocalDateTime;
 import java.util.List;
 
-public interface ScheduleService {
+import com.github.pagehelper.PageInfo;
+import org.nwpu.i_gua_da.entity.Schedule;
 
-    /**
+public interface ScheduleService {
+	
+	/**
      * 获取所有校车班车
      * (所有查询失败的结果都返回null)
      * @param PageNum 页码数
      * @param PageSize 一页大小
      * @return 所有的班次信息
      */
-    public List<Schedule> getSchedule(Integer PageNum, Integer PageSize);
+    public PageInfo<Schedule> getSchedule(Integer PageNum, Integer PageSize);
 
     /**
      * 查找时间区域内的班次信息
@@ -30,8 +30,22 @@ public interface ScheduleService {
      * 我把所有的字符串转化成LocalDateTime的格式传递参数
      * @return 返回在查找时间内的所有班次
      */
-    public List<Schedule> findSchedule(LocalDateTime StartTime, LocalDateTime EndTime, Integer PageNum, Integer PageSize);
+    public PageInfo<Schedule> findSchedule(LocalDateTime StartTime, LocalDateTime EndTime, Integer PageNum, Integer PageSize);
 
+    /**
+     * 查找时间区域内和指定出发地，目的地的班次信息
+     * (所有查询失败的结果都返回null)
+     * @param StartTime
+     * @param EndTime
+     * @param startStationName
+     * @param endStationName
+     * @param PageNum
+     * @param PageSize
+     * @return 返回符合条件的所有班次
+     */
+    public PageInfo<Schedule> findScheduleByStationAndTime(LocalDateTime StartTime, LocalDateTime EndTime,
+    		String startStationName, String endStationName, Integer PageNum, Integer PageSize);
+    
     /**
      * 通过班次id查找班次
      * (所有查询失败的结果都返回null)
@@ -53,4 +67,5 @@ public interface ScheduleService {
      * @return true删除成功 / false删除失败
      */
     public boolean removeSchcedule(Integer scheduledId);
+     
 }

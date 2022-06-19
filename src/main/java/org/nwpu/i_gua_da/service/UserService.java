@@ -1,5 +1,6 @@
 package org.nwpu.i_gua_da.service;
 
+import org.apache.ibatis.annotations.Param;
 import org.nwpu.i_gua_da.entity.User;
 
 public interface UserService {
@@ -47,5 +48,11 @@ public interface UserService {
      * @param user 用户
      * @return 1：正常状态，2：封禁状态
      */
-    public Integer getUserStatus(User user);
+    Integer getUserStatus(User user);
+
+    User getUserByCode(String code);
+
+    boolean addUser(User user);
+
+    boolean updateUserByOpenid(String openid, String nickname, String studentNumber, String email);
 }

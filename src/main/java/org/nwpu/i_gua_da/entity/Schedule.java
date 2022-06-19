@@ -5,13 +5,27 @@ import lombok.Data;
 import java.io.Serializable;
 import java.time.LocalDateTime;
 
+import org.springframework.format.annotation.DateTimeFormat;
+
+import java.time.LocalDate;
+
 @Data
 public class Schedule implements Serializable {
+
     private Integer scheduleId;
     private Station startStation;
     private Station endStation;
-    private LocalDateTime departureTime;
+    /**
+     * 发车时间
+     */
+    private LocalDateTime departureDateTime;
+    /**
+     * 总座位
+     */
     private Integer totalSeat;
+    /**
+     * 剩余的座位
+     */
     private Integer lastSeat;
     /**
      * status: 校车排班状态<br/>

@@ -1,0 +1,23 @@
+<view class="bg"/>
+<view class="form">
+    <van-cell-group>
+        <text class="form-title">公告标题：</text>
+        <van-field
+            value="{{ noticeTitle }}"
+            placeholder="请输入公告标题"
+            bind:change="onInputNoticeTitle"
+            name="noticeTitle"
+        />
+        <text class="form-title">公告内容：</text>
+        <van-field
+            value="{{ noticeContent }}"
+            type="textarea"
+            placeholder="请输入公告内容"
+            autosize
+            name="noticeContent"
+            bind:change="onInputNoticeContent"
+            show-confirm-bar="{{false}}"
+        />
+        <van-button class="submit-btn" type="default" form-type="submit" bind:click="addNotice">发布公告</van-button>
+    </van-cell-group>
+</view>

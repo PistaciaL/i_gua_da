@@ -1,5 +1,6 @@
 package org.nwpu.i_gua_da.service;
 
+import com.github.pagehelper.PageInfo;
 import org.nwpu.i_gua_da.entity.Reserve;
 
 import java.time.LocalDateTime;
@@ -29,7 +30,10 @@ public interface ReserveService {
      * 我把所有的字符串转化成LocalDateTime的格式传递参数
      * @return 返回用户自己的预约列表
      */
-    public List<Reserve> getUserReserve(Integer userId, LocalDateTime StartTime, LocalDateTime EndTime, Integer PageNum, Integer PageSize);
+    public PageInfo<Reserve> getUserReserve(Integer userId, LocalDateTime StartTime, LocalDateTime EndTime, Integer PageNum, Integer PageSize);
+
+    //获得所有历史记录
+    public PageInfo<Reserve> getAllReserves(Integer userId,Integer PageNum, Integer PageSize);
 
     /**
      * 用户取消预约，通过用户id和班次的id删除用户的预约(删除reserve)

@@ -10,4 +10,10 @@ public interface StationMapper {
     Station selectStationByStationName(@Param("stationName") String stationName);
 
     Station selectStationByStationId(@Param("stationId") Integer stationId);
+
+    int addStation(Station station);
+
+    int addNoticeDefaultStatus(Station station);
+
+    int removeStationById(@Param("stationId") Integer stationId, @Param("isDeleteStatus") Integer isDeleteStatus);
 }

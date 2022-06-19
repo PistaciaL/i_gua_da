@@ -31,18 +31,20 @@ public class SendEmailController {
      * @return status=0代表数据库中无此邮箱，status=1代表发送成功
      */
     @RequestMapping("/sendEmail")
-    public String SendEmail(@Param("email") String email){
-        User user = userService.getUser1(email);
+    public String SendEmail(@Param("email") String email,
+                            @Param("code") String code){
+        User user = userService.getUserByCode(code);
         if (user != null){
-            String code = verificationCodeService.createVerificationCode(user.getUserId());
+            String verificationCode = verificationCodeService.createVerificationCode(user.getUserId());
+            System.out.println("验证码===>"+verificationCode);
             try {
-                emailSender.send(email, code, "找回密码");
+                emailSender.send(email, verificationCode, "找回密码");
             } catch (MessagingException e) {
-                return "{\"status\":0}";
+                return "{\"status\":420}";
             }
-            return "{\"status\":1}";
+            return "{\"status\":200}";
         }else {
-            return "{\"status\":0}";
+            return "{\"status\":420}";
         }
     }
 }

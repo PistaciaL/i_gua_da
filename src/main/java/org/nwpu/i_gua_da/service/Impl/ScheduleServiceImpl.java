@@ -42,34 +42,56 @@ public class ScheduleServiceImpl implements ScheduleService {
     private StationService stationService;
 
     @Override
-    public List<Schedule> getSchedule(Integer pageNum, Integer pageSize) {
-        if(pageNum == null || pageSize == null)
+    public PageInfo<Schedule> getSchedule(Integer pageNum, Integer pageSize) {
+    	if(pageNum == null || pageSize == null){
             throw new NullPointerException();
-        if(pageNum < 0 || pageSize <= 0)
+        }
+        if (pageNum<1||pageSize<1){
             throw new IllegalArgumentException();
-        PageHelper.startPage(pageNum, pageSize);
+        }
+        PageHelper.startPage(pageNum-1, pageSize);
         List<Schedule> schedules = scheduleMapper.listAllSchedules();
         PageInfo<Schedule> pageInfo = new PageInfo<>(schedules);
-        return pageInfo.getList();
+        return pageInfo;
     }
 
     @Override
-    public List<Schedule> findSchedule(LocalDateTime startTime, LocalDateTime endTime, Integer pageNum, Integer pageSize) {
-        if(startTime == null || endTime == null)
+    public PageInfo<Schedule> findSchedule(LocalDateTime startTime, LocalDateTime endTime, Integer pageNum, Integer pageSize) {
+    	if(startTime == null || endTime == null)
             throw new NullPointerException();
         if(startTime.isAfter(endTime))
             throw new IllegalArgumentException();
-        PageHelper.startPage(pageNum, pageSize);
+        if (pageNum<1||pageSize<1){
+            throw new IllegalArgumentException();
+        }
+        PageHelper.startPage(pageNum-1, pageSize);
         List<Schedule> schedules = scheduleMapper.listScheduleBetweenTimes(startTime, endTime, statusNotDelete);
         PageInfo<Schedule> pageInfo = new PageInfo<>(schedules);
-        return pageInfo.getList();
+        return pageInfo;
     }
 
     @Override
+	public PageInfo<Schedule> findScheduleByStationAndTime(LocalDateTime startTime, LocalDateTime endTime,
+			String startStationName, String endStationName, Integer pageNum, Integer pageSize) {
+		if(startTime == null || endTime == null || startStationName == null || endStationName == null)
+			throw new NullPointerException();
+		if(startTime.isAfter(endTime))
+			throw new IllegalArgumentException();
+        if (pageNum<1||pageSize<1){
+            throw new IllegalArgumentException();
+        }
+		PageHelper.startPage(pageNum-1, pageSize);
+        List<Schedule> schedules = scheduleMapper.listScheduleByStationAndTime(startTime, endTime, 
+        		statusNotDelete, startStationName, endStationName);
+        PageInfo<Schedule> pageInfo = new PageInfo<>(schedules);
+        return pageInfo;
+	}
+    
+    @Override
     public Schedule getScheduleId(Integer scheduledId) {
-        if(scheduledId == null)
+    	if(scheduledId == null)
             throw new NullPointerException();
-        if(scheduledId < 0)
+        if(scheduledId < 1)
             throw new IllegalArgumentException();
         return scheduleMapper.getSchedulesByScheduleId(scheduledId);
     }
@@ -77,7 +99,7 @@ public class ScheduleServiceImpl implements ScheduleService {
     @Override
     @Transactional
     public boolean addSchcedule(Schedule schedule) {
-        if(schedule == null || schedule.getStartStation() == null || schedule.getEndStation() == null)
+    	if(schedule == null || schedule.getStartStation() == null || schedule.getEndStation() == null)
             throw new NullPointerException();
         if(schedule.getTotalSeat() == null)
             schedule.setTotalSeat(totalSeatDefault);
@@ -104,8 +126,8 @@ public class ScheduleServiceImpl implements ScheduleService {
             if(startStation == null || endStation == null)
                 throw new RuntimeException("班次里的车站不存在");
         }
-        if(schedule.getDepartureTime() == null)
-            schedule.setDepartureTime(LocalDateTime.now());
+        if(schedule.getDepartureDateTime() == null)
+            schedule.setDepartureDateTime(LocalDateTime.now());
         if(schedule.getLastSeat() == null)
             schedule.setLastSeat(schedule.getTotalSeat());
         if(schedule.getStatus() == null)
@@ -123,7 +145,7 @@ public class ScheduleServiceImpl implements ScheduleService {
     @Override
     @Transactional
     public boolean removeSchcedule(Integer scheduledId) {
-        if(scheduledId == null)
+    	if(scheduledId == null)
             throw new NullPointerException();
         if(scheduledId < 0)
             throw new IllegalArgumentException();
@@ -131,4 +153,5 @@ public class ScheduleServiceImpl implements ScheduleService {
         int i = scheduleMapper.setStatusByScheduleId(scheduledId, statusIsDelete);
         return i == 1;
     }
+
 }

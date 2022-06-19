@@ -36,16 +36,14 @@ public class NoticeServiceImpl implements NoticeService {
     @Override
     @Transactional
     public boolean addNotice(Notice notice) {
-        if(notice == null || notice.getTitle() == null || notice.getContent() == null ||
-                notice.getSender() == null || notice.getSender().getUserId() == null)
+        if(notice == null || notice.getTitle() == null || notice.getContent() == null)
             throw new NullPointerException();
         if(notice.getTitle().length() == 0 || notice.getTitle().length() > noticeTitleMaxLength ||
-                notice.getContent().length() == 0 || notice.getContent().length() > noticeContentMaxLength ||
-                notice.getSender().getUserId() < 0)
+                notice.getContent().length() == 0 || notice.getContent().length() > noticeContentMaxLength)
             throw new IllegalArgumentException();
-        User user = adminService.searchUser(notice.getSender().getUserId());
-        if(user == null)
-            throw new RuntimeException("发送公告的用户不存在");
+        //User user = adminService.searchUser(notice.getSender().getUserId());
+        //if(user == null)
+        //    throw new RuntimeException("发送公告的用户不存在");
         if(notice.getCreateTime() == null)
             notice.setCreateTime(LocalDateTime.now());
         int i = 0;
@@ -57,7 +55,7 @@ public class NoticeServiceImpl implements NoticeService {
     }
 
     @Override
-    public List<Notice> getNoticeList(Integer pageNum, Integer pageSize) {
+    public PageInfo<Notice> getNoticeList(Integer pageNum, Integer pageSize) {
         if(pageNum == null || pageSize == null)
             throw new NullPointerException();
         if(pageNum < 1 || pageSize <= 0)
@@ -66,7 +64,7 @@ public class NoticeServiceImpl implements NoticeService {
         //PageHelper和调用noticeMapper之间不能有其他语句
         List<Notice> notices = noticeMapper.listNotices(noticeNotDeleteStatus);
         PageInfo<Notice> pageInfo = new PageInfo<>(notices);
-        return pageInfo.getList();
+        return pageInfo;
     }
 
     @Override
@@ -87,6 +85,7 @@ public class NoticeServiceImpl implements NoticeService {
             throw new IllegalArgumentException();
         PageHelper.startPage(pageNum-1, pageSize);
         List<Notice> notices = noticeMapper.listNoticeByNoticeTitle(noticeTitle, noticeNotDeleteStatus);
+        if (notices.size() == 0) return null;
         PageInfo<Notice> pageInfo = new PageInfo<>(notices);
         return pageInfo.getList();
     }
@@ -101,14 +100,15 @@ public class NoticeServiceImpl implements NoticeService {
     }
 
     @Override
-    public List<Notice> listNoticeByNoticeTitleLike(String noticeTitle, Integer pageNum, Integer pageSize) {
+    public PageInfo<Notice> listNoticeByNoticeTitleLike(String noticeTitle, Integer pageNum, Integer pageSize) {
         if(noticeTitle == null || pageNum == null || pageSize == null)
             throw new NullPointerException();
         if(noticeTitle.length() == 0 || noticeTitle.length() > noticeTitleMaxLength || pageNum < 1 || pageSize < 1)
             throw new IllegalArgumentException();
         PageHelper.startPage(pageNum-1, pageSize);
         List<Notice> notices = noticeMapper.listNoticeByNoticeTitleLike(noticeTitle, noticeNotDeleteStatus);
+        if (notices == null) return null;
         PageInfo<Notice> pageInfo = new PageInfo<>(notices);
-        return pageInfo.getList();
+        return pageInfo;
     }
 }

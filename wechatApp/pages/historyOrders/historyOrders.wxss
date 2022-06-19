@@ -1,0 +1,121 @@
+/* pages/historyOrders/historyOrders.wxss */
+page{
+  background-color: #F0F0F0;
+}
+.top-nav{
+  border-bottom: 1rpx #808080 solid;
+  background-color: #FFFFFF;
+}
+.top-nav-choice{
+  padding: 10rpx 20rpx;
+  float: left;
+  border-bottom: 6rpx #ffffff solid;
+  color: #808080;
+}
+.top-nav-choice:nth-child(2){
+  border-bottom: 6rpx #42A5F5 solid;
+  color: #42A5F5;
+}
+/* 预约列表部分 */
+.order-item{
+  border-radius: 20rpx;
+  width: 96%;
+  margin: 0 auto;
+  margin-top: 20rpx;
+  background-color: #FFFFFF;
+}
+.order-info-title{
+  width: 90%;
+  margin: 10rpx auto;
+}
+.order-info-title-text{
+  font-size: 30rpx;
+  color: #808080;
+}
+.order-info-title-text:nth-child(1){
+  float: left;
+}
+.order-info-title-text:nth-child(2){
+  float:right;
+}
+.order-info-title-text:nth-child(3){
+  float:right;
+  margin-right: 25rpx;
+}
+.line{
+  height: 1rpx;
+  background-color: #A1A1A1;
+  width: 92%;
+  margin: 0 auto;
+}
+/* 分页部分 */
+.page{
+  margin: 20rpx auto;
+  /* margin-bottom: 200rpx; */
+}
+.btn{
+  float: left;
+  border-radius: 10rpx;
+  padding: 10rpx 15rpx;
+  color: #808080;
+  background-color: #FFFFFF;
+}
+.page-info{
+  float: left;
+  padding: 10rpx 20rpx;
+}
+.btn:nth-child(1){
+  margin-left: 260rpx;
+}
+/* 预约列表部分 */
+.order-content{
+  width: 90%;
+  margin: 20rpx auto;
+}
+.order-content-icon{
+  float: left;
+  margin-right: 20rpx;
+  margin-left: 20rpx;
+}
+.order-content-img{
+  width: 60rpx;
+  height: 60rpx;
+  border-radius: 30rpx;
+  text-align: center;
+  line-height: 60rpx;
+  color: #FFFFFF;
+}
+.order-content-img:nth-child(1){
+  background-color: #FA5A18;
+}
+.order-content-img:nth-child(3){
+  background-color: #209FF7;
+}
+.line2{
+  width: 1rpx;
+  height: 60rpx;
+  background-color: #A1A1A1;
+  margin: 20rpx auto;
+}
+.order-content-info{
+  float: left;
+  margin-bottom: 10rpx;
+}
+.campus{
+  display: block;
+}
+.station{
+  display: block;
+  font-size: 30rpx;
+  color: #808080;
+}
+.station:nth-child(2){
+  margin-bottom: 70rpx;
+}
+/* 底部导航条部分 */
+.bottom{
+  width: 100%;
+  height: 180rpx;
+  position: fixed;
+  bottom: 0rpx;
+}

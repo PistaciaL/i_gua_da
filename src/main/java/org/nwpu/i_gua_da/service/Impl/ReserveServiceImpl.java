@@ -4,6 +4,7 @@ import com.github.pagehelper.PageHelper;
 import com.github.pagehelper.PageInfo;
 import org.nwpu.i_gua_da.entity.Reserve;
 import org.nwpu.i_gua_da.entity.Schedule;
+import org.nwpu.i_gua_da.entity.User;
 import org.nwpu.i_gua_da.mapper.ReserveMapper;
 import org.nwpu.i_gua_da.mapper.ScheduleMapper;
 import org.nwpu.i_gua_da.service.AdminService;
@@ -43,7 +44,8 @@ public class ReserveServiceImpl implements ReserveService {
 
     @Override
     @Transactional
-    public boolean bookingReserve(Reserve reserve) {
+    public synchronized boolean bookingReserve(Reserve reserve) {
+        Schedule schedule;
         if(reserve == null || reserve.getSchedule() == null || reserve.getUser() == null ||
                 reserve.getSchedule().getScheduleId() == null || reserve.getUser().getUserId() == null)
             throw new NullPointerException();
@@ -51,51 +53,52 @@ public class ReserveServiceImpl implements ReserveService {
             throw new IllegalArgumentException();
         if(adminService.searchUser(reserve.getUser().getUserId()) == null)
             throw new RuntimeException("该用户不存在");
+        if ((schedule=scheduleService.getScheduleId(reserve.getSchedule().getScheduleId()))==null){
+            throw new RuntimeException("该班车不存在");
+        }
         if(reserve.getReserveTime() == null)
             reserve.setReserveTime(LocalDateTime.now());
         if(reserve.getStatus() == null)
             reserve.setStatus(reserveDefaultStatus);
-        //从redis获取对应的lastSeat
-        Integer lastSeat = (Integer) redisTemplate.opsForValue().get(lastSeatRedisKey+":"+reserve.getSchedule().getScheduleId());
-        //lastSeat==null, 在数据库查找
-        if(lastSeat == null) {
-            lastSeat = scheduleService.getScheduleId(reserve.getSchedule().getScheduleId()).getLastSeat();
-            if(lastSeat == null)
-                throw new RuntimeException("该班次不存在");
-        } else {
-            //剩余座位不足
-            if(lastSeat < 1)
-                return false;
-            else
-                //更新缓存
-                redisTemplate.opsForValue().set(lastSeatRedisKey+":"+reserve.getSchedule().getScheduleId(), lastSeat-1, 30, TimeUnit.MINUTES);
-        }
-        Schedule schedule = new Schedule();
-        schedule.setScheduleId(reserve.getSchedule().getScheduleId());
+        int lastSeat = schedule.getLastSeat();
+        //剩余座位不足
+        if(lastSeat < 1)
+            return false;
         schedule.setLastSeat(lastSeat-1);
         //更新数据库
         scheduleMapper.updateLastSeatByScheduleId(schedule);
-        int i = reserveMapper.insertReserve(reserve);
-        return i == 1;
+        return reserveMapper.insertReserve(reserve) == 1;
     }
 
     @Override
-    public List<Reserve> getUserReserve(Integer userId, LocalDateTime startTime, LocalDateTime endTime, Integer pageNum, Integer pageSize) {
+    public PageInfo<Reserve> getUserReserve(Integer userId, LocalDateTime startTime, LocalDateTime endTime, Integer pageNum, Integer pageSize) {
         if(userId == null || pageNum == null || pageSize == null || startTime == null || endTime == null)
             throw new NullPointerException();
-        if(userId < 0 || pageNum < 0 || pageSize < 1 || startTime.isAfter(endTime))
+        if(userId < 1 || pageNum < 1 || pageSize < 1 || startTime.isAfter(endTime))
             throw new IllegalArgumentException();
-        PageHelper.startPage(pageNum, pageSize);
+        PageHelper.startPage(pageNum-1, pageSize);
         List<Reserve> reserves = reserveMapper.listReservesByUserIdBetweenTimes(userId, startTime, endTime);
         PageInfo<Reserve> pageInfo = new PageInfo<>(reserves);
-        return pageInfo.getList();
+        return pageInfo;
+    }
+    public PageInfo<Reserve> getAllReserves(Integer userId,Integer pageNum, Integer pageSize){
+        if (userId == null || pageNum == null || pageSize == null){
+            throw new NullPointerException();
+        }
+        if(userId < 1 || pageNum < 1 || pageSize < 1){
+            throw new IllegalArgumentException();
+        }
+        PageHelper.startPage(pageNum-1,pageSize);
+        List<Reserve> reserves = reserveMapper.listOnlyReservesByUserId(userId);
+        PageInfo<Reserve> pageInfo = new PageInfo<>(reserves);
+        return pageInfo;
     }
 
     @Override
     public boolean removeReserve(Integer userId, Integer scheduleId) {
         if(userId == null || scheduleId == null)
             throw new NullPointerException();
-        if(userId < 0 || scheduleId < 0)
+        if(userId < 1 || scheduleId < 0)
             throw new IllegalArgumentException();
         //检测用户是否存在
         if(adminService.searchUser(userId) == null)
@@ -136,21 +139,13 @@ public class ReserveServiceImpl implements ReserveService {
         if(reserveId < 0)
             throw new IllegalArgumentException();
         Reserve reserve = reserveMapper.selectReserveByReserveId(reserveId);
-        Integer lastSeat = (Integer) redisTemplate.opsForValue().get(lastSeatRedisKey+":"+reserve.getSchedule().getScheduleId());
-        if(lastSeat == null) {
-            Schedule schedule = scheduleService.getScheduleId(reserve.getSchedule().getScheduleId());
-            if(schedule == null)
-                throw new RuntimeException("该班次不存在");
-            else
-                lastSeat = schedule.getLastSeat();
+        if (reserve==null){
+            throw new RuntimeException("该预约不存在");
         }
-        redisTemplate.opsForValue().set(lastSeatRedisKey+":"+reserve.getSchedule().getScheduleId(), lastSeat+1);
-        Schedule newSchedule = new Schedule();
-        newSchedule.setScheduleId(reserve.getSchedule().getScheduleId());
-        newSchedule.setLastSeat(lastSeat+1);
-        scheduleMapper.updateLastSeatByScheduleId(newSchedule);
-        int i = reserveMapper.setStatusByReserveId(reserveId, reserveIsDeleteStatus);
-        return i == 1;
+        Schedule schedule = reserve.getSchedule();
+        schedule.setLastSeat(schedule.getLastSeat()+1);
+        scheduleMapper.updateLastSeatByScheduleId(schedule);
+        return reserveMapper.setStatusByReserveId(reserveId, reserveIsDeleteStatus) == 1;
     }
 
     @Override

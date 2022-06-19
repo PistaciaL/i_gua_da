@@ -15,7 +15,10 @@ import javax.mail.MessagingException;
 import java.security.NoSuchAlgorithmException;
 import java.security.spec.InvalidKeySpecException;
 import java.time.LocalDateTime;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
+import java.util.concurrent.TimeUnit;
 
 @SpringBootTest
 class IGuaDaApplicationTests {
@@ -91,7 +94,7 @@ class IGuaDaApplicationTests {
         System.out.println(noticeService.searchNotice(1));
         System.out.println(noticeService.getNoticeList(0,1));
         System.out.println(noticeService.searchNotice("testNoticeTitle", 0, 2));
-        List<Notice> l = noticeService.getNoticeList(0, 10);
+        List<Notice> l = noticeService.getNoticeList(0, 10).getList();
         for(Notice n : l) {
             System.out.println(n);
         }
@@ -184,5 +187,12 @@ class IGuaDaApplicationTests {
         schedule.setTotalSeat(50);
         reserve.setSchedule(schedule);
         reserveService.bookingReserve(reserve);
+    }
+
+    @Test
+    public void tst() throws InterruptedException {
+        redisTemplate.opsForValue().set("user:11",11,5, TimeUnit.MINUTES);
+        Thread.sleep(6000L);
+        System.out.println(redisTemplate.opsForValue().get("user:11").toString());
     }
 }

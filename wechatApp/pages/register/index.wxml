@@ -1,0 +1,46 @@
+<view class="container">
+  <image class="avatarImg" src="http://101.35.0.204:8080/creeper/videos/logo.jpg"/>
+  <view class="form">
+    <van-cell-group>
+      <van-field
+        value="{{ nickname }}"
+        placeholder="请输入昵称"
+        bind:change="onInputNickname"
+        type="nickname"
+        label="昵称"
+        title-width="100rpx"
+      />
+      <van-field
+        value="{{ studentNumber }}"
+        placeholder="请输入学号"
+        bind:change="onInputStudentNumber"
+        label="学号"
+        type="number"
+        title-width="100rpx"
+      />
+      <van-field
+        value="{{ email }}"
+        placeholder="请输入西工大邮箱"
+        bind:change="onInputEmail"
+        label="邮箱"
+        title-width="100rpx"
+      />
+      <van-field
+        value="{{ verificationCode }}"
+        placeholder="请输入验证码"
+        bind:change="onInputVerificationCode"
+        label="验证码"
+        use-button-slot
+        title-width="100rpx"
+      >
+        <van-button slot="button" size="small" round
+          bind:click="sendCode" disabled="{{ !sendCodeIsAble }}" custom-style="width: 200rpx">
+          {{sendCodeMsg}}
+        </van-button>
+      </van-field>
+      <van-button type="default" block bind:click="submitUserMsg" custom-style="margin-top:50rpx">
+        提交
+      </van-button>
+    </van-cell-group>
+  </view>
+</view>
