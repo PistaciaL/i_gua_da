@@ -1,7 +1,7 @@
 import axios from "/utils/axios"
 import mpAdapter from '/utils/axios-miniprogram-adapter.js'
 axios.defaults.adapter = mpAdapter
-axios.defaults.baseURL='http://101.35.0.204:8081'
+axios.defaults.baseURL='http://127.0.0.1:8081'
 // axios.defaults.timeout = 6000
 // app.js
 App({
@@ -45,7 +45,7 @@ App({
     userName: null,
     shcoolId:null,
     userCode: null,
-    isManager:true,
+    isManager:false,
     axios:axios,
     notice:{
       id: null,

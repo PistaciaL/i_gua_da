@@ -60,7 +60,7 @@ public class NoticeServiceImpl implements NoticeService {
             throw new NullPointerException();
         if(pageNum < 1 || pageSize <= 0)
             throw new IllegalArgumentException();
-        PageHelper.startPage(pageNum-1, pageSize);
+        PageHelper.startPage(pageNum, pageSize);
         //PageHelper和调用noticeMapper之间不能有其他语句
         List<Notice> notices = noticeMapper.listNotices(noticeNotDeleteStatus);
         PageInfo<Notice> pageInfo = new PageInfo<>(notices);
@@ -78,16 +78,16 @@ public class NoticeServiceImpl implements NoticeService {
     }
 
     @Override
-    public List<Notice> searchNotice(String noticeTitle, Integer pageNum, Integer pageSize) {
+    public PageInfo<Notice> searchNotice(String noticeTitle, Integer pageNum, Integer pageSize) {
         if(noticeTitle == null || pageNum == null || pageSize == null)
             throw new NullPointerException();
         if(noticeTitle.length() == 0 || noticeTitle.length() > noticeTitleMaxLength || pageNum < 1 || pageSize < 1)
             throw new IllegalArgumentException();
-        PageHelper.startPage(pageNum-1, pageSize);
+        PageHelper.startPage(pageNum, pageSize);
         List<Notice> notices = noticeMapper.listNoticeByNoticeTitle(noticeTitle, noticeNotDeleteStatus);
         if (notices.size() == 0) return null;
         PageInfo<Notice> pageInfo = new PageInfo<>(notices);
-        return pageInfo.getList();
+        return pageInfo;
     }
 
     @Override
@@ -105,7 +105,7 @@ public class NoticeServiceImpl implements NoticeService {
             throw new NullPointerException();
         if(noticeTitle.length() == 0 || noticeTitle.length() > noticeTitleMaxLength || pageNum < 1 || pageSize < 1)
             throw new IllegalArgumentException();
-        PageHelper.startPage(pageNum-1, pageSize);
+        PageHelper.startPage(pageNum, pageSize);
         List<Notice> notices = noticeMapper.listNoticeByNoticeTitleLike(noticeTitle, noticeNotDeleteStatus);
         if (notices == null) return null;
         PageInfo<Notice> pageInfo = new PageInfo<>(notices);

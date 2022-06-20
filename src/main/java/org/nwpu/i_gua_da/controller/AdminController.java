@@ -227,7 +227,7 @@ public class AdminController {
             notices = (Page) pageInfo.getList();
             if(notices == null) {
                 result.put("status",200);
-                result.put("page",page);
+                result.put("page",pageInfo.getPageNum());
                 result.put("totalPageNumb",pageInfo.getPages());
                 return JSON.toJSONString(result);
             }

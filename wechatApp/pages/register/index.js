@@ -49,6 +49,7 @@ Page({
           email: this.data.email
         }
       }).then(res=>{
+        console.log(res.data)
         if(res.data.status==200){
           this.setData({
             sendCodeIsAble: false,
@@ -83,10 +84,19 @@ Page({
         code:app.globalData.userCode,
       }
     }).then(res=>{
+      console.log(res.data);
       if(res.data.status==200){
         app.globalData.userName = res.data.name;
-        app.globalData.shcoolId = res.data.user.studentNumber;
-        app.globalData.isManager = (res.data.user.permission==1?false:true)
+        app.globalData.shcoolId = res.data.studentNumber;
+        app.globalData.isManager = (res.data.permission==1?false:true)
+        wx.showToast({
+          title: "信息绑定成功!",
+          icon: "none",
+          duration: 3000
+        })
+        wx.redirectTo({
+          url: '/pages/index/index',
+        })
       }else{
         console.log(res.data.msg)
         wx.showToast({

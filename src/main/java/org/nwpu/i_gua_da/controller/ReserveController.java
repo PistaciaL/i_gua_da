@@ -55,7 +55,7 @@ public class ReserveController {
         PageInfo<Reserve> reserves = reserveService.getAllReserves(user.getUserId(), page, pageSize);
         HistoryReserves historyReserves = new HistoryReserves();
         historyReserves.setStatus(200);
-        historyReserves.setPage(page);
+        historyReserves.setPage(reserves.getPageNum());
         historyReserves.setTotalPageNumb(reserves.getPages());
         List<ReserveData> data = new ArrayList<>();
         for (Reserve reserve : reserves.getList()) {
@@ -118,7 +118,7 @@ public class ReserveController {
         PageInfo<Reserve> reserves = reserveService.getAllReserves(user.getUserId(), page, pageSize);
         HistoryReserves historyReserves = new HistoryReserves();
         historyReserves.setStatus(200);
-        historyReserves.setPage(page);
+        historyReserves.setPage(reserves.getPageNum());
         historyReserves.setTotalPageNumb(reserves.getPages());
         List<ReserveData> data = new ArrayList<>();
         for (Reserve reserve : reserves.getList()) {

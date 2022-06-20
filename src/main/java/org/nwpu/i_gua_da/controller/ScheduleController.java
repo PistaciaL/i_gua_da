@@ -47,7 +47,7 @@ public class ScheduleController {
         schedules = scheduleService.findSchedule(startTime, endTime, page, pageSize);
         GetTodaySchedule getTodaySchedule = new GetTodaySchedule();
         getTodaySchedule.setStatus(200);
-        getTodaySchedule.setPage(page);
+        getTodaySchedule.setPage(schedules.getPageNum());
         getTodaySchedule.setTotalPageNumb(schedules.getPages());
         List<ScheduleData> listScheduleData = new ArrayList<ScheduleData>();
         ScheduleData scheduleData = new ScheduleData();
@@ -82,7 +82,7 @@ public class ScheduleController {
                 startCampus, endCampus, page, pageSize);
         SearchSchedule searchSchedule = new SearchSchedule();
         searchSchedule.setStatus(200);
-        searchSchedule.setPage(page);
+        searchSchedule.setPage(schedules.getPageNum());
         searchSchedule.setTotalPageNumb(schedules.getPages());
         List<ScheduleSeatData> listScheduleData = new ArrayList<ScheduleSeatData>();
         ScheduleSeatData scheduleData = new ScheduleSeatData();
@@ -116,7 +116,7 @@ public class ScheduleController {
         schedules = scheduleService.findSchedule(startTime,endTime,page,pageSize);
         SearchSchedules searchSchedule = new SearchSchedules();
         searchSchedule.setStatus(200);
-        searchSchedule.setPage(page);
+        searchSchedule.setPage(schedules.getPageNum());
         searchSchedule.setTotalPageNumb(schedules.getPages());
         List<AdminScheduleData> listScheduleData = new ArrayList<AdminScheduleData>();
         AdminScheduleData scheduleData = new AdminScheduleData();

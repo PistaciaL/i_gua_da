@@ -7,7 +7,6 @@ Page({
    */
   data: {
     orders:[
-      {scheduleId:1,departureDatetime:'2022/6/19 20:23',startCampusStr:'长安校区',startStation:'A站',endCampusStr:'友谊校区',endStation:'B站'}
     ],
     isManager:false,
     datetimePickershow: false,
@@ -49,7 +48,8 @@ Page({
           title: "预约成功",
           icon: "none",
           duration: 3000
-        })
+        });
+        this.chaxun();
       }
     })
   },

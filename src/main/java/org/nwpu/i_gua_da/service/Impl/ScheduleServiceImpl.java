@@ -49,7 +49,7 @@ public class ScheduleServiceImpl implements ScheduleService {
         if (pageNum<1||pageSize<1){
             throw new IllegalArgumentException();
         }
-        PageHelper.startPage(pageNum-1, pageSize);
+        PageHelper.startPage(pageNum, pageSize);
         List<Schedule> schedules = scheduleMapper.listAllSchedules();
         PageInfo<Schedule> pageInfo = new PageInfo<>(schedules);
         return pageInfo;
@@ -64,7 +64,7 @@ public class ScheduleServiceImpl implements ScheduleService {
         if (pageNum<1||pageSize<1){
             throw new IllegalArgumentException();
         }
-        PageHelper.startPage(pageNum-1, pageSize);
+        PageHelper.startPage(pageNum, pageSize);
         List<Schedule> schedules = scheduleMapper.listScheduleBetweenTimes(startTime, endTime, statusNotDelete);
         PageInfo<Schedule> pageInfo = new PageInfo<>(schedules);
         return pageInfo;
@@ -80,7 +80,7 @@ public class ScheduleServiceImpl implements ScheduleService {
         if (pageNum<1||pageSize<1){
             throw new IllegalArgumentException();
         }
-		PageHelper.startPage(pageNum-1, pageSize);
+		PageHelper.startPage(pageNum, pageSize);
         List<Schedule> schedules = scheduleMapper.listScheduleByStationAndTime(startTime, endTime, 
         		statusNotDelete, startStationName, endStationName);
         PageInfo<Schedule> pageInfo = new PageInfo<>(schedules);

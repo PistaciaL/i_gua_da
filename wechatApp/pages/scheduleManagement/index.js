@@ -111,8 +111,8 @@ Page({
       setTimeout(()=>{
         this.data.pageLock = true;
       },500)
-      //this.reloadList();
-      console.log(this.data.currentPage);
+      this.reloadList();
+      //console.log(this.data.currentPage);
     }else if(this.data.pageLock==false){
       wx.showToast({
         title: '请勿点击过快!',
@@ -128,8 +128,8 @@ Page({
       setTimeout(()=>{
         this.data.pageLock = true;
       },500)
-      //this.reloadList();
-      console.log(this.data.currentPage);
+      this.reloadList();
+      //console.log(this.data.currentPage);
     }else if(this.data.pageLock==false){
       wx.showToast({
         title: '请勿点击过快!',
@@ -139,6 +139,14 @@ Page({
     }
   },
   reloadList(){
+    let param = {
+        startDate: this.data.startDateStr,
+        endDate: this.data.endDateStr,
+        page: this.data.currentPage,
+        pageSize: 5,
+        code: app.globalData.userCode
+    }
+    console.log(param);
     app.globalData.axios({
       url:'/manager/searchSchedules',
       method:'POST',
@@ -150,6 +158,7 @@ Page({
         code: app.globalData.userCode
       }
     }).then(res=>{
+      console.log(res.data);
       if(res.data.status==200){
         this.setData({
           schedules: res.data.data,

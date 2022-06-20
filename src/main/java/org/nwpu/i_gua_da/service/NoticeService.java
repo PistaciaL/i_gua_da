@@ -38,7 +38,7 @@ public interface NoticeService {
      * @param PageSize 一页大小
      * @return 搜索出来的公告
      */
-    public List<Notice> searchNotice(String NoticeTitle, Integer PageNum, Integer PageSize);
+    public PageInfo<Notice> searchNotice(String NoticeTitle, Integer PageNum, Integer PageSize);
 
     /**
      * 根据公告id搜索公告

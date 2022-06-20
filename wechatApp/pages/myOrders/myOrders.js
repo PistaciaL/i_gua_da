@@ -37,6 +37,8 @@ Page({
         code: app.globalData.userCode
       }
     }).then(res=>{
+      console.log("/user/cancelReserve");
+      console.log(res.data);
       if(res.data.status==200){
         this.loadList()
       }
@@ -57,6 +59,8 @@ Page({
         code: app.globalData.userCode
       }
     }).then(res=>{
+      console.log("/user/futureReserve");
+      console.log(res.data);
       if(res.data.status==200){
         this.setData({
           currentPage: res.data.page,

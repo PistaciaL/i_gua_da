@@ -37,19 +37,19 @@ public class NoticeController {
     @RequestMapping("/getNotices")
     public String GetNotice(@RequestParam("page")int page,
                             @RequestParam("pageSize")int pageSize){
-        PageInfo<Notice> pageInfo = null;
-        try {
-            pageInfo = noticeService.getNoticeList(page,pageSize);
-        } catch (Exception e) {
-            return "{\"status\":420}";
-        }
+        //PageInfo<Notice> pageInfo = null;
+        //try {
+            PageInfo<Notice> pageInfo = noticeService.getNoticeList(page,pageSize);
+        //} catch (Exception e) {
+            //return "{\"status\":420}";
+        //}
         List<Map<String,Object>> data = new ArrayList<>();
         if (pageInfo == null){
             return "{\"status\":420}";
         }
         Map<String,Object> result = new HashMap<>();
         result.put("status",200);
-        result.put("page",page);
+        result.put("page",pageInfo.getPageNum());
         result.put("totalPageNumb",pageInfo.getPages());
         List<Notice> notices = pageInfo.getList();
         for (Notice notice : notices) {

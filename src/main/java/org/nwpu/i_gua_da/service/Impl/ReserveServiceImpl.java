@@ -76,7 +76,7 @@ public class ReserveServiceImpl implements ReserveService {
             throw new NullPointerException();
         if(userId < 1 || pageNum < 1 || pageSize < 1 || startTime.isAfter(endTime))
             throw new IllegalArgumentException();
-        PageHelper.startPage(pageNum-1, pageSize);
+        PageHelper.startPage(pageNum, pageSize);
         List<Reserve> reserves = reserveMapper.listReservesByUserIdBetweenTimes(userId, startTime, endTime);
         PageInfo<Reserve> pageInfo = new PageInfo<>(reserves);
         return pageInfo;
@@ -88,7 +88,7 @@ public class ReserveServiceImpl implements ReserveService {
         if(userId < 1 || pageNum < 1 || pageSize < 1){
             throw new IllegalArgumentException();
         }
-        PageHelper.startPage(pageNum-1,pageSize);
+        PageHelper.startPage(pageNum,pageSize);
         List<Reserve> reserves = reserveMapper.listOnlyReservesByUserId(userId);
         PageInfo<Reserve> pageInfo = new PageInfo<>(reserves);
         return pageInfo;
