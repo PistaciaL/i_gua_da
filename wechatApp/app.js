@@ -15,28 +15,28 @@ App({
     wx.login({
       success: res => {
         let resCode = res.code
-        axios({
-          url:'/login',
-          method:'POST',
-          params:{
-            code:res.code
-          }
-        }).then(res=>{
-          if(res.data.status==430){
-            this.globalData.userCode = resCode;
-            wx.redirectTo({
-              url: '/pages/register/index',
-            })
-          }else if(res.data.status==200){
-            this.globalData.userCode = resCode;
-            this.globalData.userName = res.data.name;
-            this.globalData.shcoolId = res.data.studentNumber;
-            this.globalData.isManager = (res.data.permission==1?false:true);
-            wx.redirectTo({
-              url: '/pages/index/index',
-            })
-          }
-        })
+        // axios({
+        //   url:'/login',
+        //   method:'POST',
+        //   params:{
+        //     code:res.code
+        //   }
+        // }).then(res=>{
+        //   if(res.data.status==430){
+        //     this.globalData.userCode = resCode;
+        //     wx.redirectTo({
+        //       url: '/pages/register/index',
+        //     })
+        //   }else if(res.data.status==200){
+        //     this.globalData.userCode = resCode;
+        //     this.globalData.userName = res.data.name;
+        //     this.globalData.shcoolId = res.data.studentNumber;
+        //     this.globalData.isManager = (res.data.permission==1?false:true);
+        //     wx.redirectTo({
+        //       url: '/pages/index/index',
+        //     })
+        //   }
+        // })
       }
     })
 

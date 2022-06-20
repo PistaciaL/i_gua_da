@@ -19,7 +19,7 @@
   <view class="line"></view>
   <view class="choice-item">
     <van-icon class="choice-item-icon" name="volume-o" />
-    <text class="choice-item-text">遨游工大</text>
+    <text class="choice-item-text" bindtap="goto" data-url="/pages/questions/questions">趣味答题</text>
   </view>
   <view class="line"></view>
   <view class="choice-item">

@@ -1,6 +1,7 @@
 {
   "pages":[
     "pages/index/index",
+    "pages/questions/questions",
     "pages/register/index",
     "pages/location/location",
     "pages/scheduleManagement/index",

@@ -1,0 +1,44 @@
+<!--pages/questions/questions.wxml-->
+<view class="question-container">
+  <view class="question">
+    <text class="question-text">{{index}}.{{currentQuestion.title}}</text>
+  </view>
+</view>
+<view class="tip">
+  <text class="tip-content">请选择正确的答案</text>
+</view>
+<view class="choiced" wx:if="{{choice=='A'}}">
+  <text class="choiced-text">A.{{currentQuestion.A}}</text>
+</view>
+<view class="not-choiced" wx:else>
+  <text class="not-choiced-text" bindtap="choiceAnswer" data-choice="A">A.{{currentQuestion.A}}</text>
+</view>
+<view class="choiced" wx:if="{{choice=='B'}}">
+  <text class="choiced-text">B.{{currentQuestion.B}}</text>
+</view>
+<view class="not-choiced" wx:else>
+  <text class="not-choiced-text" bindtap="choiceAnswer" data-choice="B">B.{{currentQuestion.B}}</text>
+</view>
+<view class="choiced" wx:if="{{choice=='C'}}">
+  <text class="choiced-text">C.{{currentQuestion.C}}</text>
+</view>
+<view class="not-choiced" wx:else>
+  <text class="not-choiced-text" bindtap="choiceAnswer" data-choice="C">C.{{currentQuestion.C}}</text>
+</view>
+<view class="choiced" wx:if="{{choice=='D'}}">
+  <text class="choiced-text">D.{{currentQuestion.D}}</text>
+</view>
+<view class="not-choiced" wx:else>
+  <text class="not-choiced-text" bindtap="choiceAnswer" data-choice="D">D.{{currentQuestion.D}}</text>
+</view>
+<view class="operators clearfix">
+  <view class="back-btn" bindtap="back">
+    <text class="back-btn-text">退出</text>
+  </view>
+  <view class="submit-btn" wx:if="{{index==10}}" bindtap="submit">
+    <text class="submit-btn-text">提交</text>
+  </view>
+  <view class="next-btn" wx:else bindtap="next">
+    <text class="next-btn-text">下一题</text>
+  </view>
+</view>
