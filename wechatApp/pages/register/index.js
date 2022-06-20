@@ -49,7 +49,7 @@ Page({
           email: this.data.email
         }
       }).then(res=>{
-        console.log(res.data)
+        // console.log(res.data)
         if(res.data.status==200){
           this.setData({
             sendCodeIsAble: false,
@@ -72,7 +72,7 @@ Page({
   },
   submitUserMsg(){
     // console.log(this.data)
-    console.log(app.globalData)
+    // console.log(app.globalData)
     app.globalData.axios({
       url:'/register',
       method:'POST',
@@ -84,7 +84,7 @@ Page({
         code:app.globalData.userCode,
       }
     }).then(res=>{
-      console.log(res.data);
+      // console.log(res.data);
       if(res.data.status==200){
         app.globalData.userName = res.data.name;
         app.globalData.shcoolId = res.data.studentNumber;
@@ -98,7 +98,7 @@ Page({
           url: '/pages/index/index',
         })
       }else{
-        console.log(res.data.msg)
+        // console.log(res.data.msg)
         wx.showToast({
           title: res.data.msg,
           icon: "none",

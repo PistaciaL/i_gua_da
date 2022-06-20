@@ -93,8 +93,8 @@ Page({
           duration: 1000
         });
       }
-      console.log(this.data.answers);
-      
+      // console.log(this.data.answers);
+
       setTimeout(()=>{
         wx.navigateBack({
           delta: 1,

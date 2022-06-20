@@ -146,7 +146,7 @@ Page({
         pageSize: 5,
         code: app.globalData.userCode
     }
-    console.log(param);
+    // console.log(param);
     app.globalData.axios({
       url:'/manager/searchSchedules',
       method:'POST',
@@ -158,7 +158,7 @@ Page({
         code: app.globalData.userCode
       }
     }).then(res=>{
-      console.log(res.data);
+      // console.log(res.data);
       if(res.data.status==200){
         this.setData({
           schedules: res.data.data,
@@ -179,7 +179,7 @@ Page({
     })
   },
   deleteSchedule(e){
-    console.log(e.target.dataset.id)
+    // console.log(e.target.dataset.id)
     app.globalData.axios({
       url:'/manager/deleteSchedule',
       method: 'POST',

@@ -91,7 +91,7 @@ Page({
           code: app.globalData.userCode
         }
       }).then(res=>{
-        console.log(res.data.data)
+        // console.log(res.data.data)
         this.setData({
           orders: res.data.data
         })

@@ -17,7 +17,7 @@ Page({
     this.setData({
       notice: app.globalData.notice
     })
-    console.log(this.data.notice)
+    // console.log(this.data.notice)
   },
 
   /**

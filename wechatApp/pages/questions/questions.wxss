@@ -46,7 +46,7 @@
   color: #464646;
 }
 .choiced{
-  border: 1rpx #DE7270 solid;
+  border: 1rpx #42A5F5 solid;
   width: 80%;
   margin: 10rpx auto;
   text-align: left;
@@ -60,7 +60,7 @@
   padding-top: 25rpx;
   padding-bottom: 25rpx;
   font-size: 32rpx;
-  color: #DE7270;
+  color: #42A5F5;
 }
 .operators{
   margin-top: 40rpx;
