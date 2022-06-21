@@ -50,6 +50,7 @@ Page({
         pageSize: 20
       }
     }).then(res=>{
+      console.log(res.data);
       if(res.data.status==200){
         this.setData({
           schedules: res.data.data
