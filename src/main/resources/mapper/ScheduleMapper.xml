@@ -27,13 +27,24 @@
         select s.schedule_id, s.departure_time, s.total_seat, s.last_seat, s.`status`, 
         	s.start_station_id, s.end_station_id, s.start_station_name, `end`.station_name as end_station_name,
         	s.start_longitude, s.start_latitude, s.start_campus,
-        	`end`.station_longitude as end_longitude, `end`.station_latitude as end_latitude, `end`.station_campus as end_campus
+        	`end`.station_longitude as end_longitude, `end`.station_latitude as end_latitude,
+               `end`.station_campus as end_campus
         from (select 
-        			s.schedule_id, s.departure_time, s.total_seat, s.last_seat, s.`status`, 
-                  	s.start_station_id, s.end_station_id, `start`.station_name as start_station_name, 
-                  	`start`.station_longitude as start_longitude, `start`.station_latitude as start_latitude, `start`.station_campus as start_campus
-              from bus_schedule s left join station_info `start` on s.start_station_id = `start`.station_id where s.schedule_id = #{scheduleId})
-                 s left join station_info `end` on s.end_station_id = `end`.station_id
+        			 s.schedule_id,
+                     s.departure_time,
+                     s.total_seat,
+                     s.last_seat,
+                     s.`status`,
+                  	 s.start_station_id,
+                     s.end_station_id,
+                     `start`.station_name as start_station_name,
+                  	 `start`.station_longitude as start_longitude,
+                     `start`.station_latitude as start_latitude,
+                     `start`.station_campus as start_campus
+              from bus_schedule s
+              left join station_info `start` on s.start_station_id = `start`.station_id
+              where s.schedule_id = #{scheduleId})s
+        left join station_info `end` on s.end_station_id = `end`.station_id
     </select>
 
     <select id="listAllSchedules" resultMap="Schedule">

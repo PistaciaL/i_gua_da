@@ -52,7 +52,8 @@ public class ReserveController {
             return "{\"status\":420}";
         }
         User user = userService.getUserByCode(code);
-        PageInfo<Reserve> reserves = reserveService.getAllReserves(user.getUserId(), page, pageSize);
+        PageInfo<Reserve> reserves = reserveService.getAllReserves(user.getUserId(), page, pageSize,
+                LocalDateTime.parse("2000/12/01 12:00",dfOut),LocalDateTime.now());
         HistoryReserves historyReserves = new HistoryReserves();
         historyReserves.setStatus(200);
         historyReserves.setPage(reserves.getPageNum());
@@ -94,6 +95,20 @@ public class ReserveController {
     public String reserve(@RequestParam("scheduleId") int scheduleId,
                           @RequestParam("code") String code){
         User user = userService.getUserByCode(code);
+        List<Reserve> selectedReserve = reserveService.getUserReserveByUserIdAndScheduleId(user.getUserId(),scheduleId);
+        if (selectedReserve.size()!=0){
+            for (Reserve reserve : selectedReserve) {
+                if (reserve.getSchedule().getDepartureDateTime().isAfter(LocalDateTime.now())){
+                    System.out.println(selectedReserve.get(0));
+                    System.out.println(user.getUserId()+"--"+scheduleId);
+                    throw new RuntimeException("不能重复预约");
+                }
+            }
+        }
+        Schedule selectedSchedule = scheduleService.getScheduleId(scheduleId);
+        if (selectedSchedule.getDepartureDateTime().isBefore(LocalDateTime.now())){
+            throw new RuntimeException("该时间段不能预约");
+        }
         Reserve reserve = new Reserve();
         reserve.setUser(user);
         Schedule schedule = new Schedule();
@@ -115,16 +130,14 @@ public class ReserveController {
             return "{\"status\":420";
         }
         User user = userService.getUserByCode(code);
-        PageInfo<Reserve> reserves = reserveService.getAllReserves(user.getUserId(), page, pageSize);
+        PageInfo<Reserve> reserves = reserveService.getAllReserves(user.getUserId(), page, pageSize,
+                LocalDateTime.now(),LocalDateTime.parse("2050/01/01 12:00",dfOut));
         HistoryReserves historyReserves = new HistoryReserves();
         historyReserves.setStatus(200);
         historyReserves.setPage(reserves.getPageNum());
         historyReserves.setTotalPageNumb(reserves.getPages());
         List<ReserveData> data = new ArrayList<>();
         for (Reserve reserve : reserves.getList()) {
-            if (reserve.getSchedule().getDepartureDateTime().isBefore(LocalDateTime.now())){
-                continue;
-            }
             data.add(new ReserveData(reserve.getReserveId(),reserve.getStatus(),reserve.getSchedule().getStartStation().getCampus(),
                     reserve.getSchedule().getStartStation().getStationName(),reserve.getSchedule().getEndStation().getCampus(),
                     reserve.getSchedule().getEndStation().getStationName(),reserve.getSchedule().getDepartureDateTime().format(dfOut)));

@@ -81,15 +81,18 @@ public class ReserveServiceImpl implements ReserveService {
         PageInfo<Reserve> pageInfo = new PageInfo<>(reserves);
         return pageInfo;
     }
-    public PageInfo<Reserve> getAllReserves(Integer userId,Integer pageNum, Integer pageSize){
+    public PageInfo<Reserve> getAllReserves(Integer userId,Integer pageNum, Integer pageSize,
+                                            LocalDateTime startDateTime,LocalDateTime endDateTime){
         if (userId == null || pageNum == null || pageSize == null){
             throw new NullPointerException();
         }
         if(userId < 1 || pageNum < 1 || pageSize < 1){
             throw new IllegalArgumentException();
         }
+        System.out.println(startDateTime);
+        System.out.println(endDateTime);
         PageHelper.startPage(pageNum,pageSize);
-        List<Reserve> reserves = reserveMapper.listOnlyReservesByUserId(userId);
+        List<Reserve> reserves = reserveMapper.listReservesByUserIdBetweenTimes(userId,startDateTime, endDateTime);
         PageInfo<Reserve> pageInfo = new PageInfo<>(reserves);
         return pageInfo;
     }
@@ -158,5 +161,15 @@ public class ReserveServiceImpl implements ReserveService {
         if(adminService.searchUser(userId) == null)
             throw new RuntimeException("该用户不存在");
         return reserveMapper.verifyReserveByScheduleIdAndUserId(userId, scheduleId) != null;
+    }
+
+    @Override
+    public List<Reserve> getUserReserveByUserIdAndScheduleId(Integer userId, Integer scheduleId) {
+        if(userId == null || scheduleId == null)
+            throw new NullPointerException();
+        if(userId < 0 || scheduleId < 0)
+            throw new IllegalArgumentException();
+        System.out.println("scheduleId==>"+scheduleId);
+        return reserveMapper.selectReserveByUserIdAndScheduleId(userId,scheduleId);
     }
 }

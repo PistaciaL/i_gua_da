@@ -50,6 +50,12 @@ Page({
           duration: 3000
         });
         this.chaxun();
+      }else{
+        wx.showToast({
+          title: res.data.msg,
+          icon: "none",
+          duration: 3000
+        });
       }
     })
   },

@@ -32,8 +32,9 @@ public interface ReserveService {
      */
     public PageInfo<Reserve> getUserReserve(Integer userId, LocalDateTime StartTime, LocalDateTime EndTime, Integer PageNum, Integer PageSize);
 
-    //获得所有历史记录
-    public PageInfo<Reserve> getAllReserves(Integer userId,Integer PageNum, Integer PageSize);
+    //获得所有记录
+    public PageInfo<Reserve> getAllReserves(Integer userId,Integer PageNum, Integer PageSize,
+                                            LocalDateTime startDateTime,LocalDateTime endDateTime);
 
     /**
      * 用户取消预约，通过用户id和班次的id删除用户的预约(删除reserve)
@@ -58,4 +59,6 @@ public interface ReserveService {
      * @return true 预约<br/>false 没有预约
      */
     public boolean verifyByScheduleIdAndUserId(Integer scheduleId, Integer userId);
+
+    List<Reserve> getUserReserveByUserIdAndScheduleId(Integer userId, Integer scheduleId);
 }
