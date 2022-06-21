@@ -1,4 +1,7 @@
 /* pages/messageBoard2/messageBoard2.wxss */
+Page{
+  background-color: #F8F8F8;
+}
 .type-container{
   text-align: center;
   border-radius: 10rpx;

@@ -8,7 +8,7 @@
 <view class="user-item" wx:for="{{users}}" wx:key="id" wx:for-item="user">
   <view class="user-info-title clearfix">
     <text class="user-info-title-text">用户:{{user.nickname}}</text>
-    <text class="user-info-title-text">状态:{{user.status}}</text>
+    <text class="user-info-title-text">信誉度:{{user.credit}}</text>
   </view>
   <view class="line"></view>
   <view class="user-info-content">
@@ -32,10 +32,11 @@
         data-id="{{user.userId}}" data-newPermission="2">设为管理员</text>
     </view>
     <view class="status-set">
-      <text wx:if="{{user.status=='正常'}}" bindtap="setStatus" 
+      <text bindtap="decrementCredit" data-id="{{user.userId}}">扣除信誉度</text>
+      <!-- <text wx:if="{{user.status=='正常'}}" bindtap="setStatus" 
         data-id="{{user.userId}}" data-newStatus="2">封禁</text>
       <text wx:else bindtap="setStatus" 
-        data-id="{{user.userId}}" data-newStatus="1">解封</text>
+        data-id="{{user.userId}}" data-newStatus="1">解封</text> -->
     </view>
   </view>
 </view>

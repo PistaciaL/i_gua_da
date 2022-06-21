@@ -2,7 +2,7 @@
 <view class="top-nav clearfix">
   <!-- <open-data class="user-avatar" type="userAvatarUrl"></open-data> -->
   <!-- <open-data class="user-name" type="userNickName"></open-data> -->
-  <image class="user-avatar" src="https://101.35.0.204:8443/creeper/videos/avatar.png"></image>
+  <image class="user-avatar" src="http://101.35.0.204:8080/creeper/videos/avatar.png"></image>
   <text class="user-name">{{userName}}</text>
 </view>
 <!-- 选项列表部分 -->
@@ -20,6 +20,11 @@
   <view class="choice-item">
     <van-icon class="choice-item-icon" name="volume-o" />
     <text class="choice-item-text" bindtap="goto" data-url="/pages/questions/questions">趣味答题</text>
+  </view>
+  <view class="line"></view>
+  <view class="choice-item">
+    <van-icon class="choice-item-icon" name="chart-trending-o" />
+    <text class="choice-item-text" bindtap="goto" data-url="/pages/messageBoard/messageBoard">我要留言</text>
   </view>
   <view class="line"></view>
   <view class="choice-item">

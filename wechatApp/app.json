@@ -1,6 +1,8 @@
 {
   "pages":[
     "pages/index/index",
+    "pages/messageBoard/messageBoard",
+    "pages/messageBoard2/messageBoard2",
     "pages/questions/questions",
     "pages/register/index",
     "pages/location/location",

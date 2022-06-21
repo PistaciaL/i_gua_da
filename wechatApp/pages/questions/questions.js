@@ -91,27 +91,52 @@ Page({
     }else if(this.data.submitLock){
       this.data.submitLock = false;
       this.data.answers+=this.data.choice;
+      let info = '';
+      let limit = 0;
       if(this.data.choice==this.data.questions[this.data.index-1].answer){
         this.data.correctNumber++;
+        if(this.data.correctNumber>=limit){
+          info = '信誉度+1';
+        }
         wx.showToast({
-          title: "回答正确!您共答对"+this.data.correctNumber+'题!',
+          title: "回答正确!您共答对"+this.data.correctNumber+'题!'+info,
           icon: "none",
           duration: 1000
         });
       }else{
+        if(this.data.correctNumber>=limit){
+          info = '信誉度+1';
+        }
         wx.showToast({
-          title: "回答错误!正确答案为"+this.data.questions[this.data.index-1].answer+'!您共答对'+this.data.correctNumber+'题!',
+          title: "回答错误!正确答案为"+this.data.questions[this.data.index-1].answer+'!您共答对'+this.data.correctNumber+'题!'+info,
           icon: "none",
           duration: 1000
         });
       }
+      if(this.data.correctNumber>=limit){
+        app.globalData.axios({
+          url:'/manager/incrementCredit',
+          method:'POST',
+          params:{
+            code:app.globalData.userCode,
+            userId:app.globalData.userId
+          }
+        }).then(res=>{
+          console.log(res);
+          setTimeout(()=>{
+            wx.navigateBack({
+              delta: 1,
+            });
+          },1000);
+        })
+      }else{
+        setTimeout(()=>{
+          wx.navigateBack({
+            delta: 1,
+          });
+        },1000);
+      }
       // console.log(this.data.answers);
-
-      setTimeout(()=>{
-        wx.navigateBack({
-          delta: 1,
-        });
-      },1000);
     }
   },
   back(){

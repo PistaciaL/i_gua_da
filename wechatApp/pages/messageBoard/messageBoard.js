@@ -5,21 +5,29 @@ Page({
    * 页面的初始数据
    */
   data: {
-    type:'',
+    type:0,
     input:''
-  },
-  choose(e){
-    this.setData({
-      type:e.target.dataset.choice
-    })
   },
   updateInput(e){
     this.setData({
       input:e.detail.value
     })
   },
+  choose(e){
+    this.setData({
+      type:e.target.dataset.type
+    })
+  },
   submit(){
-    console.log(this.data.input);
+    if(this.data.type==0){
+      wx.showToast({
+        title: "请选择留言类型!",
+        icon: "none",
+        duration: 1000
+      });
+    }else{
+      console.log(this.data.input);
+    }
   },
   /**
    * 生命周期函数--监听页面加载

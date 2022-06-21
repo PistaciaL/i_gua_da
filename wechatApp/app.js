@@ -1,7 +1,9 @@
 import axios from "/utils/axios"
 import mpAdapter from '/utils/axios-miniprogram-adapter.js'
 axios.defaults.adapter = mpAdapter
-axios.defaults.baseURL='http://127.0.0.1:8081'
+//axios.defaults.baseURL='http://127.0.0.1:8081'
+axios.defaults.baseURL='http://101.35.0.204:8080/i_gua_da'
+// axios.defaults.baseURL='https://101.35.0.204:8443/i_gua_da'
 // axios.defaults.timeout = 6000
 // app.js
 App({
@@ -22,6 +24,7 @@ App({
             code:res.code
           }
         }).then(res=>{
+          // console.log(res.data)
           if(res.data.status==430){
             this.globalData.userCode = resCode;
             wx.redirectTo({
@@ -31,6 +34,7 @@ App({
             this.globalData.userCode = resCode;
             this.globalData.userName = res.data.name;
             this.globalData.shcoolId = res.data.studentNumber;
+            this.globalData.userId = res.data.userId;
             this.globalData.isManager = (res.data.permission==1?false:true);
             wx.redirectTo({
               url: '/pages/index/index',
@@ -42,6 +46,7 @@ App({
 
   },
   globalData: {
+    userId:null,
     userName: null,
     shcoolId:null,
     userCode: null,

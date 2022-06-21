@@ -77,6 +77,7 @@ Page({
         code: app.globalData.userCode
       }
     }).then(res=>{
+      // console.log(res.data);
       if(res.data.status==200){
         res.data.data.forEach((value,index,self)=>{
           value.permission = value.permission==1?'普通用户':'管理员';
@@ -115,29 +116,54 @@ Page({
       })
     })
   },
-  setStatus(e){
+  // setStatus(e){
+  //   app.globalData.axios({
+  //     url:'/manager/setStatus',
+  //     method: 'POST',
+  //     params:{
+  //       userId: e.target.dataset.id,
+  //       newStatus: e.target.dataset.newstatus,
+  //       code: app.globalData.userCode
+  //     }
+  //   }).then(res=>{
+  //     wx.showToast({
+  //       title: '修改成功',
+  //       icon: "none",
+  //       duration: 3000
+  //     })
+  //     this.data.users.forEach((value,index,self)=>{
+  //       if(value.userId==e.target.dataset.id){
+  //         value.status = e.target.dataset.newstatus==1?'正常':'封禁中';
+  //       }
+  //     })
+  //     this.setData({
+  //       users:this.data.users
+  //     })
+  //   })
+  // },
+  decrementCredit(e){
     app.globalData.axios({
-      url:'/manager/setStatus',
+      url:'/manager/decrementCredit',
       method: 'POST',
       params:{
-        userId: e.target.dataset.id,
-        newStatus: e.target.dataset.newstatus,
-        code: app.globalData.userCode
+        code: app.globalData.userCode,
+        userId: e.target.dataset.id
       }
     }).then(res=>{
-      wx.showToast({
-        title: '修改成功',
-        icon: "none",
-        duration: 3000
-      })
-      this.data.users.forEach((value,index,self)=>{
-        if(value.userId==e.target.dataset.id){
-          value.status = e.target.dataset.newstatus==1?'正常':'封禁中';
-        }
-      })
-      this.setData({
-        users:this.data.users
-      })
+      if(res.data.status==200){
+        wx.showToast({
+          title: '扣除信誉度成功',
+          icon: "none",
+          duration: 1000
+        });
+        this.reloadList();
+      }else{
+        wx.showToast({
+          title: res.data.msg,
+          icon: "none",
+          duration: 1000
+        });
+      }
     })
   },
   /**
