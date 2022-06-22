@@ -50,13 +50,13 @@ public class AdminServiceImpl implements AdminService {
     }
 
     @Override
-    public PageInfo<User> getUserList(Integer pageNum, Integer pageSize) {
+    public PageInfo<User> getUserList(Integer userId,Integer pageNum, Integer pageSize) {
         if(pageNum == null || pageSize == null)
             throw new NullPointerException();
         if(pageNum < 1 || pageSize < 1)
             throw new IllegalArgumentException();
         PageHelper.startPage(pageNum, pageSize);
-        List<User> users = userMapper.getAllUser();
+        List<User> users = userMapper.getAllUser(userId);
         PageInfo<User> pageInfo = new PageInfo<>(users);
         return pageInfo;
     }
@@ -112,12 +112,12 @@ public class AdminServiceImpl implements AdminService {
     }
 
     @Override
-    public PageInfo<User> listUserByLikeStudentNumber(int studentNumber, int page, int pageSize) {
+    public PageInfo<User> listUserByLikeStudentNumber(int userId,int studentNumber, int page, int pageSize) {
         if (studentNumber<1 || page<1 || pageSize<1){
             throw new IllegalArgumentException();
         }
         PageHelper.startPage(page,pageSize);
-        List<User> users = userMapper.listUserByLikeStudentNumber(studentNumber);
+        List<User> users = userMapper.listUserByLikeStudentNumber(userId,studentNumber);
         PageInfo<User> pageInfo = new PageInfo<>(users);
         return pageInfo;
     }

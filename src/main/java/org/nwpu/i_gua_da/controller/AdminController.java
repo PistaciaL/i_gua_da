@@ -2,26 +2,24 @@ package org.nwpu.i_gua_da.controller;
 
 import com.alibaba.fastjson.JSON;
 import com.github.pagehelper.Page;
+import org.apache.ibatis.annotations.Param;
+import org.nwpu.i_gua_da.entity.*;
 import com.github.pagehelper.PageInfo;
 import com.github.pagehelper.util.StringUtil;
-import org.nwpu.i_gua_da.entity.Notice;
-import org.nwpu.i_gua_da.entity.Schedule;
-import org.nwpu.i_gua_da.entity.Station;
-import org.nwpu.i_gua_da.entity.User;
 import org.nwpu.i_gua_da.fastjson.UserData;
 import org.nwpu.i_gua_da.fastjson.UserVo;
 import org.nwpu.i_gua_da.service.*;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.CrossOrigin;
+import org.springframework.data.redis.core.RedisTemplate;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
-import javax.servlet.http.HttpSession;
+import java.awt.*;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
-import java.time.format.DateTimeParseException;
 import java.util.*;
+import java.util.List;
 
 /**
  * 管理员操作
@@ -42,8 +40,30 @@ public class AdminController {
     private NoticeService noticeService;
     @Autowired
     private StationService stationService;
+    @Autowired
+    private MessageService messageService;
 
     DateTimeFormatter dfOut = DateTimeFormatter.ofPattern("yyyy/MM/dd HH:mm", Locale.CHINA);
+
+    @RequestMapping("/incrementCredit")
+    public String incrementCredit(@RequestParam("userId")int userId,@RequestParam("code")String code){
+        System.out.println("123123");
+        if (userService.incrementCredit(userId)){
+            return "{\"status\":200}";
+        }else {
+            throw new RuntimeException("更新失败");
+        }
+    }
+
+    @RequestMapping("/decrementCredit")
+    public String decrementCredit(@RequestParam("userId")int userId,@RequestParam("code")String code){
+        if (userService.decrementCredit(userId)){
+            return "{\"status\":200}";
+        }else {
+            throw new RuntimeException("更新失败");
+        }
+    }
+
 
 
     //管理员增加班次Schedule
@@ -84,13 +104,13 @@ public class AdminController {
                               @RequestParam("page") int page,
                               @RequestParam("pageSize") int pageSize,
                               @RequestParam("code") String code){
-
+        User selectedUser = userService.getUserByCode(code);
         PageInfo<User> users = null;
         if(StringUtil.isEmpty(info)) {
-            users = adminService.getUserList(page,pageSize);
+            users = adminService.getUserList(selectedUser.getUserId(),page,pageSize);
         }else {
             //匹配学号搜索
-            users = adminService.listUserByLikeStudentNumber(Integer.parseInt(info), page, pageSize);
+            users = adminService.listUserByLikeStudentNumber(selectedUser.getUserId(), Integer.parseInt(info), page, pageSize);
         }
         UserData result = new UserData();
         result.setStatus(200);
@@ -105,6 +125,7 @@ public class AdminController {
             userVo.setEmail(user.getEmail());
             userVo.setPermission(user.getPermission());
             userVo.setStudentNumber(user.getStudentNumber());
+            userVo.setCredit(user.getCredit());
             userVos.add(userVo);
         }
         result.setData(userVos);
@@ -278,5 +299,30 @@ public class AdminController {
         }
         mainSj.add(sj.toString());
         return mainSj.toString();
+    }
+
+    @RequestMapping("/getMessageByType")
+    public String GetMessageByType(@RequestParam("type")int type,
+                                   @RequestParam("code")String code){
+
+        List<Message> messageInfo = messageService.listMessageByType(type);
+        if(messageInfo==null){
+            return "{\"status\":200,\"data\":[]}";
+        }
+
+        List<Map<String,Object>> data = new ArrayList<>();
+
+        Map<String,Object> result = new HashMap<>();
+        result.put("status",200);
+        List<Message> messages = messageInfo;
+        for (Message message : messages) {
+            Map<String, Object> map = new HashMap<>();
+            map.put("messageId",message.getMessageId());
+            map.put("content",message.getContent());
+            map.put("type",message.getType());
+            data.add(map);
+        }
+        result.put("data",data);
+        return JSON.toJSONString(result);
     }
 }

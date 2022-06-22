@@ -55,9 +55,9 @@ public interface UserMapper {
 
     Integer getUserPermissionByUserId(Integer userId);
 
-    List<User> getAllUser();
+    List<User> getAllUser(@Param("userId") Integer userId);
 
-    User getUserByEmail(String email);
+    User getUserByEmail(@Param("email") String email);
 
     Integer getUserStatusByUserId(Integer userId);
 
@@ -87,10 +87,16 @@ public interface UserMapper {
 
     User getUserByOpenid(@Param("openid") String openid);
 
-    List<User> listUserByLikeStudentNumber(int studentNumber);
+    List<User> listUserByLikeStudentNumber(@Param("userId") int userId,@Param("studentNumber") int studentNumber);
 
     int setUserPermission(int userId, int permission);
 
     int updateUserByOpenid(@Param("openid") String openid, @Param("nickname") String nickname,
                            @Param("studentNumber") String studentNumber, @Param("email") String email);
+
+    User getUserByStudentNumber(@Param("studentNumber") String studentNumber);
+
+    int incrementCredit(@Param("userId") Integer userId);
+
+    int decrementCredit(@Param("userId") Integer userId);
 }

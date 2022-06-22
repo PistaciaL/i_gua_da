@@ -1,22 +1,48 @@
 // pages/messageBoard2/messageBoard2.js
+const app = getApp();
 Page({
 
   /**
    * 页面的初始数据
    */
   data: {
-    type:''
+    type:1,
+    title:['失物寻主','寻物启事','乘车意见','其他..'],
+    messages:[
+      // {messageId:1,content:'10号车失物寻主手表',type:1},
+      // {messageId:2,content:'10号车失物寻主手表',type:1},
+      // {messageId:3,content:'10号车失物寻主手表',type:1},
+      // {messageId:4,content:'10号车失物寻主手表',type:1},
+    ]
   },
   choose(e){
-    this.setData({
-      type:e.target.dataset.choice
+    this.data.type = e.target.dataset.type;
+    this.getMessages();
+  },
+  getMessages(){
+    app.globalData.axios({
+      url:'/manager/getMessageByType',
+      method:'POST',
+      params:{
+        type:this.data.type,
+        code:app.globalData.userCode
+      }
+    }).then(res=>{
+      console.log(res.data);
+      if(res.status==200){
+        // console.log(res.data);
+        this.setData({
+          messages:res.data.data,
+          type:this.data.type
+        })
+      }
     })
   },
   /**
    * 生命周期函数--监听页面加载
    */
   onLoad(options) {
-
+    this.getMessages();
   },
 
   /**

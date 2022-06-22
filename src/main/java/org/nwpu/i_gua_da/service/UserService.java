@@ -10,7 +10,7 @@ public interface UserService {
      * @param user 修改信息后的用户
      * @return 1：修改成功；0：用户名字重复或邮箱重复
      */
-    public Integer setUserInformation(User user);
+    public boolean setUserInformation(User user);
 
     /**
      * 用户修改密码
@@ -55,4 +55,8 @@ public interface UserService {
     boolean addUser(User user);
 
     boolean updateUserByOpenid(String openid, String nickname, String studentNumber, String email);
+
+    boolean incrementCredit(Integer userId);
+
+    boolean decrementCredit(Integer userId);
 }

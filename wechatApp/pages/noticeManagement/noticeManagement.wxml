@@ -10,7 +10,7 @@
 <view class="notice-item" wx:for="{{notices}}" wx:key="id" wx:for-item="notice">
   <view class="notice-info-title clearfix">
     <text class="notice-info-title-text">{{notice.title}}</text>
-    <text class="notice-info-title-text">发布人:{{notice.sender}}</text>
+    <!-- <text class="notice-info-title-text">发布人:{{notice.sender}}</text> -->
   </view>
   <view class="line"></view>
   <view class="notice-info-content">

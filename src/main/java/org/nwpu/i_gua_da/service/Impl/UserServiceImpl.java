@@ -33,17 +33,23 @@ public class UserServiceImpl implements UserService {
 
     @Override
     @Transactional
-    public Integer setUserInformation(User user) {
+    public boolean setUserInformation(User user) {
         if(user == null || user.getUserId() == null || user.getName() == null || user.getEmail() == null || user.getStudentNumber() == null)
             throw new NullPointerException();
-        if(user.getUserId() < 0 || user.getStudentNumber().length() == 0 || user.getStudentNumber().length() > studentNumberMaxLength ||
+        if(user.getUserId() < 0 ||
+                user.getStudentNumber().length() == 0 ||
+                user.getStudentNumber().length() > studentNumberMaxLength ||
                 user.getName().length() == 0 || user.getName().length() > userNameMaxLength ||
-                user.getEmail().length() == 0 || user.getEmail().length() > userEmailMaxLength || !FormatValidator.isEmail(user.getEmail()))
+                user.getEmail().length() == 0 || user.getEmail().length() > userEmailMaxLength ||
+                !FormatValidator.isEmail(user.getEmail()))
             throw new IllegalArgumentException();
-        if(userMapper.verifyByNameOrEmail(user) != null)
-            return 0;
-        int i = userMapper.setUserInformation(user);
-        return i == 0 ? 0 : 1;
+        if (userMapper.getUserByStudentNumber(user.getStudentNumber()) != null){
+            throw new RuntimeException("学号冲突");
+        }
+        if (userMapper.getUserByEmail(user.getEmail())!= null){
+            throw new RuntimeException("邮箱冲突");
+        }
+        return userMapper.setUserInformation(user)==1;
     }
 
     @Override
@@ -105,6 +111,22 @@ public class UserServiceImpl implements UserService {
             throw new IllegalArgumentException();
         }
         return userMapper.updateUserByOpenid(openid,nickname,studentNumber,email)==1;
+    }
+
+    @Override
+    public boolean incrementCredit(Integer userId) {
+        if (userId==null || userId<0){
+            throw new IllegalArgumentException("参数异常");
+        }
+        return userMapper.incrementCredit(userId)==1;
+    }
+
+    @Override
+    public boolean decrementCredit(Integer userId) {
+        if (userId==null || userId<0){
+            throw new IllegalArgumentException("参数异常");
+        }
+        return userMapper.decrementCredit(userId)==1;
     }
 
 }

@@ -28,6 +28,7 @@ public class User {
     private Integer status;
     private String openid;
     private String code;
+    private Integer credit;
     
     /**
      * 空构造函数

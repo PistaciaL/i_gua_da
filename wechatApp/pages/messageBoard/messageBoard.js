@@ -1,4 +1,5 @@
 // pages/messageBoard/messageBoard.js
+const app = getApp();
 Page({
 
   /**
@@ -26,7 +27,38 @@ Page({
         duration: 1000
       });
     }else{
-      console.log(this.data.input);
+      if(this.data.input==''){
+        wx.showToast({
+          title: "输入不能为空!",
+          icon: "none",
+          duration: 1000
+        });
+      }else{
+        app.globalData.axios({
+          url:'/addMessage',
+          method:'POST',
+          params:{
+            content:this.data.input,
+            type:this.data.type,
+            code:app.globalData.userCode
+          }
+        }).then(res=>{
+          if(res.data.status==200){
+            wx.showToast({
+              title: "留言成功!",
+              icon: "none",
+              duration: 1000
+            });
+            setTimeout(()=>{
+              wx.navigateBack({
+                delta: 1,
+              });
+            },1000);
+          }else{
+            console.log(res.msg)
+          }
+        })
+      }
     }
   },
   /**

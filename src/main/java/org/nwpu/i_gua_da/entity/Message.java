@@ -6,9 +6,7 @@ import java.time.LocalDateTime;
 
 @Data
 public class Message {
-    private Integer MessageId;
+    private Integer messageId;
     private String content;
-    private User userId;
-    private LocalDateTime messageTime;
-    private Integer status;
+    private Integer type;
 }

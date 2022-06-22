@@ -95,6 +95,9 @@ public class ReserveController {
     public String reserve(@RequestParam("scheduleId") int scheduleId,
                           @RequestParam("code") String code){
         User user = userService.getUserByCode(code);
+        if (user.getCredit()<8){
+            throw new RuntimeException("您的信誉值过低");
+        }
         List<Reserve> selectedReserve = reserveService.getUserReserveByUserIdAndScheduleId(user.getUserId(),scheduleId);
         if (selectedReserve.size()!=0){
             for (Reserve reserve : selectedReserve) {

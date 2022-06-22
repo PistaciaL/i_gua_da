@@ -1,8 +1,8 @@
 import axios from "/utils/axios"
 import mpAdapter from '/utils/axios-miniprogram-adapter.js'
 axios.defaults.adapter = mpAdapter
-//axios.defaults.baseURL='http://127.0.0.1:8081'
-axios.defaults.baseURL='http://101.35.0.204:8080/i_gua_da'
+axios.defaults.baseURL='http://127.0.0.1:8081'
+// axios.defaults.baseURL='http://101.35.0.204:8080/i_gua_da'
 // axios.defaults.baseURL='https://101.35.0.204:8443/i_gua_da'
 // axios.defaults.timeout = 6000
 // app.js

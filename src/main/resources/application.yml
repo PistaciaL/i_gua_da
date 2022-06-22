@@ -52,6 +52,11 @@ constants:
   wxlogin:
     appid: wx407a31f1ca53a599
     secret: ea9c64ba779a4c117d071722088afa0e
+  message:
+    length:
+      content: 65535
+    type:
+      default: 1
 redisKey:
   station: Station
   lastSeat: LastSeat

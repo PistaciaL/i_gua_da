@@ -31,7 +31,7 @@ public interface AdminService {
      * @param PageSize 一页大小
      * @return 返回用户列表
      */
-    public PageInfo<User> getUserList(Integer PageNum, Integer PageSize);
+    public PageInfo<User> getUserList(Integer userId,Integer PageNum, Integer PageSize);
 
     /**
      * 根据用户id查找用户
@@ -72,7 +72,7 @@ public interface AdminService {
      */
     public PageInfo<User> listUserByLikeUserName(String userName, Integer pageNum, Integer pageSize);
 
-    PageInfo<User> listUserByLikeStudentNumber(int studentNumber, int page, int pageSize);
+    PageInfo<User> listUserByLikeStudentNumber(int userId,int studentNumber, int page, int pageSize);
 
     boolean setUserPermission(int userId, int permission);
 }

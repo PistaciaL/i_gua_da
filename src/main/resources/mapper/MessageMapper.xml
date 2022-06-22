@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="org.nwpu.i_gua_da.mapper.MessageMapper">
+    <resultMap id="Message" type="org.nwpu.i_gua_da.entity.Message">
+        <id property="messageId" column="message_id"/>
+        <result property="content" column="content"/>
+        <result property="type" column="type"/>
+    </resultMap>
+
+    <insert id="addMessageDefaultType" parameterType="org.nwpu.i_gua_da.entity.Message">
+        INSERT INTO message_info (content, type) VALUES (#{content}, #{type})
+    </insert>
+
+    <insert id="addMessage" parameterType="org.nwpu.i_gua_da.entity.Message">
+        INSERT INTO message_info (content, type) VALUES (#{content}, #{type})
+    </insert>
+
+    <select id="listMessageByType" resultMap="Message">
+        SELECT m.message_id, m.content, m.type from message_info m where m.type = #{type}
+    </select>
+</mapper>

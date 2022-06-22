@@ -10,4 +10,5 @@ public class UserVo {
     private String email;
     private int status;
     private int permission;
+    private int credit;
 }

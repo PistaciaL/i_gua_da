@@ -1,49 +1,21 @@
 <!--pages/messageBoard2/messageBoard2.wxml-->
-<view class="type-container-choiced a-choiced" wx:if="{{type=='A'}}">
-  <text class="type-container-text-choiced">失物寻主</text>
+<view class="choice-container clearfix">
+  <text class="choice-text choiced" wx:if="{{type==1}}">失物寻主</text>
+  <text class="choice-text not-choiced" wx:else bindtap="choose" data-type="{{1}}">失物寻主</text>
+  <text class="choice-text choiced" wx:if="{{type==2}}">寻物启事</text>
+  <text class="choice-text not-choiced" wx:else bindtap="choose" data-type="{{2}}">寻物启事</text>
+  <text class="choice-text choiced" wx:if="{{type==3}}">乘车意见</text>
+  <text class="choice-text not-choiced" wx:else bindtap="choose" data-type="{{3}}">乘车意见</text>
+  <text class="choice-text choiced" wx:if="{{type==4}}">其他..</text>
+  <text class="choice-text not-choiced" wx:else bindtap="choose" data-type="{{4}}">其他..</text>
 </view>
-<view class="content a-choiced" wx:if="{{type=='A'}}">
-  <text class="content-text">今天在42536车后座发现一支笔</text>
-</view>
-<view class="content a-choiced" wx:if="{{type=='A'}}">
-  <text class="content-text">今天在42536车后座发现一支笔</text>
-</view>
-<view class="type-container a" wx:if="{{type!='A'}}">
-  <text class="type-container-text" bindtap="choose" data-choice="A">失物寻主</text>
-</view>
-<view class="type-container-choiced c-choiced" wx:if="{{type=='C'}}">
-  <text class="type-container-text-choiced">乘车意见</text>
-</view>
-<view class="content c-choiced" wx:if="{{type=='C'}}">
-  <text class="content-text">今天在42536车后座发现一支笔</text>
-</view>
-<view class="content c-choiced" wx:if="{{type=='C'}}">
-  <text class="content-text">今天在42536车后座发现一支笔</text>
-</view>
-<view class="type-container c" wx:if="{{type!='C'}}">
-  <text class="type-container-text" bindtap="choose" data-choice="C">乘车意见</text>
-</view>
-<view class="type-container-choiced d-choiced" wx:if="{{type=='D'}}">
-  <text class="type-container-text-choiced">其它..</text>
-</view>
-<view class="content d-choiced" wx:if="{{type=='D'}}">
-  <text class="content-text">今天在42536车后座发现一支笔</text>
-</view>
-<view class="content d-choiced" wx:if="{{type=='D'}}">
-  <text class="content-text">今天在42536车后座发现一支笔</text>
-</view>
-<view class="type-container d" wx:if="{{type!='D'}}">
-  <text class="type-container-text" bindtap="choose" data-choice="D">其他..</text>
-</view>
-<view class="type-container-choiced b-choiced" wx:if="{{type=='B'}}">
-  <text class="type-container-text-choiced">寻物启事</text>
-</view>
-<view class="content b-choiced" wx:if="{{type=='B'}}">
-  <text class="content-text">今天在42536车后座发现一支笔</text>
-</view>
-<view class="content b-choiced" wx:if="{{type=='B'}}">
-  <text class="content-text">今天在42536车后座发现一支笔</text>
-</view>
-<view class="type-container b" wx:if="{{type!='B'}}">
-  <text class="type-container-text" bindtap="choose" data-choice="B">寻物启事</text>
+<view class="tip" wx:if="{{messages.length==0}}">暂无留言</view>
+<view class="notice-item" wx:for="{{messages}}" wx:key="id" wx:for-item="message">
+  <view class="notice-info-title clearfix">
+    <text class="notice-info-title-text">留言类型:{{title[type-1]}}</text>
+  </view>
+  <view class="line"></view>
+  <view class="notice-info-content">
+    <text class="notice-info-content-text">{{message.content}}</text>
+  </view>
 </view>

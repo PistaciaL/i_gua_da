@@ -122,7 +122,7 @@ Page({
             userId:app.globalData.userId
           }
         }).then(res=>{
-          console.log(res);
+          // console.log(res);
           setTimeout(()=>{
             wx.navigateBack({
               delta: 1,
