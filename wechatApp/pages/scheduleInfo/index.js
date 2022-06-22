@@ -129,6 +129,7 @@ Page({
         datetimeStr: formattedDatetime,
     });
     this.onCloseDatetimePicker();
+    this.chaxun();
   },
   /**
    * startStation选择器
@@ -146,8 +147,10 @@ Page({
   onConfirmStartStationInput(event) {
     this.setData({
       startCampusStr: event.detail.value,
+      endCampusStr:this.data.station[0]==event.detail.value?this.data.station[1]:this.data.station[0]
     });
     this.onCloseStartStationPicker();
+    this.chaxun();
   },
   /**
    * endStation选择器
@@ -165,8 +168,10 @@ Page({
   onConfirmEndStationInput(event) {
     this.setData({
       endCampusStr: event.detail.value,
+      startCampusStr:this.data.station[0]==event.detail.value?this.data.station[1]:this.data.station[0]
     });
     this.onCloseEndStationPicker();
+    this.chaxun();
   },
   /**
    * 格式化datetime

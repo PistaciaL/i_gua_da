@@ -17,7 +17,8 @@
     "pages/userManagement/userManagement",
     "pages/myOrders/myOrders",
     "pages/manager/manager",
-    "pages/myCenter/index"
+    "pages/myCenter/index",
+    "pages/vrModel/index"
   ],
   "window":{
     "backgroundTextStyle":"light",

@@ -146,7 +146,7 @@ public class ReserveController {
             data.add(new ReserveData(reserve.getReserveId(),reserve.getStatus(),reserve.getSchedule().getStartStation().getCampus(),
                     reserve.getSchedule().getStartStation().getStationName(),reserve.getSchedule().getEndStation().getCampus(),
                     reserve.getSchedule().getEndStation().getStationName(),reserve.getSchedule().getDepartureDateTime().format(dfOut),
-                    reserve.getSchedule().getStartStation().getLongitude(),reserve.getSchedule().getEndStation().getLatitude()));
+                    reserve.getSchedule().getStartStation().getLongitude(),reserve.getSchedule().getStartStation().getLatitude()));
         }
         historyReserves.setData(data);
         return JSON.toJSONString(historyReserves);

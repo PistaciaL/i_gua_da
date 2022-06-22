@@ -23,12 +23,12 @@ Page({
     endCampus: '',
     endStationId: null,
     station:[
-        {stationId: 1,campus: "长安校区",station: "长安校区A站",},
-        {stationId: 3,campus: "长安校区",station: "长安校区B站",},
-        {stationId: 5,campus: "长安校区",station: "长安校区C站",},
-        {stationId: 2,campus: "友谊校区",station: "友谊校区A站",},
-        {stationId: 4,campus: "友谊校区",station: "友谊校区B站",},
-        {stationId: 6,campus: "友谊校区",station: "友谊校区C站",}
+        {stationId: 1,campus: "长安校区",station: "大飞机站",},
+        {stationId: 3,campus: "长安校区",station: "启真楼站",},
+        {stationId: 5,campus: "长安校区",station: "和尊站",},
+        {stationId: 2,campus: "友谊校区",station: "老图书馆站",},
+        {stationId: 4,campus: "友谊校区",station: "南门站",},
+        {stationId: 6,campus: "友谊校区",station: "公字楼站",}
     ],
     formatter(type, value) {
         if (type === 'year') {

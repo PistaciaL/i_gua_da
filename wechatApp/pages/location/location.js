@@ -22,7 +22,27 @@ Page({
     plusResult: {
       distance: 0,
       duration: 0
-    }
+    },
+    stationInfo: [
+      {name: '大飞机站', info:'西北工业大学（长安校区）', imgSrc:'http://101.35.0.204:8080/creeper/videos/nwpu.png', url:'https://www.jt720.cn/pano/f4bf97cf4b047e05?s=scene_34535b9212fcf492'},
+      {name: '老图书馆站', info:'西北工业大学（友谊校区）', imgSrc:'http://101.35.0.204:8080/creeper/videos/nwpu.png', url:'https://720yun.com/t/85eye7l26oue9gajh4?pano_id=9d8qDEINIw4F7Myy'},
+      {name: '启真楼站', info:'西北工业大学（长安校区）', imgSrc:'http://101.35.0.204:8080/creeper/videos/nwpu.png', url:'https://www.jt720.cn/pano/f4bf97cf4b047e05?s=scene_b8829905abf6c680'},
+      {name: '南门站', info:'西北工业大学（友谊校区）', imgSrc:'http://101.35.0.204:8080/creeper/videos/nwpu.png', url:'https://720yun.com/t/85eye7l26oue9gajh4?pano_id=VOFWYlbCwQuyfrTA'},
+      {name: '和尊站', info:'西北工业大学（长安校区）', imgSrc:'http://101.35.0.204:8080/creeper/videos/nwpu.png', url:'https://www.jt720.cn/pano/f4bf97cf4b047e05?s=scene_47ee8ca7c275f28c'},
+      {name: '公字楼站', info:'西北工业大学（友谊校区）', imgSrc:'http://101.35.0.204:8080/creeper/videos/nwpu.png', url:'https://720yun.com/t/85eye7l26oue9gajh4?pano_id=tcXeReQq4nc1wCHH'},
+    ],
+    station:{
+      name: '', 
+      info:'', 
+      imgSrc:'', 
+      url:''
+    },
+    updateLocationTime : new Date().getTime()
+  },
+  gotoVR(){
+    wx.navigateTo({
+      url: '/pages/vrModel/index?url='+this.data.station.url,
+    })
   },
   updateLocation(){
     wx.onLocationChange(res=>{
@@ -33,7 +53,13 @@ Page({
           longitude: res.longitude
         }
       })
-      _this.refreshMap()
+      var nowTime=new Date().getTime()
+      if(nowTime-_this.data.updateLocationTime>5000){
+        _this.refreshMap()
+        _this.setData({
+          updateLocationTime: nowTime
+        })
+      }
     })
   },
   refreshMap(){
@@ -84,11 +110,18 @@ Page({
    * 生命周期函数--监听页面加载
    */
   onLoad: function (options) {
-    console.log(options)
+    console.log('options',options)
     this.setData({
       desLocation:{
         latitude: options.latitude,
-        longitude: options.longitude
+        longitude: options.longitude,
+      }
+    })
+    this.data.stationInfo.forEach((value,index,self)=>{
+      if(value.name==options.station){
+        this.setData({
+          station: value
+        })
       }
     })
   },

@@ -65,7 +65,7 @@
         cancel-button-text=""
     />  
 </van-popup>
-<view class="search-btn" type="primary" bindtap="chaxun"><van-icon name="search" />查询</view>
+<!-- <view class="search-btn" type="primary" bindtap="chaxun"><van-icon name="search" />查询</view> -->
 <!-- 预约列表部分 -->
 <view class="order-item clearfix"  wx:for="{{orders}}" wx:key="id" wx:for-item="order">
   <view class="order-info-title clearfix">

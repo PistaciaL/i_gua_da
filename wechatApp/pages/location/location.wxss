@@ -37,3 +37,28 @@
   background-color: #ffffff;
   border-radius: 15px;
 }
+.info-top{
+  float: left;
+  width: 100%;
+  height: 220rpx;
+  background-color: #ffffff;
+  z-index: 1000;
+}
+.station-info{
+  margin: 20rpx 100rpx;
+}
+.img-top{
+  height: 160rpx;
+  width: 160rpx;
+  display: inline-block;
+}
+.info-top-text{
+  display: inline-block;
+  width: 60%;
+  color: gray;
+  padding-left: 30rpx;
+}
+.info-top-text-title{
+  font-size: 22px;
+  font-weight: 600;
+}

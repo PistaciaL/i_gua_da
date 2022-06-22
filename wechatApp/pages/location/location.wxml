@@ -1,4 +1,4 @@
-<!--导航测试-->
+
 <!-- 地图 -->
 <view class='maps'>
     <view class="page-section page-section-gap">
@@ -10,14 +10,26 @@
         polyline="{{polyline}}"
         show-location
         >
+          <!-- 顶部信息 -->
+          <view class="info-top" bindtap="gotoVR">
+            <view class="station-info">
+              <image class="img-top" src="{{station.imgSrc}}"/>
+              <view class="info-top-text">
+                <view class="info-top-text-title"><text>{{station.name}}</text></view>
+                <view class="hr"/>
+                <view><text>{{station.info}}</text></view>
+              </view> 
+            </view>
+          </view>
         </map>
     </view>
 </view>
+<!-- 底部信息 -->
 <view class="info-container">
   <view class='detailMsg'>
-            <text class="detail-msg-title">距离目的地还有:</text>
-            <view class="hr"/>
-            <text class="detail-msg-content">{{plusResult.distance}}米</text>
-            <text class="detail-msg-content">约{{plusResult.duration}}分钟</text>
-        </view>
+      <text class="detail-msg-title">距离目的地还有:</text>
+      <view class="hr"/>
+      <text class="detail-msg-content">{{plusResult.distance}}米</text>
+      <text class="detail-msg-content">约{{plusResult.duration}}分钟</text>
+  </view>
 </view>

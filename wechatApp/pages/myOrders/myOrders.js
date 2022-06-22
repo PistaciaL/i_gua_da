@@ -23,10 +23,9 @@ Page({
     })
   },
   daohang(e){
-    console.log(e)
     wx.navigateTo({
       url: '/pages/location/location?latitude='+e.target.dataset.latitude+
-        '&longitude='+e.target.dataset.longitude
+        '&longitude='+e.target.dataset.longitude+'&station='+e.target.dataset.startstation
     })
   },
   /**
