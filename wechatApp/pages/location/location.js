@@ -1,6 +1,7 @@
 // pages/location/location.js
 var QQMapWX = require('../../libs/qqmap-wx-jssdk');
 var qqmapsdk;
+let _this;
 Page({
 
   /**
@@ -8,28 +9,88 @@ Page({
    */
   data: {
     desLocation:{
-      latitude: 39.994060,
-      longitude: 116.317520
+      latitude: 0,
+      longitude: 0
     },
     nowLocation:{
-      latitude: 39.984060,
-      longitude: 116.307520 
+      latitude: 0,
+      longitude: 0 
     },
+    latitude: 0,
+    longitude: 0,
     polyline: null,
     plusResult: {
       distance: 0,
       duration: 0
     }
   },
+  updateLocation(){
+    wx.onLocationChange(res=>{
+      console.log('location change', res)
+      _this.setData({
+        nowLocation:{
+          latitude: res.latitude,
+          longitude: res.longitude
+        }
+      })
+      _this.refreshMap()
+    })
+  },
+  refreshMap(){
+    console.log('start refresh')
+    // 调用接口
+    qqmapsdk.direction({
+      mode: 'walking',
+      from: _this.data.nowLocation,
+      to: _this.data.desLocation,
+      success: function(res){
+        var ret = res;
+        var coors = ret.result.routes[0].polyline, pl = [];
+        //坐标解压（返回的点串坐标，通过前向差分进行压缩）
+        var kr = 1000000;
+        for (var i = 2; i < coors.length; i++) {
+          coors[i] = Number(coors[i - 2]) + Number(coors[i]) / kr;
+        }
+        //将解压后的坐标放入点串数组pl中
+        for (var i = 0; i < coors.length; i += 2) {
+          pl.push({ latitude: coors[i], longitude: coors[i + 1] })
+        }
+        //设置polyline属性，将路线显示出来,将解压坐标第一个数据作为起点
+        if(_this.data.latitude==0 || _this.data.longitude==0){
+          _this.setData({
+            latitude:pl[0].latitude,
+            longitude:pl[0].longitude,
+          })
+        }
+        _this.setData({
+          plusResult: {
+            distance: ret.result.routes[0].distance,
+            duration: ret.result.routes[0].duration
+          },
+          polyline: [{
+            points: pl,
+            color: '#7CAAFF',
+            width: 4
+          }]
+        })
+      },
+      complete: function(res){
+        console.log('complete refresh:',res)
+      }
+    });
+  },
 
   /**
    * 生命周期函数--监听页面加载
    */
-  onLoad: function () {
-    // 实例化API核心类
-    qqmapsdk = new QQMapWX({
-        key: 'CXRBZ-LJKKK-BSGJF-AX2HH-4C45J-X6BD4'
-    });
+  onLoad: function (options) {
+    console.log(options)
+    this.setData({
+      desLocation:{
+        latitude: options.latitude,
+        longitude: options.longitude
+      }
+    })
   },
 
   /**
@@ -43,61 +104,53 @@ Page({
    * 生命周期函数--监听页面显示
    */
   onShow: function () {
-    var _this = this;
-    // 调用接口
-    qqmapsdk.direction({
-      mode: 'walking',
-      from: _this.data.nowLocation,
-      to: _this.data.desLocation,
-      success: function(res){
-        console.log(res);
-        var ret = res;
-        var coors = ret.result.routes[0].polyline, pl = [];
-        //坐标解压（返回的点串坐标，通过前向差分进行压缩）
-        var kr = 1000000;
-        for (var i = 2; i < coors.length; i++) {
-          coors[i] = Number(coors[i - 2]) + Number(coors[i]) / kr;
-        }
-        //将解压后的坐标放入点串数组pl中
-        for (var i = 0; i < coors.length; i += 2) {
-          pl.push({ latitude: coors[i], longitude: coors[i + 1] })
-        }
-        //设置polyline属性，将路线显示出来,将解压坐标第一个数据作为起点
-        _this.setData({
-          latitude:pl[0].latitude,
-          longitude:pl[0].longitude,
-          plusResult: {
-            distance: ret.result.routes[0].distance,
-            duration: ret.result.routes[0].duration
-          },
-          polyline: [{
-            points: pl,
-            color: '#FF0000DD',
-            width: 4
-          }]
-        })
-      },
-      fail: function(res){
-        console.log(res)
-      },
-      complete: function(res){
-        console.log(res)
-      }
+    _this = this;
+    // 实例化API核心类
+    qqmapsdk = new QQMapWX({
+        key: 'CXRBZ-LJKKK-BSGJF-AX2HH-4C45J-X6BD4'
     });
+    //开始获取位置
+    wx.startLocationUpdate({
+      success: (res) => {
+        console.log(res)
+      },
+    });
+    //首次获取当前位置
+    wx.getLocation({
+      type: 'wgs84',
+      success (res) {
+        _this.setData({
+          nowLocation:{
+            latitude: res.latitude,
+            longitude: res.longitude
+          }
+        })
+        _this.refreshMap()
+      }
+    })
+    this.updateLocation()
   },
 
   /**
    * 生命周期函数--监听页面隐藏
    */
   onHide() {
-
+    wx.stopLocationUpdate({
+      success: (res) => {
+        console.log(res)
+      },
+    })
   },
 
   /**
    * 生命周期函数--监听页面卸载
    */
   onUnload() {
-
+    wx.stopLocationUpdate({
+      success: (res) => {
+        console.log(res)
+      },
+    })
   },
 
   /**

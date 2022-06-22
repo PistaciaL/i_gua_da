@@ -95,8 +95,30 @@ Page{
 }
 /* 底部导航 */
 .bottom{
+  background-color: #FFFFFF;
   width: 100%;
-  height: 180rpx;
   position: fixed;
   bottom: 0rpx;
+}
+.bottom-choice{
+  text-align: center;
+  float: left;
+  color: #6E6E6E;
+}
+.common{
+  width: 33%;
+}
+.manager{
+  width: 25%;
+}
+.bottom-icon{
+  display: block;
+  font-size: 60rpx;
+}
+.bottom-text{
+  font-size: 27rpx;
+  display: block;
+}
+.on{
+  color: #42A5F5;
 }

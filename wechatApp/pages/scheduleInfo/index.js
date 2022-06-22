@@ -34,6 +34,11 @@ Page({
       return value;
     },
   },
+  goto2(e){
+    wx.redirectTo({
+      url: e.currentTarget.dataset.url,
+    })
+  },
   yuyue(e){
     app.globalData.axios({
       url: '/user/reserve',

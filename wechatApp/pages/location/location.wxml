@@ -4,7 +4,7 @@
     <view class="page-section page-section-gap">
         <map
         id="myMap"
-        style="width: 100%; height: 900px;"
+        style="width: 100%; height: 100vh;"
         longitude="{{longitude}}" latitude="{{latitude}}"
         scale='16'
         polyline="{{polyline}}"
@@ -12,19 +12,12 @@
         >
         </map>
     </view>
-    <page-container 
-        show="{{true}}"
-        round="{{true}}"
-        overlay="{{false}}"
-        position="bottom"
-        custom-style="{{customStyle}}"
-        overlay-style="{{overlayStyle}}"
-        >
-            <view class='detailMsg'>
-                <text class="detail-msg-title">距离目的地还有:</text>
-                <text class="detail-msg-content">{{plusResult.distance}}米</text>
-                <text class="detail-msg-content">约{{plusResult.duration}}分钟</text>
-            </view>
-        </page-container>
 </view>
-
+<view class="info-container">
+  <view class='detailMsg'>
+            <text class="detail-msg-title">距离目的地还有:</text>
+            <view class="hr"/>
+            <text class="detail-msg-content">{{plusResult.distance}}米</text>
+            <text class="detail-msg-content">约{{plusResult.duration}}分钟</text>
+        </view>
+</view>

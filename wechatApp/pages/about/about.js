@@ -1,42 +1,18 @@
-// pages/myCenter/index.js
-const app = getApp();
+// pages/about/about.js
 Page({
 
   /**
    * 页面的初始数据
    */
   data: {
-    isManager:false,
-    credit:10,
-    userName:''
-  },
-  goto2(e){
-    wx.redirectTo({
-      url: e.currentTarget.dataset.url,
-    })
-  },
-  goto(e){
-    var url = e.target.dataset.url
-    if(url!='/pages/scheduleInfo/index'){
-      wx.navigateTo({
-        url: url,
-      })
-    }else{
-      wx.redirectTo({
-        url: url,
-      })
-    }
+    introduction:'瓜大易行开发团队是一个由软件学院2019级9位热爱软件开发技术，致力于服务同学学生组成的小型开发团队。其代表作有“瓜大易行”微信小程序。使用过程中若有疑问或发现bug请与我们联系！'
   },
 
   /**
    * 生命周期函数--监听页面加载
    */
   onLoad(options) {
-    this.setData({
-      userName: app.globalData.userName,
-      isManager:app.globalData.isManager,
-      credit:app.globalData.userCredit
-    })
+
   },
 
   /**

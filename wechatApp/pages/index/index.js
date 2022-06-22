@@ -13,6 +13,11 @@ Page({
     notices: null,
     schedules: null,
   },
+  goto2(e){
+    wx.redirectTo({
+      url: e.currentTarget.dataset.url,
+    })
+  },
   gotoNotice(e){
     this.data.notices.forEach((value,index,self)=>{
       if(value.noticeId==e.target.dataset.id){

@@ -7,7 +7,13 @@ Page({
    */
   data: {
     isManager:true,
+    credit:10,
     userName:''
+  },
+  goto2(e){
+    wx.redirectTo({
+      url: e.currentTarget.dataset.url,
+    })
   },
   goto(e){
     var url = e.target.dataset.url
@@ -21,6 +27,7 @@ Page({
   onLoad(options) {
     this.setData({
       userName: app.globalData.userName,
+      credit:app.globalData.userCredit
     })
   },
 

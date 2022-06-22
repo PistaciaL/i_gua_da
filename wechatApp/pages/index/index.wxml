@@ -45,11 +45,43 @@
   </view>
 </view>
 <!-- 底部导航 -->
-<view class="bottom">
+<!-- <view class="bottom">
   <van-grid column-num="{{isManager?4:3}}" border="{{false}}">
     <van-grid-item icon-color="#42A5F5" icon="label-o" text="首页"/>
     <van-grid-item link-type="redirectTo" icon="logistics" text="班车" url="/pages/scheduleInfo/index" />
     <van-grid-item link-type="redirectTo" icon="wap-home-o" text="我的" url="/pages/myCenter/index" />
     <van-grid-item link-type="redirectTo" wx:if="{{isManager}}" icon="setting-o" text="系统管理" url="/pages/manager/manager" />
   </van-grid>
-</view> 
+</view>  -->
+<view class="bottom clearfix" wx:if="{{isManager}}">
+  <view class="bottom-choice manager on">
+    <van-icon class="bottom-icon" name="label-o" />
+    <text class="bottom-text">首页</text>
+  </view>
+  <view class="bottom-choice manager" bindtap="goto2" data-url="/pages/scheduleInfo/index">
+    <van-icon class="bottom-icon" name="logistics" />
+    <text class="bottom-text">班车</text>
+  </view>
+  <view class="bottom-choice manager" bindtap="goto2" data-url="/pages/myCenter/index">
+    <van-icon class="bottom-icon" name="wap-home-o" />
+    <text class="bottom-text">我的</text>
+  </view>
+  <view class="bottom-choice manager" bindtap="goto2" data-url="/pages/manager/manager">
+    <van-icon class="bottom-icon" name="setting-o" />
+    <text class="bottom-text">系统管理</text>
+  </view>
+</view>
+<view class="bottom clearfix" wx:else>
+  <view class="bottom-choice common on">
+    <van-icon class="bottom-icon" name="label-o" />
+    <text class="bottom-text">首页</text>
+  </view>
+  <view class="bottom-choice common" bindtap="goto2" data-url="/pages/scheduleInfo/index">
+    <van-icon class="bottom-icon" name="logistics" />
+    <text class="bottom-text">班车</text>
+  </view>
+  <view class="bottom-choice common" bindtap="goto2" data-url="/pages/myCenter/index">
+    <van-icon class="bottom-icon" name="wap-home-o" />
+    <text class="bottom-text">我的</text>
+  </view>
+</view>

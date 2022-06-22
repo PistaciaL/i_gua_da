@@ -1,0 +1,29 @@
+/* pages/about/about.wxss */
+.title-back{
+  width: 100%;
+  height: 200rpx;
+}
+.title{
+  text-align: center;
+}
+.title-text{
+  font-size: 40rpx;
+  font-weight: bold;
+}
+.content{
+  width: 90%;
+  margin: 30rpx auto;
+}
+.info{
+  width: 90%;
+  margin: 20rpx auto;
+}
+.first{
+  margin-top: 150rpx;
+}
+.info-icon{
+  color: #42A5F5;
+}
+.info-text{
+  color: #797979;
+}

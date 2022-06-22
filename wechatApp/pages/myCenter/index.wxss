@@ -13,11 +13,22 @@ page{
   border-radius: 75rpx;
   margin-left: 30rpx;
 }
-.user-name{
+.user-info{
   float: left;
-  margin-top: 22rpx;
+  margin-top: 10rpx;
   margin-left: 20rpx;
   font-size: 30rpx;
+  color: #454545;
+}
+.user-name{
+  display: block;
+}
+.credit-text{
+  margin-top: 12rpx;
+  display: block;
+}
+.danger{
+  color: red;
 }
 .choice-list{
   background-color: #FFFFFF;
@@ -50,8 +61,30 @@ page{
 }
 /* 底部导航条部分 */
 .bottom{
+  background-color: #FFFFFF;
   width: 100%;
-  height: 180rpx;
   position: fixed;
   bottom: 0rpx;
+}
+.bottom-choice{
+  text-align: center;
+  float: left;
+  color: #6E6E6E;
+}
+.common{
+  width: 33%;
+}
+.manager{
+  width: 25%;
+}
+.bottom-icon{
+  display: block;
+  font-size: 60rpx;
+}
+.bottom-text{
+  font-size: 27rpx;
+  display: block;
+}
+.on{
+  color: #42A5F5;
 }

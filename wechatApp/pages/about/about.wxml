@@ -1,0 +1,20 @@
+<!--pages/about/about.wxml-->
+<image class="title-back" src="http://101.35.0.204:8080/creeper/videos/background.jpg"></image>
+<view class="title">
+ <text class="title-text">瓜大易行开发团队</text>
+</view>
+<view class="content">
+  <text class="content-text" decode="{{true}}">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;{{introduction}}</text>
+</view>
+<view class="info first">
+  <van-icon name="phone-o"class="info-icon" />
+  <text class="info-text">电话:18322805616</text>
+</view>
+<view class="info">
+  <van-icon name="envelop-o" class="info-icon"/>
+  <text class="info-text">邮箱:lha602@163.com</text>
+</view>
+<view class="info">
+  <van-icon name="location-o" class="info-icon" />
+  <text class="info-text">地址:启翔楼264</text>
+</view>

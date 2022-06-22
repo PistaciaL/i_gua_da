@@ -15,4 +15,6 @@ public class ReserveData {
     private String endCampus;
     private String endStation;
     private String departureDatetime;
+    private double longitude;
+    private double latitude;
 }

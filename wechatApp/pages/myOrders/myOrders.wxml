@@ -31,7 +31,8 @@
       <text bindtap="cancelReserve" data-id="{{order.reserveId}}">取消预约</text>
     </view>
     <view class="look">
-      <text bindtap="goto" data-url="/pages/location/location">导航</text>
+      <text bindtap="daohang" data-latitude="{{order.latitude}}" 
+        data-longitude="{{order.longitude}}">导航</text>
     </view>
   </view>
 </view>

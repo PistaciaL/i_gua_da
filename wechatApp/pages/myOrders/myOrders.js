@@ -22,6 +22,13 @@ Page({
       url: url,
     })
   },
+  daohang(e){
+    console.log(e)
+    wx.navigateTo({
+      url: '/pages/location/location?latitude='+e.target.dataset.latitude+
+        '&longitude='+e.target.dataset.longitude
+    })
+  },
   /**
    * 生命周期函数--监听页面加载
    */

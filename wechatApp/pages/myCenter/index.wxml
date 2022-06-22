@@ -3,7 +3,10 @@
   <!-- <open-data class="user-avatar" type="userAvatarUrl"></open-data> -->
   <!-- <open-data class="user-name" type="userNickName"></open-data> -->
   <image class="user-avatar" src="http://101.35.0.204:8080/creeper/videos/avatar.png"></image>
-  <text class="user-name">{{userName}}</text>
+  <view class="user-info">
+    <text class="user-name">用户名:{{userName}}</text>
+    <text class="credit-text">信誉度:{{credit}}</text>
+  </view>
 </view>
 <!-- 选项列表部分 -->
 <view class="choice-list">
@@ -18,26 +21,58 @@
   </view>
   <view class="line"></view>
   <view class="choice-item">
-    <van-icon class="choice-item-icon" name="volume-o" />
+    <van-icon class="choice-item-icon" name="comment-o" />
     <text class="choice-item-text" bindtap="goto" data-url="/pages/questions/questions">趣味答题</text>
   </view>
   <view class="line"></view>
   <view class="choice-item">
-    <van-icon class="choice-item-icon" name="chart-trending-o" />
+    <van-icon class="choice-item-icon" name="orders-o" />
     <text class="choice-item-text" bindtap="goto" data-url="/pages/messageBoard/messageBoard">我要留言</text>
   </view>
   <view class="line"></view>
   <view class="choice-item">
-    <van-icon class="choice-item-icon" name="chart-trending-o" />
-    <text class="choice-item-text">关于我们</text>
+    <van-icon class="choice-item-icon" name="friends-o" />
+    <text class="choice-item-text" bindtap="goto" data-url="/pages/about/about">关于我们</text>
   </view>
 </view>
 <!-- 底部导航 -->
-<view class="bottom">
+<!-- <view class="bottom">
   <van-grid column-num="{{isManager?4:3}}" border="{{false}}">
     <van-grid-item link-type="redirectTo" icon="label-o" text="首页" url="/pages/index/index" />
     <van-grid-item link-type="redirectTo" icon="logistics" text="班车" url="/pages/scheduleInfo/index" />
     <van-grid-item link-type="redirectTo" icon-color="#42A5F5" icon="wap-home-o" text="我的" />
     <van-grid-item link-type="redirectTo" wx:if="{{isManager}}" icon="setting-o" text="系统管理" url="/pages/manager/manager" />
   </van-grid>
+</view> -->
+<view class="bottom clearfix" wx:if="{{isManager}}">
+  <view class="bottom-choice manager" bindtap="goto2" data-url="/pages/index/index">
+    <van-icon class="bottom-icon" name="label-o" />
+    <text class="bottom-text">首页</text>
+  </view>
+  <view class="bottom-choice manager" bindtap="goto2" data-url="/pages/scheduleInfo/index">
+    <van-icon class="bottom-icon" name="logistics" />
+    <text class="bottom-text">班车</text>
+  </view>
+  <view class="bottom-choice manager on">
+    <van-icon class="bottom-icon" name="wap-home-o" />
+    <text class="bottom-text">我的</text>
+  </view>
+  <view class="bottom-choice manager" bindtap="goto2" data-url="/pages/manager/manager">
+    <van-icon class="bottom-icon" name="setting-o" />
+    <text class="bottom-text">系统管理</text>
+  </view>
+</view>
+<view class="bottom clearfix" wx:else>
+  <view class="bottom-choice common" bindtap="goto2" data-url="/pages/index/index">
+    <van-icon class="bottom-icon" name="label-o" />
+    <text class="bottom-text">首页</text>
+  </view>
+  <view class="bottom-choice common" bindtap="goto2" data-url="/pages/scheduleInfo/index">
+    <van-icon class="bottom-icon" name="logistics" />
+    <text class="bottom-text">班车</text>
+  </view>
+  <view class="bottom-choice common on">
+    <van-icon class="bottom-icon" name="wap-home-o" />
+    <text class="bottom-text">我的</text>
+  </view>
 </view>
