@@ -92,7 +92,7 @@ Page({
       this.data.submitLock = false;
       this.data.answers+=this.data.choice;
       let info = '';
-      let limit = 0;
+      let limit = 8;
       if(this.data.choice==this.data.questions[this.data.index-1].answer){
         this.data.correctNumber++;
         if(this.data.correctNumber>=limit){
@@ -123,6 +123,9 @@ Page({
           }
         }).then(res=>{
           // console.log(res);
+          if(app.globalData.userCredit<10){
+            app.globalData.userCredit++;
+          }
           setTimeout(()=>{
             wx.navigateBack({
               delta: 1,

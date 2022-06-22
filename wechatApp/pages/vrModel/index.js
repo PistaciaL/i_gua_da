@@ -1,4 +1,5 @@
 // pages/vrModel/index.js
+const app = getApp();
 Page({
 
   /**
@@ -13,7 +14,7 @@ Page({
    */
   onLoad(options) {
     this.setData({
-      url: options.url
+      url: app.globalData.vrPageURL
     })
   },
 

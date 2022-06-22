@@ -2,6 +2,7 @@
 var QQMapWX = require('../../libs/qqmap-wx-jssdk');
 var qqmapsdk;
 let _this;
+const app = getApp();
 Page({
 
   /**
@@ -40,8 +41,9 @@ Page({
     updateLocationTime : new Date().getTime()
   },
   gotoVR(){
+    app.globalData.vrPageURL=this.data.station.url
     wx.navigateTo({
-      url: '/pages/vrModel/index?url='+this.data.station.url,
+      url: '/pages/vrModel/index'
     })
   },
   updateLocation(){

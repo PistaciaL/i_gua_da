@@ -56,7 +56,8 @@ App({
       content: '',
       sender: '',
       createTime: ''
-    }
+    },
+    vrPageURL: ''
   },
   getGlobalData() {
     return this.globalData
