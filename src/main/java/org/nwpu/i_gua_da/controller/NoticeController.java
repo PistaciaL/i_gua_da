@@ -16,6 +16,9 @@ import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 import java.util.*;
 
+/**
+ * 公告控制类
+ */
 @RestController
 public class NoticeController {
 
@@ -39,7 +42,7 @@ public class NoticeController {
                             @RequestParam("pageSize")int pageSize){
         //PageInfo<Notice> pageInfo = null;
         //try {
-            PageInfo<Notice> pageInfo = noticeService.getNoticeList(page,pageSize);
+        PageInfo<Notice> pageInfo = noticeService.getNoticeList(page,pageSize);
         //} catch (Exception e) {
             //return "{\"status\":420}";
         //}

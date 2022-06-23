@@ -16,6 +16,9 @@ import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 import java.util.*;
 
+/**
+ * 留言控制类
+ */
 @RestController
 public class MessageController {
 
@@ -25,6 +28,13 @@ public class MessageController {
     @Autowired
     private UserService userService;
 
+    /**
+     * 留言接口
+     * @param content 留言内容
+     * @param type 留言类型
+     * @param code 用户身份码
+     * @return
+     */
     @RequestMapping("/addMessage")
     public String addMessage(@RequestParam("content") String content,
                             @RequestParam("type") Integer type,

@@ -32,4 +32,6 @@ public interface ReserveMapper {
     Integer verifyReserveByScheduleIdAndUserId(@Param("userId") Integer userId, @Param("scheduleId") Integer scheduleId);
 
     List<Reserve> selectReserveByUserIdAndScheduleId(@Param("userId") Integer userId, @Param("scheduleId") Integer scheduleId);
+
+    void removeByScheduleId(@Param("scheduleId") int scheduledId);
 }

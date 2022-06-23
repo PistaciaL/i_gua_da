@@ -172,4 +172,12 @@ public class ReserveServiceImpl implements ReserveService {
         System.out.println("scheduleId==>"+scheduleId);
         return reserveMapper.selectReserveByUserIdAndScheduleId(userId,scheduleId);
     }
+
+    @Override
+    public void removeReserveByScheduleId(int scheduledId) {
+        if (scheduledId<0){
+            throw new IllegalArgumentException();
+        }
+        reserveMapper.removeByScheduleId(scheduledId);
+    }
 }

@@ -20,7 +20,7 @@ import java.util.List;
 import java.util.Locale;
 
 /**
- * 班车事务
+ * 班车事务控制类
  */
 @RestController
 public class ScheduleController {
@@ -34,7 +34,12 @@ public class ScheduleController {
     DateTimeFormatter fmt = DateTimeFormatter.ofPattern("yyyy/MM/dd");
     DateTimeFormatter dfOut = DateTimeFormatter.ofPattern("yyyy/MM/dd HH:mm", Locale.CHINA);
 
-    //获取所有当日未被取消的班车时刻表
+    /**
+     * 获取所有当日未被取消的班车时刻表
+     * @param page 要获取的班次表的页码
+     * @param pageSize 每页的数据条数
+     * @return
+     */
     @RequestMapping("/getTodaySchedule")
     public String UserSearchTime(@RequestParam("page") int page,
                                  @RequestParam("pageSize") int pageSize) {
@@ -65,7 +70,16 @@ public class ScheduleController {
         return JSON.toJSONString(getTodaySchedule);
     }
 
-    //根据输入的出发地-目的地以及日期, 获取对应的班车时刻表
+    /**
+     * 查询班次接口
+     * @param startCampus 班次起始校区
+     * @param endCampus 班次终点校区
+     * @param date 班次出发时刻，精确到天
+     * @param page 要查询的班次页码
+     * @param pageSize 每页的数据条数
+     * @param code 用户身份码
+     * @return
+     */
     @RequestMapping("/searchSchedule")
     public String UserSearchTimeByCampus(@RequestParam("startCampus") String startCampus,
                                          @RequestParam("endCampus") String endCampus, @RequestParam(value = "departureDate", defaultValue = "2022/01/01 00") String date,
@@ -99,7 +113,15 @@ public class ScheduleController {
         return JSON.toJSONString(searchSchedule);
     }
 
-    //管理员搜索班车列表(根据所给的时间段匹配搜索)
+    /**
+     * 管理员搜素班车列表接口
+     * @param startDate 要搜素的时间区间的左边界
+     * @param endDate  要搜素的时间区间的右边界
+     * @param page 搜素班次的页码
+     * @param pageSize 每页的数据条数
+     * @param code 用户身份码
+     * @return
+     */
     @RequestMapping("/manager/searchSchedules")
     public String AdminSearchTimeByCampus(@RequestParam(value = "startDate", defaultValue = "1970/01/01") String startDate,
                                           @RequestParam(value = "endDate", defaultValue = "2200/01/01") String endDate,

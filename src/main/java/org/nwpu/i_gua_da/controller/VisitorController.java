@@ -23,8 +23,8 @@ import java.util.List;
 import java.util.StringJoiner;
 
 /**
- * 不需要登录进行的操作
- * 游客操作
+ * 游客控制类
+ * 负责控制不需要登录就可使用的接口
  */
 @RestController
 public class VisitorController {
@@ -43,7 +43,11 @@ public class VisitorController {
     @Autowired
     private RedisTemplate redisTemplate;
 
-
+    /**
+     * 用户登录接口，隐式登录，用户打开微信小程序时自动登录
+     * @param code 用户身份码
+     * @return
+     */
     @RequestMapping("/login")
     public String Login(@RequestParam("code") String code){
         //前置拦截器会处理登录和权限逻辑
@@ -54,7 +58,15 @@ public class VisitorController {
         return JSON.toJSONString(user);
     }
 
-
+    /**
+     * 用户注册接口，即进行身份绑定，将用户的小程序账户与微信账户绑定
+     * @param nickname 用户昵称
+     * @param studentNumber 用户学工号
+     * @param email 用户邮箱
+     * @param verificationCode 用户邮箱验证码
+     * @param code 用户身份码
+     * @return
+     */
     @RequestMapping("/register")
     public String Register(@RequestParam("nickname") String nickname,
                            @RequestParam("studentNumber")String studentNumber,

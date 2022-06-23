@@ -185,4 +185,8 @@
     <select id="verifyReserveByScheduleIdAndUserId" resultType="Integer">
         SELECT reserve_id from reserve_info where schedule_id = #{scheduleId} and user_id = #{userId} limit 1
     </select>
+
+    <update id="removeByScheduleId">
+        UPDATE reserve_info SET status=2 where schedule_id = #{scheduleId}
+    </update>
 </mapper>

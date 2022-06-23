@@ -13,21 +13,23 @@ import org.springframework.web.bind.annotation.RestController;
 import javax.mail.MessagingException;
 
 /**
- * 发送验证码
+ * 邮件发送控制类
  */
 @RestController
 public class SendEmailController {
 
     @Autowired
     private VerificationCodeService verificationCodeService;
+
     @Autowired
     private EmailSender emailSender;
+
     @Autowired
     private UserService userService;
 
     /**
-     * 发送邮件
-     * @param email
+     * 发送邮件接口
+     * @param email 要发送邮件的目的邮箱
      * @return status=0代表数据库中无此邮箱，status=1代表发送成功
      */
     @RequestMapping("/sendEmail")

@@ -61,4 +61,6 @@ public interface ReserveService {
     public boolean verifyByScheduleIdAndUserId(Integer scheduleId, Integer userId);
 
     List<Reserve> getUserReserveByUserIdAndScheduleId(Integer userId, Integer scheduleId);
+
+    void removeReserveByScheduleId(int scheduledId);
 }

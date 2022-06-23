@@ -10,7 +10,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 /**
- * 验证验证码
+ * 验证验证码控制类
  */
 @RestController
 public class ValidateController {

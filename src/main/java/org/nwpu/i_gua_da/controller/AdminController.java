@@ -22,7 +22,7 @@ import java.util.*;
 import java.util.List;
 
 /**
- * 管理员操作
+ * 管理员操作控制类
  */
 @RequestMapping("/manager")
 @RestController
@@ -45,9 +45,15 @@ public class AdminController {
 
     DateTimeFormatter dfOut = DateTimeFormatter.ofPattern("yyyy/MM/dd HH:mm", Locale.CHINA);
 
+    /**
+     * 增加信誉度接口，当用户答题答对8道以上时触发，每次将信誉度+1
+     * 信誉度处于0-10之间，当信誉度为10时添加失败
+     * @param userId 用户id
+     * @param code 用户身份码
+     * @return
+     */
     @RequestMapping("/incrementCredit")
     public String incrementCredit(@RequestParam("userId")int userId,@RequestParam("code")String code){
-        System.out.println("123123");
         if (userService.incrementCredit(userId)){
             return "{\"status\":200}";
         }else {
@@ -55,6 +61,12 @@ public class AdminController {
         }
     }
 
+    /**
+     * 管理员扣除用户信誉度接口，每次扣除1点信誉度，当信誉度为0时扣除失败
+     * @param userId 用户id
+     * @param code 用户身份码
+     * @return
+     */
     @RequestMapping("/decrementCredit")
     public String decrementCredit(@RequestParam("userId")int userId,@RequestParam("code")String code){
         if (userService.decrementCredit(userId)){
@@ -64,9 +76,14 @@ public class AdminController {
         }
     }
 
-
-
-    //管理员增加班次Schedule
+    /**
+     * 管理员增加班次接口
+     * @param date 班次出发时间
+     * @param startStationId 起始站点id
+     * @param endStationId 终点站id
+     * @param code 用户身份码
+     * @return
+     */
     @RequestMapping("/addSchedule")
     public String addSchedule(@RequestParam("departureDatetime") String date,
                               @RequestParam("startStationId") int startStationId,
@@ -83,10 +100,22 @@ public class AdminController {
         return "{\"status\":200}";
     }
 
-    //管理员删除班次
+    /**
+     * 管理员删除班次接口
+     * @param scheduledId 班次id
+     * @param code 用户身份码
+     * @return
+     */
     @RequestMapping("/deleteSchedule")
-    public String deleteTime(@RequestParam("scheduleId") int scheduledId,
+    public String deleteSchedule(@RequestParam("scheduleId") int scheduledId,
                              @RequestParam("code")String code) {
+        //已发车的班次不能删
+        Schedule schedule = scheduleService.getScheduleId(scheduledId);
+        if (schedule.getDepartureDateTime().isBefore(LocalDateTime.now())){
+            throw new RuntimeException("班次已发车，无法删除");
+        }
+        //将预约该班次的预约
+        reserveService.removeReserveByScheduleId(scheduledId);
         scheduleService.removeSchcedule(scheduledId);
         return "{\"status\":200}";
     }
@@ -96,8 +125,7 @@ public class AdminController {
      * @param info 用户id或用户名，info=”“表示查询所有用户
      * @param page 页码数
      * @param pageSize 一页大小
-     * @return 状态码，status=1表示获取成功，status=0表示输入获取失败，
-     * status=2表示用户无管理员权限，status=3表示用户session失效
+     * @return
      */
     @RequestMapping("/searchUsers")
     public String GetUserList(@RequestParam("info") String info,
@@ -107,11 +135,13 @@ public class AdminController {
         User selectedUser = userService.getUserByCode(code);
         PageInfo<User> users = null;
         if(StringUtil.isEmpty(info)) {
+            //学号为空，默认搜索全部
             users = adminService.getUserList(selectedUser.getUserId(),page,pageSize);
         }else {
-            //匹配学号搜索
+            //模糊匹配学号搜索
             users = adminService.listUserByLikeStudentNumber(selectedUser.getUserId(), Integer.parseInt(info), page, pageSize);
         }
+        //返回参数封装，隐藏openid
         UserData result = new UserData();
         result.setStatus(200);
         result.setPage(page);
@@ -132,11 +162,18 @@ public class AdminController {
         return JSON.toJSONString(result);
     }
 
-
+    /**
+     * 设置用户权限接口
+     * @param userId 待设置用户的id
+     * @param permission 用户权限,1代表普通用户,2代表管理员用户
+     * @param code 用户身份码
+     * @return
+     */
     @RequestMapping("/setPermission")
     public String SetPermission(@RequestParam("userId") int userId,
                                 @RequestParam("newPermission") int permission,
                                 @RequestParam("code") String code){
+        //必要的参数校验
         if (userId<0||permission<1||permission>2){
             throw new IllegalArgumentException();
         }
@@ -146,14 +183,22 @@ public class AdminController {
         return "{\"status\":200}";
     }
 
-
+    /**
+     * 封禁/解封用户接口(已废弃)
+     * @param userId 待设置用户的id
+     * @param status 用户新状态,1代表正常,2代表封禁
+     * @param code 用户身份码
+     * @return
+     */
     @RequestMapping("/setStatus")
     public String SetStatus(@RequestParam("userId") int userId,
                             @RequestParam("newStatus") int status,
                             @RequestParam("code")String code){
+        //必要的参数校验
         if (userId<1||status<1||status>2){
             throw new IllegalArgumentException();
         }
+        //根据参数决定恢复用户还是封禁用户
         if (status==1&&!adminService.recoverUser(userId)){
             throw new RuntimeException("更新失败");
         }else if (status==2&&!adminService.removeUser(userId)){
@@ -301,6 +346,12 @@ public class AdminController {
         return mainSj.toString();
     }
 
+    /**
+     * 获取特定类型留言接口
+     * @param type 留言类型，1代表失物寻主，2代表寻物启事，3代表乘车意见，4代表其他
+     * @param code 用户身份码
+     * @return
+     */
     @RequestMapping("/getMessageByType")
     public String GetMessageByType(@RequestParam("type")int type,
                                    @RequestParam("code")String code){

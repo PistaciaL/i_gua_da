@@ -10,12 +10,20 @@ import org.springframework.web.bind.annotation.RestController;
 
 import java.util.*;
 
+/**
+ * 问卷控制类
+ */
 @RestController
 public class QuestionController {
 
     @Autowired
     private QuestionService questionService;
 
+    /**
+     * 用户答题接口，随机获取题库里的10道题
+     * @param code 用户身份码
+     * @return
+     */
     @RequestMapping("/getQuestion")
     public String GetQuestions(@RequestParam("code") String code){
         List<Question> questions = questionService.getQuestions();

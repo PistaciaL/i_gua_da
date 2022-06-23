@@ -14,6 +14,9 @@ import java.time.LocalDateTime;
 import java.util.Map;
 import java.util.concurrent.TimeUnit;
 
+/**
+ * 权限拦截器类
+ */
 public class LoginInterceptor implements HandlerInterceptor {
 
     @Autowired
@@ -34,6 +37,14 @@ public class LoginInterceptor implements HandlerInterceptor {
     @Value("${constants.user.status.default}")
     private int status = 1;
 
+    /**
+     * 判断用户是否登录
+     * @param request
+     * @param response
+     * @param handler
+     * @return
+     * @throws Exception
+     */
     @Override
     public boolean preHandle(HttpServletRequest request, HttpServletResponse response, Object handler) throws Exception {
         String code = request.getParameter("code");

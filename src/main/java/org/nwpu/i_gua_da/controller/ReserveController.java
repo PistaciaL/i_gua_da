@@ -24,7 +24,7 @@ import java.time.format.DateTimeParseException;
 import java.util.*;
 
 /**
- * 用户预约
+ * 用户预约控制类
  */
 @RestController
 public class ReserveController {
@@ -43,17 +43,26 @@ public class ReserveController {
 
     DateTimeFormatter dfOut = DateTimeFormatter.ofPattern("yyyy/MM/dd HH:mm", Locale.CHINA);
 
-
+    /**
+     * 获取历史预约接口,即获取用户在当前时间之前发车的预约
+     * @param page 要获取的预约的页码
+     * @param pageSize 每页的数据条数
+     * @param code 用户身份码
+     * @return
+     */
     @RequestMapping("/user/historyReserve")
     public String getHistoryReserves(@RequestParam("page") int page,
                                      @RequestParam("pageSize") int pageSize,
                                      @RequestParam("code") String code){
+        //参数校验
         if (page<1 || pageSize<1){
             return "{\"status\":420}";
         }
         User user = userService.getUserByCode(code);
+        //根据时间段查找历史记录信息
         PageInfo<Reserve> reserves = reserveService.getAllReserves(user.getUserId(), page, pageSize,
                 LocalDateTime.parse("2000/12/01 12:00",dfOut),LocalDateTime.now());
+        //返回参数封装
         HistoryReserves historyReserves = new HistoryReserves();
         historyReserves.setStatus(200);
         historyReserves.setPage(reserves.getPageNum());
@@ -75,8 +84,10 @@ public class ReserveController {
     }
 
     /**
-     * 用户取消预约
-     * @return 状态码status=1表示删除成功，status=0表示删除失败，status=2表示用户session失效
+     * 用户取消预约接口
+     * @param reserveId 预约id
+     * @param code 用户身份码
+     * @return
      */
     @RequestMapping("/user/cancelReserve")
     public String cancelReserve(@RequestParam("reserveId") String reserveId,
@@ -89,17 +100,20 @@ public class ReserveController {
     }
 
     /**
-     * 用户预约校车
-     * @param scheduleId 用户预约车的id
-     * @return 状态码，status=1代表预约成功，status=0代表无剩余座位，status=2代表不能重复预约，status=3代表用户session已失效
+     * 用户预约接口
+     * @param scheduleId 要预约的班次id
+     * @param code 用户身份码
+     * @return
      */
     @RequestMapping("/user/reserve")
     public String reserve(@RequestParam("scheduleId") int scheduleId,
                           @RequestParam("code") String code){
         User user = userService.getUserByCode(code);
+        //用户信誉值过低无法预约校车
         if (user.getCredit()<8){
             throw new RuntimeException("您的信誉值过低");
         }
+        //查看用户预约该班次的记录，如果用户已经预约了就无法再次预约
         List<Reserve> selectedReserve = reserveService.getUserReserveByUserIdAndScheduleId(user.getUserId(),scheduleId);
         if (selectedReserve.size()!=0){
             for (Reserve reserve : selectedReserve) {
@@ -110,6 +124,7 @@ public class ReserveController {
                 }
             }
         }
+        //如果班次已发车无法预约
         Schedule selectedSchedule = scheduleService.getScheduleId(scheduleId);
         if (selectedSchedule.getDepartureDateTime().isBefore(LocalDateTime.now())){
             throw new RuntimeException("该时间段不能预约");
@@ -126,7 +141,13 @@ public class ReserveController {
         return "{\"status\":420}";
     }
 
-
+    /**
+     * 获取用户当前预约接口
+     * @param page 要获取预约的页码
+     * @param pageSize 每一页的数据条数
+     * @param code 用户身份码
+     * @return
+     */
     @RequestMapping("/user/futureReserve")
     public String getFutureReserves(@RequestParam("page")int page,
                                     @RequestParam("pageSize")int pageSize,
